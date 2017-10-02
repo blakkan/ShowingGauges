@@ -1,0 +1,5 @@
+%h2
+  Enter SKU (comma separated if multiple)
+=form_tag '/display_skus', method: 'get' do
+  =text_field_tag :sku_string
+  =submit_tag 'Submit'

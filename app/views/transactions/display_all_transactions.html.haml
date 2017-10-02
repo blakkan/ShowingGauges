@@ -1,0 +1,24 @@
+%h1 Transactions found
+%div.container-fluid
+  %table.table
+    %thead
+      %tr
+        %th.col-md-2 SKU
+        %th.col-md-2 From
+        %th.col-md-2 To
+        %th.col-md-1 Qty
+        %th.col-md-3 Timestamp
+        %th.col-md-2 Who
+
+
+  %div.scroll_it
+    %table.table
+      %tbody
+        - @the_display_list.each do |entry|
+          %tr
+            %td.col-md-2= entry[:sku]
+            %td.col-md-2= entry[:from]
+            %td.col-md-2= entry[:to]
+            %td.col-md-1= entry[:qty]
+            %td.col-md-3= entry[:timestamp]
+            %td.col-md-2= entry[:who]

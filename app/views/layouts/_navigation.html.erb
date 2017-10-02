@@ -1,0 +1,20 @@
+<%# navigation styled for Bootstrap 4.0 %>
+
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+    <ul class="nav navbar-nav">
+
+
+      <%= image_tag "seaUrchin3.svg", class: "navbar-brand", height: "50", width: "150" %>
+
+      <li class='nav-item'><%= link_to 'Find SKU', '/display_find_skus_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Shelf List', '/display_find_shelf_items_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Transfer', '/display_transfer_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Transfer In', '/display_transfer_in_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Transfer Out', '/display_transfer_out_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><a class="nav-link" href="/display_login_screen"> <%= session[:user_id] && User.find(session[:user_id] ) ? User.find( session[:user_id] ).name : "Login" %></a> </li>
+
+    </ul>
+    </div>
+  </nav>

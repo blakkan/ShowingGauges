@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @location.name
+%p
+  %b Comment:
+  = @location.comment
+%p
+  %b User:
+  = @location.user
+
+= link_to 'Edit', edit_location_path(@location)
+\|
+= link_to 'Back', locations_path

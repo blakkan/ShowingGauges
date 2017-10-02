@@ -1,0 +1,24 @@
+%h1 Listing skus
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Comment
+      %th Created by
+      %th
+      %th
+      %th
+
+  %tbody
+    - @skus.each do |sku|
+      %tr
+        %td= sku.name
+        %td= sku.comment
+        %td= link_to 'Show', sku
+        %td= link_to 'Edit', edit_sku_path(sku)
+        %td= link_to 'Destroy', sku, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Sku', new_sku_path

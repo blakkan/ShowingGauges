@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  encrypted_password: MyString
+  is_retired: 
+  capabilities: MyString
+
+two:
+  name: MyString
+  encrypted_password: MyString
+  is_retired: 
+  capabilities: MyString

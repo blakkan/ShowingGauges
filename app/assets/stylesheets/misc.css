@@ -1,0 +1,9 @@
+.navbar-brand {
+  padding: 0px;
+}
+
+.scroll_it {
+  overflow-y: scroll;
+  height: 380px;
+  width: 100%;
+}

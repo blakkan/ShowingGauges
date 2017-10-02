@@ -1,0 +1,5 @@
+%h2
+  Enter Location Name (comma separated if multiple)
+=form_tag '/display_shelf_items', method: 'get' do
+  =text_field_tag :location_string
+  =submit_tag 'Submit'

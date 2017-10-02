@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  SKU: 
+  qty: 1
+  from: 
+  to: 
+  who: 
+
+two:
+  SKU: 
+  qty: 1
+  from: 
+  to: 
+  who: 

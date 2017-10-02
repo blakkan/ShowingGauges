@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @sku.name
+%p
+  %b Comment:
+  = @sku.comment
+
+
+= link_to 'Edit', edit_sku_path(@sku)
+\|
+= link_to 'Back', skus_path

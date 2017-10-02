@@ -1,0 +1,14 @@
+%h2
+  Transfer In request:
+=form_tag '/display_transfer_in_result', method: 'get' do
+  %h3
+    SKU
+  =text_field_tag :sku
+  %h3
+    To location
+  =text_field_tag :to
+  %h3
+    Quantity
+  =text_field_tag :quantity
+  %br
+  =submit_tag 'Submit'

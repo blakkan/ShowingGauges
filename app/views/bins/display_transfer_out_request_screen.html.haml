@@ -1,0 +1,14 @@
+%h2
+  Transfer Out request:
+=form_tag '/display_transfer_out_result', method: 'get' do
+  %h3
+    SKU
+  =text_field_tag :sku
+  %h3
+    From location
+  =text_field_tag :from
+  %h3
+    Quantity
+  =text_field_tag :quantity
+  %br
+  =submit_tag 'Submit'

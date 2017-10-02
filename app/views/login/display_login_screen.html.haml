@@ -1,0 +1,5 @@
+%h
+  Enter user name
+=form_tag '/set_session_name', method: 'get' do
+  =text_field_tag :user_name
+  =submit_tag 'Submit'

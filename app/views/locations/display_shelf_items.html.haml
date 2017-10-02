@@ -1,0 +1,15 @@
+%h1 SKUs found
+
+%table.table
+  %thead.thead-inverse
+    %tr
+      %th SKU
+      %th Quantity
+      %th Location
+
+  %tbody
+    - @the_display_list.each do |entry|
+      %tr
+        %td= entry[:name]
+        %td= entry[:quantity]
+        %td= entry[:location]

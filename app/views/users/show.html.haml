@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @user.name
+%p
+  %b Encrypted password:
+  = @user.encrypted_password
+%p
+  %b Is retired:
+  = @user.is_retired
+%p
+  %b capabilities:
+  = @user.capabilities
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path

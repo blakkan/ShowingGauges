@@ -70,23 +70,57 @@ class LocationsController < ApplicationController
 
   def display_shelf_items
 
+    session[:location_list_to_sql_regexp] = "name LIKE " +
+      params[:location_string]
+      .tr("*", "%")
+      .split(',')
+      .map{|x| "'" + x + "'"}
+      .join(' OR name LIKE ')
+
+  end
+
+  def shelf_item_found
+
     @the_display_list = []
 
-    params[:location_string].gsub(/\s+/,"").split(',').each do |location_token|
+    Location.where( session[:location_list_to_sql_regexp] )
+      .order(name: "ASC")
+      .each do |the_location|
 
-      Location.where("name LIKE ?", location_token.tr("*", "%")).each do |the_location|
-
-          the_location && the_location.bins.each do |bin|
-              @the_display_list << {name: bin.sku.name, quantity: bin.qty , location: the_location.name }
+          the_location.bins.each do |bin|
+              @the_display_list << {loc: the_location.name, qty: bin.qty , sku: bin.sku.name }
           end
 
       end
 
-    end
-
-    render "skus/display_skus"
+      render json: @the_display_list
 
   end
+
+
+  def display_manage_location_request_screen
+
+  end
+
+  def manage_location_result
+
+
+    if params['commit'] =="Create"
+      Location.create!(name: params[:location_string])
+    else
+
+      the_location = Location.find_by(name: params[:location_string])
+
+      if params['commit'] == "Retire"
+        the_location.update!(is_retired: true)
+      end
+
+    end
+
+    render 'login/generic_ok'
+
+  end
+
 
 
 

@@ -1,0 +1,10 @@
+%h2
+  Enter User
+=form_tag '/manage_user_result', method: 'get' do
+  =text_field_tag :user_string
+  <br>
+  =submit_tag 'Create'
+  =submit_tag 'Retire'
+  =submit_tag 'Clear Password'
+  =submit_tag 'Make Admin'
+  =submit_tag 'Remove Admin'

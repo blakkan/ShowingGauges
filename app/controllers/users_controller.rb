@@ -1,3 +1,4 @@
+require 'json'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -60,6 +61,40 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def display_manage_user_request_screen
+
+  end
+
+  def manage_user_result
+
+    if params['commit'] == "Create"
+      User.create!(name: params[:user_string])
+    else
+
+      the_user = User.find_by(name: params[:user_string])
+
+      if params['commit']=="Retire"
+        the_user.update!(is_retired: true)
+      elsif params['commit']=="Clear Password"
+        the_user.update!(encrypted_password: '')
+      elsif params['commit']=="Make Admin"
+        the_user.update!(capabilities: 'admin')
+      elsif params['commit']=="Remove Admin"
+        the_user.update!(capabilities: '')
+      elsif params['commit']=="View Details"
+      else
+        render plain: "saw_nothing to do: #{params.to_json}" and return
+      end
+
+    end
+
+    render 'login/generic_ok'
+
+
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

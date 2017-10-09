@@ -13,6 +13,13 @@
       <li class='nav-item'><%= link_to 'Transfer', '/display_transfer_request_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'Transfer In', '/display_transfer_in_request_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'Transfer Out', '/display_transfer_out_request_screen', class: 'nav-link' %></li>
+
+      <% if session[:user_id] && User.find(session[:user_id]) && User.find(session[:user_id]).capabilities =~ /admin/ %>
+      <li class='nav-item'><%= link_to 'Manage SKUs', '/display_manage_sku_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Manage Locations', '/display_manage_location_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Manage Users', '/display_manage_user_request_screen', class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'View Transactions', '/display_all_transactions', class: 'nav-link' %></li>
+      <% end %>
       <li class='nav-item'><a class="nav-link" href="/display_login_screen"> <%= session[:user_id] && User.find(session[:user_id] ) ? User.find( session[:user_id] ).name : "Login" %></a> </li>
 
     </ul>

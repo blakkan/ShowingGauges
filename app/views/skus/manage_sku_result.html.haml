@@ -1,0 +1,8 @@
+%h2
+  Enter SKU
+=form_tag '/manage_sku_result', method: 'get' do
+  =text_field_tag :sku_string
+  =text_field_tag :stock_level_string
+  =submit_tag 'Create'
+  =submit_tag 'Update stock level trigger'
+  =submit_tag 'Retire'

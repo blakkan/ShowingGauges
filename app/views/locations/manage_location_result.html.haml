@@ -1,0 +1,6 @@
+%h2
+  Enter location
+=form_tag '/manage_location_result', method: 'get' do
+  =text_field_tag :location_string
+  =submit_tag 'Create'
+  =submit_tag 'Retire'

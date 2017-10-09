@@ -1,15 +1,10 @@
 %h1 SKUs found
-
-%table.table
-  %thead.thead-inverse
-    %tr
-      %th SKU
-      %th Quantity
-      %th Location
-
-  %tbody
-    - @the_display_list.each do |entry|
+%div.initialHidden
+  %table{"id" => "the_table_id", "data-toggle" => "table", "data-locale" => "en-US", |
+    "data-search" => "true", "data-show-refresh" => "true", "data-striped" => "true", |
+     "data-show-columns" => "true", "data-height" => "350", "data-url"=>"sku_found.json"}
+    %thead
       %tr
-        %td= entry[:name]
-        %td= entry[:quantity]
-        %td= entry[:location]
+        %th{"data-sortable" => "true", "data-field"=>"sku"} SKU
+        %th{"data-sortable" => "true", "data-field"=>"qty"} Quantity
+        %th{"data-sortable" => "true", "data-field"=>"loc"} Location

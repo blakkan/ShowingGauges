@@ -1,24 +1,20 @@
 %h1 Transactions found
-%div.container-fluid
-  %table.table
+%div.initialHidden
+  %table{"data-toggle" => "table", "data-locale" => "en-US", "data-search" => "true", "data-show-columns" => "true", "data-height" => "350"}
     %thead
       %tr
-        %th.col-md-2 SKU
-        %th.col-md-2 From
-        %th.col-md-2 To
-        %th.col-md-1 Qty
-        %th.col-md-3 Timestamp
-        %th.col-md-2 Who
-
-
-  %div.scroll_it
-    %table.table
-      %tbody
-        - @the_display_list.each do |entry|
-          %tr
-            %td.col-md-2= entry[:sku]
-            %td.col-md-2= entry[:from]
-            %td.col-md-2= entry[:to]
-            %td.col-md-1= entry[:qty]
-            %td.col-md-3= entry[:timestamp]
-            %td.col-md-2= entry[:who]
+        %th{"data-sortable" => "true"} SKU
+        %th{"data-sortable" => "true"} From
+        %th{"data-sortable" => "true"} To
+        %th{"data-sortable" => "true"} Qty
+        %th{"data-sortable" => "true"} Timestamp
+        %th{"data-sortable" => "true"} Who
+    %tbody
+      - @the_display_list.each do |entry|
+        %tr
+          %td= entry[:sku]
+          %td= entry[:from]
+          %td= entry[:to]
+          %td= entry[:qty]
+          %td= entry[:timestamp]
+          %td= entry[:who]

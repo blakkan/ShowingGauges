@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :comment
       t.string :encrypted_password
-      t.boolean :is_retired
+      t.boolean :is_retired, default: false
       t.string :capabilities
 
       t.timestamps

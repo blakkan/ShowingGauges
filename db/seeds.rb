@@ -25,6 +25,6 @@ bins = Bin.create( [{qty: 4,
 
 users = User.create( [{name: "TechA"},
                       {name: "TechB"},
-                      {name: "Winky"},
-                      {name: "Surin"},
-                      {name: "John"} ])
+                      {name: "Winky", capabilities: "admin"},
+                      {name: "Surin", capabilities: "admin"},
+                      {name: "John", capabilities: "admin"} ])

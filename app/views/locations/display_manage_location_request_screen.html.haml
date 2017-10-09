@@ -1,0 +1,9 @@
+%h2
+  Enter location
+=form_tag '/manage_location_result', method: 'get' do
+  %label{for: :location_string_id} Location Name
+  =text_field_tag :location_string, nil, id: :location_string_id
+  %br
+  =submit_tag 'Create'
+  =submit_tag 'Retire'
+  =submit_tag 'View Details'

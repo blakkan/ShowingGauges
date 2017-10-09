@@ -1,0 +1,12 @@
+%h2
+  Enter SKU
+=form_tag '/manage_sku_result', method: 'get' do
+  %label{for: :sku_string_id} SKU
+  =text_field_tag :sku_string, nil, id: :sku_string_id
+  %label{for: :stock_level_string_id} Re-order point
+  =text_field_tag :stock_level_string, nil, id: :stock_level_string_id
+  %br
+  =submit_tag 'Create'
+  =submit_tag 'Update re-order point'
+  =submit_tag 'Retire'
+  =submit_tag 'View Details'

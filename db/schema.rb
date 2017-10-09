@@ -25,18 +25,20 @@ ActiveRecord::Schema.define(version: 20170921214809) do
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.string   "comment"
+    t.boolean  "is_retired", default: false
     t.integer  "users_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["users_id"], name: "index_locations_on_users_id"
   end
 
   create_table "skus", force: :cascade do |t|
     t.string   "name"
     t.string   "comment"
+    t.boolean  "is_retired", default: false
     t.integer  "users_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["users_id"], name: "index_skus_on_users_id"
   end
 
@@ -58,10 +60,10 @@ ActiveRecord::Schema.define(version: 20170921214809) do
     t.string   "name"
     t.string   "comment"
     t.string   "encrypted_password"
-    t.boolean  "is_retired"
+    t.boolean  "is_retired",         default: false
     t.string   "capabilities"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
 end

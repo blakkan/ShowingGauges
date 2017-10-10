@@ -70,12 +70,7 @@ class LocationsController < ApplicationController
 
   def display_shelf_items
 
-    session[:location_list_to_sql_regexp] = "name LIKE " +
-      params[:location_string]
-      .tr("*", "%")
-      .split(',')
-      .map{|x| "'" + x + "'"}
-      .join(' OR name LIKE ')
+    session[:location_string] = params[:location_string]
 
   end
 
@@ -83,7 +78,14 @@ class LocationsController < ApplicationController
 
     @the_display_list = []
 
-    Location.where( session[:location_list_to_sql_regexp] )
+    location_list_to_sql_regexp = "name LIKE " +
+      session[:location_string]
+      .tr("*", "%")
+      .split(',')
+      .map{|x| "'" + x + "'"}
+      .join(' OR name LIKE ')
+
+    Location.where( location_list_to_sql_regexp )
       .order(name: "ASC")
       .each do |the_location|
 

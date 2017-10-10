@@ -71,13 +71,9 @@ end
 def display_skus
 
 #  @the_display_list = []
+  session[:sku_string] = params[:sku_string]
 
-  session[:sku_list_to_sql_regexp] = "name LIKE " +
-    params[:sku_string]
-    .tr("*", "%")
-    .split(',')
-    .map{|x| "'" + x + "'"}
-    .join(' OR name LIKE ')
+
 
 #  Sku.where( session[:sku_list_to_sql_regexp] )
 #        .order(name: "ASC")
@@ -95,7 +91,14 @@ def sku_found
 
   @the_display_list = []
 
-  Sku.where( session[:sku_list_to_sql_regexp] )
+  sku_list_to_sql_regexp = "name LIKE " +
+    session[:sku_string]
+    .tr("*", "%")
+    .split(',')
+    .map{|x| "'" + x + "'"}
+    .join(' OR name LIKE ')
+
+  Sku.where( sku_list_to_sql_regexp )
         .order(name: "ASC")
         .each do |the_sku|
 

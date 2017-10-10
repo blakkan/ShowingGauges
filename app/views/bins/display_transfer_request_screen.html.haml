@@ -3,15 +3,24 @@
 =form_tag '/display_transfer_result', method: 'get' do
   %h3
     SKU
-  =text_field_tag :sku
+  -if params.key?(:sku)
+    =text_field_tag :sku, params[:sku]
+  -else
+    =text_field_tag :sku
   %h3
     From location
-  =text_field_tag :from
+  - if params.key?(:loc)
+    =text_field_tag :from, params[:loc]
+  -else
+    =text_field_tag :from
   %h3
     To location
   =text_field_tag :to
   %h3
     Quantity
-  =text_field_tag :quantity
+  -if params.key?(:qty)
+    =text_field_tag :quantity, params[:qty]
+  -else
+    =text_field_tag :quantity
   %br
   =submit_tag 'Submit'

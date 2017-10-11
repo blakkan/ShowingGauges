@@ -8,11 +8,14 @@ $(document).ready (
       var loc = row['loc'];
       var qty = row['qty'];
 
-      window.location.href = "http://localhost:3000/display_transfer_request_screen" +
+      window.location.href = "/display_transfer_request_screen" +
         '/' + sku + '/' + loc + '/' + qty;
       return false;
     });
 
+    $(function () {
+      $('.datetimepicker_class input').datepicker();
+      });
 
   }
 );

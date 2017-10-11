@@ -48,7 +48,8 @@ Rails.application.routes.draw do
   #TODO change to post
   get 'display_transfer_out_result' => 'bins#display_transfer_out_result'
 
+  get 'display_transactions_request_screen' => 'transactions#display_transactions_request_screen'
   get 'display_all_transactions' => 'transactions#display_all_transactions'
-
+  get 'transactions_found' => 'transactions#transaction_found'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

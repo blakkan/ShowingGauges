@@ -90,10 +90,23 @@ class LocationsController < ApplicationController
       .each do |the_location|
 
           the_location.bins.each do |bin|
-              @the_display_list << {loc: the_location.name, qty: bin.qty , sku: bin.sku.name }
+
+
+
+            @the_display_list << {sku: bin.sku.name,
+                                  bu: bin.sku.bu,
+                                  description: bin.sku.description,
+                                  category: bin.sku.category,
+                                  cost: ActionController::Base.helpers.number_to_currency(bin.sku.cost),
+                                  extended: ActionController::Base.helpers.number_to_currency(bin.sku.cost * bin.qty),
+                                  qty: bin.qty,
+                                  loc: bin.location.name }
+
+
           end
 
       end
+
 
       render json: @the_display_list
 

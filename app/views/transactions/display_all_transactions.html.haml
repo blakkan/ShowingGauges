@@ -1,20 +1,16 @@
-%h1 Transactions found
-%div.initialHidden
-  %table{"data-toggle" => "table", "data-locale" => "en-US", "data-search" => "true", "data-show-columns" => "true", "data-height" => "350"}
-    %thead
-      %tr
-        %th{"data-sortable" => "true"} SKU
-        %th{"data-sortable" => "true"} From
-        %th{"data-sortable" => "true"} To
-        %th{"data-sortable" => "true"} Qty
-        %th{"data-sortable" => "true"} Timestamp
-        %th{"data-sortable" => "true"} Who
-    %tbody
-      - @the_display_list.each do |entry|
-        %tr
-          %td= entry[:sku]
-          %td= entry[:from]
-          %td= entry[:to]
-          %td= entry[:qty]
-          %td= entry[:timestamp]
-          %td= entry[:who]
+%h1
+  ="Transactions found"
+<table id="the_transactions_table_id" data-toggle="table" data-click-to-select="true" data-url="transactions_found.json" data-show-refresh="true" data-show-columns="true" data-striped="true" data-search="true">
+<thead>
+<tr>
+<th data-sortable="true" data-field="sku">SKU</th>
+<th data-sortable="true" data-field="description">Description</th>
+<th data-sortable="true" data-field="from">From</th>
+<th data-sortable="true" data-field="to">To</th>
+<th data-sortable="true" data-field="qty">Quantity</th>
+<th data-sortable="true" data-field="comment">Comment</th>
+<th data-sortable="true" data-field="timestamp">Timestamp</th>
+<th data-sortable="true" data-field="who">User</th>
+</tr>
+</thead>
+</table>

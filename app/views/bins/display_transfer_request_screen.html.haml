@@ -4,23 +4,25 @@
   %h3
     SKU
   -if params.key?(:sku)
-    =text_field_tag :sku, params[:sku]
+    =text_field_tag :sku, params[:sku], class: 'form-control input-sm'
   -else
-    =text_field_tag :sku
+    =text_field_tag :sku, nil, class: 'form-control input-sm'
   %h3
     From location
   - if params.key?(:loc)
-    =text_field_tag :from, params[:loc]
+    =text_field_tag :from, params[:loc], class: 'form-control input-sm'
   -else
-    =text_field_tag :from
+    =text_field_tag :from, nil, class: 'form-control input-sm'
   %h3
     To location
-  =text_field_tag :to
+  =text_field_tag :to, nil, class: 'form-control input-sm'
   %h3
     Quantity
   -if params.key?(:qty)
-    =text_field_tag :quantity, params[:qty]
+    =text_field_tag :quantity, params[:qty], class: 'form-control input-sm'
   -else
-    =text_field_tag :quantity
+    =text_field_tag :quantity, nil, class: 'form-control input-sm'
   %br
-  =submit_tag 'Submit'
+  %br
+  =submit_tag 'Transfer', class: 'btn btn-primary'
+  =submit_tag 'Remove', class: 'btn btn-primary'

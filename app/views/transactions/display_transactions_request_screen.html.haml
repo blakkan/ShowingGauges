@@ -1,0 +1,14 @@
+%h2
+  Enter Start and End Date
+=form_tag '/display_all_transactions', method: 'get' do
+  %label{for: :start_date_id}
+    %h3
+      Start Date
+  =text_field_tag :start_date, nil, id: :start_date_id, class: 'form-control input-sm'
+  %br
+  %label{for: :end_date_id}
+    %h3
+      End Date
+  =text_field_tag :end_date, nil, id: :end_date_id, class: 'form-control input-sm'
+  %br
+  =submit_tag 'Submit', class: 'btn btn-primary'

@@ -19,6 +19,12 @@ class BinsController < ApplicationController
     # Need to update bins in a transaction; will have model
     # validation do various checks (e.g. attempt to go below zero)
 
+    #short circuit over to transfer out
+    if params[:commit] == "Remove"
+      return display_transfer_out_result
+    end
+
+
     ActiveRecord::Base.transaction do
 
       # Find destination bin with matching sku and location

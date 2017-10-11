@@ -3,6 +3,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
     create_table :transactions do |t|
 
       t.integer :qty
+      t.string  :comment
 
       t.timestamps
     end

@@ -1,10 +1,10 @@
 %h2
   Enter User
 =form_tag '/manage_user_result', method: 'get' do
-  =text_field_tag :user_string
+  =text_field_tag :user_string, nil, , class: 'form-control input-sm'
   <br>
-  =submit_tag 'Create'
-  =submit_tag 'Retire'
-  =submit_tag 'Clear Password'
-  =submit_tag 'Make Admin'
-  =submit_tag 'Remove Admin'
+  =submit_tag 'Create', class: 'btn btn-primary'
+  =submit_tag 'Retire', class: 'btn btn-primary'
+  =submit_tag 'Clear Password', class: 'btn btn-primary'
+  =submit_tag 'Make Admin', class: 'btn btn-primary'
+  =submit_tag 'Remove Admin', class: 'btn btn-primary'

@@ -1,9 +1,11 @@
 %h2
   Enter location
 =form_tag '/manage_location_result', method: 'get' do
-  %label{for: :location_string_id} Location Name
-  =text_field_tag :location_string, nil, id: :location_string_id
+  %label{for: :location_string_id}
+    %h3
+      Location Name
+  =text_field_tag :location_string, nil, id: :location_string_id, class: 'form-control input-sm'
   %br
-  =submit_tag 'Create'
-  =submit_tag 'Retire'
-  =submit_tag 'View Details'
+  =submit_tag 'Create', class: 'btn btn-primary'
+  =submit_tag 'Retire', class: 'btn btn-primary'
+  =submit_tag 'View Details', class: 'btn btn-primary'

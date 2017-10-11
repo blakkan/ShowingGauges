@@ -68,7 +68,18 @@ class TransactionsController < ApplicationController
   #
   ############################################################
 
+  def display_transactions_request_screen
+
+  end
+
+
   def display_all_transactions
+
+
+  end
+
+
+  def transaction_found
 
     @the_display_list = []
 
@@ -79,13 +90,16 @@ class TransactionsController < ApplicationController
         from: ((transaction.from_id.nil? || (not Location.exists?(transaction.from_id))) ? "NA" : Location.find(transaction.from_id).name),
         to: ((transaction.to_id.nil? || (not Location.exists?(transaction.to_id))) ? "NA" : Location.find(transaction.to_id).name),
         qty: transaction.qty,
+        comment: transaction.comment,
         timestamp: transaction.created_at,
         who: ((transaction.user_id.nil? || (not User.exists?(transaction.user_id))) ? "NA" : User.find(transaction.user_id).name)}
 
     end
 
-  end
 
+    render json: @the_display_list
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

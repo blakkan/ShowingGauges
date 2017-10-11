@@ -102,11 +102,23 @@ def sku_found
         .order(name: "ASC")
         .each do |the_sku|
 
+
       the_sku.bins.each do |bin|
-          @the_display_list << {sku: the_sku.name, qty: bin.qty , loc: bin.location.name }
+
+          @the_display_list << {sku: the_sku.name,
+                                bu: the_sku.bu,
+                                description: the_sku.description,
+                                category: the_sku.category,
+                                cost: ActionController::Base.helpers.number_to_currency(the_sku.cost),
+                                extended: ActionController::Base.helpers.number_to_currency(the_sku.cost * bin.qty),
+                                qty: bin.qty,
+                                loc: bin.location.name }
+
       end
 
   end
+
+
 
   render json: @the_display_list
 

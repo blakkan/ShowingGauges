@@ -1,5 +1,9 @@
-%h
-  Enter user name
+%h2
+  Login
 =form_tag '/set_session_name', method: 'get' do
-  =text_field_tag :user_name
-  =submit_tag 'Submit'
+  %label{for: "user_name_id"}
+    %h3
+      Input user name
+  =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
+  %br
+  =submit_tag 'Submit', class: 'btn btn-primary'

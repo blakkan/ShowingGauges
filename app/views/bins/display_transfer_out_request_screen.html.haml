@@ -3,12 +3,13 @@
 =form_tag '/display_transfer_out_result', method: 'get' do
   %h3
     SKU
-  =text_field_tag :sku
+  =text_field_tag :sku, nil, class: 'form-control input-sm'
   %h3
     From location
-  =text_field_tag :from
+  =text_field_tag :from, nil, class: 'form-control input-sm'
   %h3
     Quantity
-  =text_field_tag :quantity
+  =text_field_tag :quantity, nil, class: 'form-control input-sm'
   %br
-  =submit_tag 'Submit'
+  %br
+  =submit_tag 'Submit', class: 'btn btn-primary'

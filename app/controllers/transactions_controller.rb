@@ -87,6 +87,7 @@ class TransactionsController < ApplicationController
 
       @the_display_list << {
         sku: ((transaction.sku_id.nil? || (not Sku.exists?(transaction.sku_id))) ? "NA" : Sku.find(transaction.sku_id).name),
+        description: ((transaction.sku_id.nil? || (not Sku.exists?(transaction.sku_id))) ? "NA" : Sku.find(transaction.sku_id).description),
         from: ((transaction.from_id.nil? || (not Location.exists?(transaction.from_id))) ? "NA" : Location.find(transaction.from_id).name),
         to: ((transaction.to_id.nil? || (not Location.exists?(transaction.to_id))) ? "NA" : Location.find(transaction.to_id).name),
         qty: transaction.qty,

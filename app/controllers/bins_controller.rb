@@ -27,32 +27,52 @@ class BinsController < ApplicationController
 
     ActiveRecord::Base.transaction do
 
-      # Find destination bin with matching sku and location
-
-      src_sku_id = Sku.find_by( name: params[:sku]).id
-      src_location_id = Location.find_by( name: params[:from]).id
-
-
-      src_bin = Bin.where( "sku_id = ? and location_id = ?",
-        src_sku_id, src_location_id ).first
+      action_tracker = 'find sku id'
 
       # Find destination bin with matching sku and location
+      begin
+        src_sku_id = Sku.find_by!( name: params[:sku]).id
+        action_tracker = 'find src location id'
+        src_location_id = Location.find_by!( name: params[:from]).id
 
-      dest_sku_id = Sku.find_by( name: params[:sku]).id
-      dest_location_id = Location.find_by( name: params[:to]).id
+        action_tracker = 'find src bin ' + params[:from]
+        src_bin = Bin.find_by!( sku_id: src_sku_id, location_id: src_location_id )
 
-      dest_bin = Bin.where( "sku_id = ? and location_id = ?",
-        dest_sku_id, dest_location_id ).first
+        # Find destination bin with matching sku and location
+        action_tracker = 'find dest id'
+        dest_sku_id = Sku.find_by!( name: params[:sku]).id
+        action_tracker = 'find dest location id'
+        dest_location_id = Location.find_by!( name: params[:to]).id
+
+      rescue ActiveRecord::RecordNotFound => e
+
+        @error_message = e.message + " while attempting " + action_tracker
+
+        render template: "login/generic_error"
+        return
+
+      end
+
+      dest_bin = Bin.find_by( sku_id: dest_sku_id, location_id: dest_location_id)
 
       if dest_bin.nil?
 
         dest_bin = Bin.create( sku_id: dest_sku_id,
                        location_id: dest_location_id,
-                        qty: 0 )
+                        qty: params[:quantity].to_i )
+        src_bin.decrement!(:qty, params[:quantity].to_i)
+
+
+      else
+
+        src_bin.decrement!(:qty, params[:quantity].to_i)
+        dest_bin.increment!(:qty, params[:quantity].to_i)
+
       end
 
-      src_bin.decrement!(:qty, params[:quantity].to_i)
-      dest_bin.increment!(:qty, params[:quantity].to_i)
+      if src_bin.qty < 1
+        src_bin.destroy!
+      end
 
       Transaction.create!(from_id: src_location_id, to_id: dest_location_id,
                   qty: params[:quantity].to_i,
@@ -87,22 +107,33 @@ class BinsController < ApplicationController
 
       # Find destination bin with matching sku and location
 
-      dest_sku_id = Sku.find_by( name: params[:sku]).id
-      dest_location_id = Location.find_by( name: params[:to]).id
+      begin
 
-      dest_bin = Bin.where( "sku_id = ? and location_id = ?",
-        dest_sku_id, dest_location_id ).first
+        dest_sku_id = Sku.find_by!( name: params[:sku]).id
+        dest_location_id = Location.find_by!( name: params[:to]).id
+
+      rescue ActiveRecord::RecordNotFound => e
+
+        @error_message = e.message
+
+        render template: "login/generic_error"
+        return
+
+      end
+
+      dest_bin = Bin.find_by( sku_id: dest_sku_id, location_id: dest_location_id )
 
       if dest_bin.nil?
 
         dest_bin = Bin.create( sku_id: dest_sku_id,
                      location_id: dest_location_id,
-                      qty: 0 )
+                      qty: params[:quantity].to_i )
+      else
+
+        dest_bin.increment!(:qty, params[:quantity].to_i)
+
       end
 
-      # quantity
-
-      dest_bin.increment!(:qty, params[:quantity].to_i)
 
       Transaction.create!( to_id: dest_location_id,
                         qty: params[:quantity].to_i,
@@ -135,13 +166,27 @@ class BinsController < ApplicationController
 
       # Find destination bin with matching sku and location
 
-      src_sku_id = Sku.find_by( name: params[:sku]).id
-      src_location_id = Location.find_by( name: params[:from]).id
+      begin
 
-      src_bin = Bin.where( "sku_id = ? and location_id = ?",
-        src_sku_id, src_location_id ).first
+        src_sku_id = Sku.find_by!( name: params[:sku]).id
+        src_location_id = Location.find_by!( name: params[:from]).id
+        src_bin = Bin.find_by!( sku_id: src_sku_id, location_id: src_location_id )
+
+      rescue ActiveRecord::RecordNotFound => e
+
+        @error_message = e.message
+
+        render template: "login/generic_error"
+        return
+
+      end
+
 
       src_bin.decrement!(:qty, params[:quantity].to_i)
+
+      if src_bin.qty < 1
+        src_bin.destroy!
+      end
 
       Transaction.create!( from_id: src_location_id,
                         qty: params[:quantity].to_i,

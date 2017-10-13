@@ -23,11 +23,13 @@ Rails.application.routes.draw do
 
   get 'display_find_skus_screen' => 'skus#display_find_skus_screen'
   get 'display_skus' => 'skus#display_skus'
+  get 'display_manage_sku_request_screen/:sku' => 'skus#display_manage_sku_request_screen'
   get 'display_manage_sku_request_screen' => 'skus#display_manage_sku_request_screen'
   get 'manage_sku_result' => 'skus#manage_sku_result'
   get 'sku_found.json' => 'skus#sku_found'
 
-
+  get 'display_bulk_import_request_screen' => 'skus#display_bulk_import_request_screen'
+  post 'bulk_import_result' => 'skus#bulk_import_result'
 
   get 'display_find_shelf_items_screen' => 'locations#display_find_shelf_items_screen'
   get 'display_shelf_items' => 'locations#display_shelf_items'

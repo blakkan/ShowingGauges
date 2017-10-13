@@ -78,35 +78,49 @@ class LocationsController < ApplicationController
 
     @the_display_list = []
 
-    location_list_to_sql_regexp = "name LIKE " +
+    location_list_to_sql_regexp = "locations.name LIKE " +
       session[:location_string]
       .tr("*", "%")
       .split(',')
-      .map{|x| "'" + x + "'"}
-      .join(' OR name LIKE ')
+      .map{|x| "'" + x.strip + "'"}
+      .join(' OR locations.name LIKE ')
 
-    Location.where( location_list_to_sql_regexp )
-      .order(name: "ASC")
-      .each do |the_location|
+    puts location_list_to_sql_regexp
 
-          the_location.bins.each do |bin|
+#    Location.where( location_list_to_sql_regexp )
+#      .order(name: "ASC")
+#      .each do |the_location|
+#
+#          the_location.bins.each do |bin|
+#
+#
+#
+#            @the_display_list << {sku: bin.sku.name,
+#                                  bu: bin.sku.bu,
+#                                  description: bin.sku.description,
+#                                  category: bin.sku.category,
+#                                  cost: ActionController::Base.helpers.number_to_currency(bin.sku.cost),
+#                                  extended: ActionController::Base.helpers.number_to_currency(bin.sku.cost * bin.qty),
+#                                  qty: bin.qty,
+#                                  loc: bin.location.name }
+#
+#
+#          end
+#
+#      end
 
+      @the_display_list = Bin.joins(:location).where(location_list_to_sql_regexp).joins(:sku).select(
+        "bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
+        "skus.cost as cost, bins.qty as qty, locations.name as loc").as_json
 
-
-            @the_display_list << {sku: bin.sku.name,
-                                  bu: bin.sku.bu,
-                                  description: bin.sku.description,
-                                  category: bin.sku.category,
-                                  cost: ActionController::Base.helpers.number_to_currency(bin.sku.cost),
-                                  extended: ActionController::Base.helpers.number_to_currency(bin.sku.cost * bin.qty),
-                                  qty: bin.qty,
-                                  loc: bin.location.name }
-
-
-          end
-
+      # Now decimal conversion to currency
+      @the_display_list.map! do |x|
+        x['extended'] =  ActionController::Base.helpers.number_to_currency(x['cost'] * x['qty'])
+        x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
+        x
       end
 
+      puts @the_display_list.length
 
       render json: @the_display_list
 

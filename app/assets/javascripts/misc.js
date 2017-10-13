@@ -1,6 +1,10 @@
-var integer_sorter_jb = function(a,b){return parseInt(a) - parseInt(b)};
+var integer_sorter_jb = function(a,b){
+  return parseInt(a) - parseInt(b)
+};
 
-var dollar_sorter_jb = function(a,b){return (parseFloat(a.replace(/[^0-9.]/g,''))*100.).to_i - (parseFloat(b.replace(/[^0-9.]/g,''))*100.).to_i};
+var dollar_sorter_jb = function(a,b){
+  return (Math.trunc(parseFloat(a.replace(/[^0-9\.-]/g,''))*100.)) - Math.trunc(parseFloat(b.replace(/[^0-9\.-]/g,''))*100.)
+};
 
 $(document).ready (
   function() {

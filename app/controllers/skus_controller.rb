@@ -95,7 +95,7 @@ def sku_found
     session[:sku_string]
     .tr("*", "%")
     .split(',')
-    .map{|x| "'" + x + "'"}
+    .map{|x| "'" + x.strip + "'"}
     .join(' OR skus.name LIKE ')
 
 #  Sku.where( sku_list_to_sql_regexp )
@@ -126,6 +126,8 @@ def sku_found
       x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
       x
     end
+
+    puts @the_display_list.length
 
   render json: @the_display_list
 

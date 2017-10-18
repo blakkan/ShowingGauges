@@ -70,51 +70,50 @@ end
 
 def display_skus
 
-#  @the_display_list = []
-  session[:sku_string] = params[:sku_string]
 
+  @a_sku_pattern = params[:sku_string]
 
-
-#  Sku.where( session[:sku_list_to_sql_regexp] )
-#        .order(name: "ASC")
-#        .each do |the_sku|
-#
-#      the_sku.bins.each do |bin|
-#          @the_display_list << {name: the_sku.name, quantity: bin.qty , location: bin.location.name }
-#      end
-#
-#  end
 
 end
 
-def sku_found
+#def sku_found
+
+#  @the_display_list = []
+
+#  sku_list_to_sql_regexp = "skus.name LIKE " +
+#    session[:sku_string]
+#    .tr("*", "%")
+#    .split(',')
+#    .map{|x| "'" + x.strip + "'"}
+#    .join(' OR skus.name LIKE ')
+
+#    @the_display_list = Bin.joins(:sku).where(sku_list_to_sql_regexp).joins(:location).select(
+#      "bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
+#      "skus.cost as cost, bins.qty as qty, locations.name as loc").as_json
+
+    # Now decimal conversion to currency
+#    @the_display_list.map! do |x|
+#      x['extended'] =  ActionController::Base.helpers.number_to_currency(x['cost'] * x['qty'])
+#      x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
+#      x
+#    end
+
+
+#  render json: @the_display_list
+
+#end
+
+
+def sku_matching
 
   @the_display_list = []
 
   sku_list_to_sql_regexp = "skus.name LIKE " +
-    session[:sku_string]
+    URI.decode(params[:match_string])
     .tr("*", "%")
     .split(',')
     .map{|x| "'" + x.strip + "'"}
     .join(' OR skus.name LIKE ')
-
-#  Sku.where( sku_list_to_sql_regexp )
-#        .order(name: "ASC")
-#        .each do |the_sku|
-#
-#
-#      the_sku.bins.each do |bin|
-#
-#          @the_display_list << {sku_num: the_sku.name,
-#                                bu: the_sku.bu,
-#                                description: the_sku.description,
-#                                category: the_sku.category,
-#                                cost: ActionController::Base.helpers.number_to_currency(the_sku.cost),
-#                                extended: ActionController::Base.helpers.number_to_currency(the_sku.cost * bin.qty),
-#                                qty: bin.qty,
-#                                loc: bin.location.name }
-#
-#      end
 
     @the_display_list = Bin.joins(:sku).where(sku_list_to_sql_regexp).joins(:location).select(
       "bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
@@ -127,7 +126,6 @@ def sku_found
       x
     end
 
-    puts @the_display_list.length
 
   render json: @the_display_list
 

@@ -70,44 +70,22 @@ class LocationsController < ApplicationController
 
   def display_shelf_items
 
-    session[:location_string] = params[:location_string]
+    @a_location_pattern = params[:location_string]
 
   end
 
-  def shelf_item_found
+  def shelf_item_matching
 
     @the_display_list = []
 
     location_list_to_sql_regexp = "locations.name LIKE " +
-      session[:location_string]
+      URI.decode(params[:match_string])
       .tr("*", "%")
       .split(',')
       .map{|x| "'" + x.strip + "'"}
       .join(' OR locations.name LIKE ')
 
-    puts location_list_to_sql_regexp
 
-#    Location.where( location_list_to_sql_regexp )
-#      .order(name: "ASC")
-#      .each do |the_location|
-#
-#          the_location.bins.each do |bin|
-#
-#
-#
-#            @the_display_list << {sku: bin.sku.name,
-#                                  bu: bin.sku.bu,
-#                                  description: bin.sku.description,
-#                                  category: bin.sku.category,
-#                                  cost: ActionController::Base.helpers.number_to_currency(bin.sku.cost),
-#                                  extended: ActionController::Base.helpers.number_to_currency(bin.sku.cost * bin.qty),
-#                                  qty: bin.qty,
-#                                  loc: bin.location.name }
-#
-#
-#          end
-#
-#      end
 
       @the_display_list = Bin.joins(:location).where(location_list_to_sql_regexp).joins(:sku).select(
         "bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
@@ -119,8 +97,6 @@ class LocationsController < ApplicationController
         x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
         x
       end
-
-      puts @the_display_list.length
 
       render json: @the_display_list
 

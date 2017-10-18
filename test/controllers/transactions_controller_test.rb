@@ -1,48 +1,20 @@
 require 'test_helper'
+require 'ostruct'
 
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @transaction = transactions(:one)
-  end
 
-  test "should get index" do
-    get transactions_url
+  test "get list of all transactions" do
+
+    get "/transactions_found"
     assert_response :success
+    z = JSON.parse(response.body)
+
+    assert z.length == 2
+    assert z[0]['sku'] == "80-000000"
+    assert OpenStruct.new(z[0]).sku == "80-000000"
+    assert z[1]['sku'] == "53-000001"
+
   end
 
-  test "should get new" do
-    get new_transaction_url
-    assert_response :success
-  end
 
-  test "should create transaction" do
-    assert_difference('Transaction.count') do
-      post transactions_url, params: { transaction: { SKU: @transaction.SKU, from: @transaction.from, qty: @transaction.qty, to: @transaction.to, who: @transaction.who } }
-    end
-
-    assert_redirected_to transaction_url(Transaction.last)
-  end
-
-  test "should show transaction" do
-    get transaction_url(@transaction)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_transaction_url(@transaction)
-    assert_response :success
-  end
-
-  test "should update transaction" do
-    patch transaction_url(@transaction), params: { transaction: { SKU: @transaction.SKU, from: @transaction.from, qty: @transaction.qty, to: @transaction.to, who: @transaction.who } }
-    assert_redirected_to transaction_url(@transaction)
-  end
-
-  test "should destroy transaction" do
-    assert_difference('Transaction.count', -1) do
-      delete transaction_url(@transaction)
-    end
-
-    assert_redirected_to transactions_url
-  end
 end

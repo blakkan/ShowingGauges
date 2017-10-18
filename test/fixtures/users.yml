@@ -1,13 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  encrypted_password: MyString
-  is_retired: 
-  capabilities: MyString
+  id: 1
+  name: TechA
+  comment: "comment for user 1"
+  #encrypted_password: nil
+  is_retired: false
+  capabilities: "admin"
 
 two:
-  name: MyString
-  encrypted_password: MyString
-  is_retired: 
-  capabilities: MyString
+  id: 2
+  name: TechB
+  comment: "comment for user 2"
+  encrypted_password: ""
+  is_retired: false
+  capabilities: ""

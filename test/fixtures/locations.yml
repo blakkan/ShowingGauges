@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  comment: MyString
-  created_by: one
-  User: MyString
+  id: 1
+  name: "Shelf 1"
+  comment: "Comment for location Shelf 1"
+  is_retired: false
+  users_id: 1
 
 two:
-  name: MyString
-  comment: MyString
-  created_by: two
-  User: MyString
+  id: 2
+  name: "Shelf 2"
+  comment: "Comment for location Shelf 2"
+  is_retired: false
+  users_id: 2

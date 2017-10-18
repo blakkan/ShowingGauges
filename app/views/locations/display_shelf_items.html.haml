@@ -1,16 +1,15 @@
 %h1
-  ="Items in location(s) [#{session[:location_string]}]"
-<table id="the_table_id" data-height = "480" data-toggle="table" data-click-to-select="true"  data-url="shelf_item_found.json" data-show-refresh="true" data-show-columns="true" data-striped="true" data-search="true">
-<thead>
-<tr>
-<th data-sortable="true" data-field="bu" data-sorter = "integer_sorter_jb">BU</th>
-<th data-sortable="true" data-field="sku_num">SKU</th>
-<th data-sortable="true" data-field="description">Description</th>
-<th data-sortable="true" data-field="category">Category</th>
-<th data-sortable="true" data-field="qty" data-sorter = "integer_sorter_jb">Quantity</th>
-<th data-sortable="true" data-field="cost" data-sorter = "dollar_sorter_jb">Cost</th>
-<th data-sortable="true" data-field="extended" data-sorter = "dollar_sorter_jb">Extended Cost</th>
-<th data-sortable="true" data-field="loc">Location</th>
-</tr>
-</thead>
-</table>
+  ="Items in location(s) [#{@a_location_pattern}]"
+%table{ 'id' => "the_table_id", 'data-height' => "480", 'data-toggle' => "table", 'data-click-to-select' => "true", "data-url" => "shelf_item_matching.json/#{URI.encode(@a_location_pattern)}", "data-show-refresh" => "true", "data-show-columns" => "true", "data-striped" =>"true", "data-search" => "true"}
+  <thead>
+  <tr>
+  <th data-sortable="true" data-field="bu" data-sorter = "integer_sorter_jb">BU</th>
+  <th data-sortable="true" data-field="sku_num">SKU</th>
+  <th data-sortable="true" data-field="description">Description</th>
+  <th data-sortable="true" data-field="category">Category</th>
+  <th data-sortable="true" data-field="qty" data-sorter = "integer_sorter_jb">Quantity</th>
+  <th data-sortable="true" data-field="cost" data-sorter = "dollar_sorter_jb">Cost</th>
+  <th data-sortable="true" data-field="extended" data-sorter = "dollar_sorter_jb">Extended Cost</th>
+  <th data-sortable="true" data-field="loc">Location</th>
+  </tr>
+  </thead>

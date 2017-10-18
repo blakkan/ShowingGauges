@@ -3,4 +3,9 @@ class Sku < ApplicationRecord
 
   has_many :bins
   has_many :locations, through: :bins
+
+  # Bring in shared scopes from the concerns file
+  include AllActive
+
+
 end

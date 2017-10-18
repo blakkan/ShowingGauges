@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'display_manage_sku_request_screen' => 'skus#display_manage_sku_request_screen'
   get 'manage_sku_result' => 'skus#manage_sku_result'
   get 'sku_found.json' => 'skus#sku_found'
+  get 'sku_matching.json/:match_string' => 'skus#sku_matching'
 
   get 'display_bulk_import_request_screen' => 'skus#display_bulk_import_request_screen'
   post 'bulk_import_result' => 'skus#bulk_import_result'
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   get 'display_shelf_items' => 'locations#display_shelf_items'
   get 'display_manage_location_request_screen' => 'locations#display_manage_location_request_screen'
   get 'manage_location_result' => 'locations#manage_location_result'
-  get 'shelf_item_found.json' => 'locations#shelf_item_found'
+  get 'shelf_item_matching.json/:match_string' => 'locations#shelf_item_matching'
 
   get 'display_transfer_request_screen/:sku/:loc/:qty' => 'bins#display_transfer_request_screen'
   get 'display_transfer_request_screen' => 'bins#display_transfer_request_screen'

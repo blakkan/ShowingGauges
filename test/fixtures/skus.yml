@@ -1,11 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  comment: MyString
-  created_by: one
+  id: 1
+  name: "80-000000"
+  comment: "comment for sku 80-000000"
+  minimum_stocking_level: 0
+  is_retired: false
+  users_id: 1
+  bu: "11"
+  description: "Final Assy"
+  category: "Cat1"
+  cost: 12.34
+
 
 two:
-  name: MyString
-  comment: MyString
-  created_by: two
+  id: 2
+  name: "53-000001"
+  comment: "comment for sku 53-000001"
+  minimum_stocking_level: 2
+  is_retired: false
+  users_id: 1
+  bu: "22"
+  description: "Sub Assy"
+  category: "Cat2"
+  cost: 56.78

@@ -79,7 +79,7 @@ class BinsController < ApplicationController
                   sku_id: src_sku_id, user_id: session[:user_id])
     end
 
-    render 'login/generic_ok'
+    render template: 'login/generic_ok'
 
   end
 
@@ -142,7 +142,7 @@ class BinsController < ApplicationController
     end
 
 
-    render 'login/generic_ok'
+    render template: 'login/generic_ok'
 
   end
 
@@ -194,7 +194,7 @@ class BinsController < ApplicationController
 
     end
 
-    render 'login/generic_ok'
+    render template: 'login/generic_ok'
 
   end
 

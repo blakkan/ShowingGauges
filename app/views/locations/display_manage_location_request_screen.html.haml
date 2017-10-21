@@ -1,11 +1,25 @@
 %h2
-  Enter location
+  Enter or update Location
 =form_tag '/manage_location_result', method: 'get' do
-  %label{for: :location_string_id}
-    %h3
-      Location Name
-  =text_field_tag :location_string, nil, id: :location_string_id, class: 'form-control input-sm'
+  %div.row
+    %div.col-md-3
+      %label{for: :location_string_id}
+        %h3
+          Location Name
+        =text_field_tag :location_string, @pre_pop_location, id: :location_string_id, class: 'form-control input-sm'
+
+    %div.col-md-7
+      %label{for: :comment_string_id}
+        %h3
+          Comment
+        =text_field_tag :comment_string, @pre_pop_comment, id: :comment_string_id, class: 'form-control input-sm'
+
+    %div.col-md-2
+      %label{for: :is_retired_string_id}
+        %h3
+          Is Retired?
+      =check_box_tag :is_retired_string, nil, @pre_pop_is_retired, id: :is_retired_string_id, class: 'form-control input-sm'
   %br
   =submit_tag 'Create', class: 'btn btn-primary'
-  =submit_tag 'Retire', class: 'btn btn-primary'
-  =submit_tag 'View Details', class: 'btn btn-primary'
+  =submit_tag 'Update', class: 'btn btn-primary'
+  =submit_tag 'Refresh', class: 'btn btn-primary'

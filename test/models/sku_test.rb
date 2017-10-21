@@ -19,7 +19,7 @@ class SkuTest < ActiveSupport::TestCase
     assert s.name == "80-000000"
     assert s.comment == "comment for sku 80-000000"
     assert s.minimum_stocking_level == 0
-    assert s.users_id == 1
+    assert s.user_id == 1
     refute s.is_retired
     assert s.bu == "11"
     assert s.description == "Final Assy"
@@ -34,7 +34,7 @@ class SkuTest < ActiveSupport::TestCase
     assert s2.comment == "comment for sku 53-000001"
     assert s2.minimum_stocking_level == 2
     refute s2.is_retired
-    assert s2.users_id == 1
+    assert s2.user_id == 1
     assert s2.bu == "22"
     assert s2.description == "Sub Assy"
     assert s2.category == "Cat2"

@@ -1,14 +1,34 @@
 %h2
-  Enter User
+  Enter or update User
 =form_tag '/manage_user_result', method: 'get' do
-  %label{for: :user_string_id}
-    %h3
-      User Name
-  =text_field_tag :user_string, nil, id: :user_string_id, class: 'form-control input-sm'
+  %div.row
+    %div.col-md-3
+      %label{for: :sku_string_id}
+        %h3
+          Name
+        =text_field_tag :user_string, @pre_pop_user, id: :user_string_id, class: 'form-control input-sm'
+    %div.col-md-9
+      %label{for: :comment_string_id}
+      %h3
+        Comment
+      =text_field_tag :comment_string, @pre_pop_comment, id: :comment_string_id, class: 'form-control input-sm'
+
+  %div.row
+    %div.col-md-2
+      %label{for: :is_retired_string_id}
+      %h3
+        Is Retired?
+      =check_box_tag :is_retired_string, nil, @pre_pop_is_retired, id: :is_retired_string_id, class: 'form-control input-sm'
+
+    %div.col-md-2
+      %label{for: :is_admin_string_id}
+      %h3
+        Is Admin?
+      =check_box_tag :is_admin_string, nil, @pre_pop_is_admin, id: :is_admin_string_id, class: 'form-control input-sm'
+
+    %div.col-md-8
+
   %br
   =submit_tag 'Create', class: 'btn btn-primary'
-  =submit_tag 'Retire', class: 'btn btn-primary'
-  =submit_tag 'Clear Password', class: 'btn btn-primary'
-  =submit_tag 'Make Admin', class: 'btn btn-primary'
-  =submit_tag 'Remove Admin', class: 'btn btn-primary'
-  =submit_tag 'View Details', class: 'btn btn-primary'
+  =submit_tag 'Update', class: 'btn btn-primary'
+  =submit_tag 'Refresh', class: 'btn btn-primary'

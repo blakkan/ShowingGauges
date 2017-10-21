@@ -4,7 +4,7 @@ class CreateLocations < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :comment
       t.boolean :is_retired, default: false
-      t.references :users
+      t.references :user
 
       t.timestamps
     end

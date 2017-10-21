@@ -5,7 +5,7 @@ class CreateSkus < ActiveRecord::Migration[5.0]
       t.string :comment
       t.integer :minimum_stocking_level, default: 0
       t.boolean :is_retired, default: false
-      t.references :users
+      t.references :user
 
       t.timestamps
     end

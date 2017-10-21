@@ -2,98 +2,74 @@ require 'json'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
-
-  # GET /users/1
-  # GET /users/1.json
-  def show
-  end
-
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
 
   def display_manage_user_request_screen
 
+    if params.key?(:user_string_from_url) && ( the_user = User.find_by(name: params[:user_string_from_url]) )
+
+      @pre_pop_user = the_user.name
+      @pre_pop_comment = the_user.comment
+      @pre_pop_is_retired = the_user.is_retired
+      @pre_pop_is_admin = the_user.capabilities =~ /admin/
+    else
+      @pre_pop_user = nil
+      @pre_pop_comment = nil
+      @pre_pop_is_retired = false
+      @pre_pop_is_admin = false
+    end
+
   end
+
 
   def manage_user_result
 
-    if params['commit'] == "Create"
-      User.create!(name: params[:user_string])
-    else
 
-      the_user = User.find_by(name: params[:user_string])
+    if params[:commit] == "Refresh"
 
-      if params['commit']=="Retire"
-        the_user.update!(is_retired: true)
-      elsif params['commit']=="Clear Password"
-        the_user.update!(encrypted_password: '')
-      elsif params['commit']=="Make Admin"
-        the_user.update!(capabilities: 'admin')
-      elsif params['commit']=="Remove Admin"
-        the_user.update!(capabilities: '')
-      elsif params['commit']=="View Details"
-      else
-        render plain: "saw_nothing to do: #{params.to_json}" and return
+      new_place =  "/display_manage_user_request_screen/" + params[:user_string]
+
+      redirect_to new_place
+      return
+
+    elsif params['commit'] == "Create"
+
+        User.create!(name: params[:user_string],
+          comment: params[:comment_string],
+          is_retired: params.key?(:is_retired_string),
+          capabilities:  params.key?(:is_admin_string) ? "admin" : ''
+        )
+
+    elsif params['commit'] == 'Update'
+
+      begin
+
+        the_user = User.find_by!(name: params[:user_string])
+
+        the_user.update!(
+          comment: params[:comment_string],
+          is_retired: params.key?(:is_retired_string),
+          capabilities:  params.key?(:is_admin_string) ? "admin" : ''
+        )
+
+        # clear password if requested
+        if params.key?(:reset_password_string)
+          the_user.update!(
+            encrypted_password_string: ''
+          )
+        end
+
+      rescue ActiveRecord::RecordNotFound => e
+            @error_message = e.message
+            render login/generic_error and return
       end
 
     end
 
     render 'login/generic_ok'
 
-
   end
+
 
 
   private

@@ -1,0 +1,1582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>basic_test_case</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">basic_test_case</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<!--Test Login-->
+<tr>
+	<td>assertText</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Find stock by Loc</td>
+	<td>Find stock by Loc</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer</td>
+	<td>Transfer</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer In</td>
+	<td>Transfer In</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer Out</td>
+	<td>Transfer Out</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Login</td>
+	<td>Login</td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>link=Manage Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>link=View Transactions</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Login</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h3</td>
+	<td>Input user name</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=user_name_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_name_id</td>
+	<td>TechA</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Find stock by Loc</td>
+	<td>Find stock by Loc</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer</td>
+	<td>Transfer</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer In</td>
+	<td>Transfer In</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Transfer Out</td>
+	<td>Transfer Out</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Manage SKUs</td>
+	<td>Manage SKUs</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Manage Locations</td>
+	<td>Manage Locations</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Manage Users</td>
+	<td>Manage Users</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=View Transactions</td>
+	<td>View Transactions</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=TechA</td>
+	<td>TechA</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Welcome TechA</td>
+</tr>
+<!--Test Find SKU-->
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td>Enter SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>exact:SKUs found in search for [*]</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//th/div</td>
+	<td>BU</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>11</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td</td>
+	<td>22</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[1]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>22</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td</td>
+	<td>11</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[2]/div</td>
+	<td>SKU</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[2]</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[2]</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[2]</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[2]</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[3]/div</td>
+	<td>Description</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[3]</td>
+	<td>Final Assy</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[3]</td>
+	<td>Sub Assy</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[3]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[3]</td>
+	<td>Sub Assy</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[3]</td>
+	<td>Final Assy</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[3]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[4]/div</td>
+	<td>Category</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[4]</td>
+	<td>Cat1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[4]</td>
+	<td>Cat2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[4]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[4]</td>
+	<td>Cat2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[4]</td>
+	<td>Cat1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[4]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td>Quantity</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>16</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[5]</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[5]</td>
+	<td>16</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[6]/div</td>
+	<td>Cost</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[6]</td>
+	<td>$12.34</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[6]</td>
+	<td>$56.78</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[6]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[6]</td>
+	<td>$56.78</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[6]</td>
+	<td>$12.34</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[6]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[7]/div</td>
+	<td>Extended Cost</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[7]</td>
+	<td>$197.44</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[7]</td>
+	<td>$227.12</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[7]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[7]</td>
+	<td>$227.12</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[7]</td>
+	<td>$197.44</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[7]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[8]/div</td>
+	<td>Location</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[8]</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[8]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[8]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[8]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[2]/td[8]</td>
+	<td>Shelf 1</td>
+</tr>
+<!--Test shelf location-->
+<tr>
+	<td>click</td>
+	<td>link=Find stock by Loc</td>
+	<td>Find stock by Loc</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>150</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Enter Location Name (comma separated if multiple)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string</td>
+	<td>*,*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>exact:Items in location(s) [*,*]</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>11</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[2]</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[3]</td>
+	<td>Final Assy</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[4]</td>
+	<td>Cat1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>16</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[6]</td>
+	<td>$12.34</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[7]</td>
+	<td>$197.44</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[8]</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='location_table_head_id']/tr/th[1]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>22</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[2]</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[3]</td>
+	<td>Sub Assy</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[4]</td>
+	<td>Cat2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[6]</td>
+	<td>$56.78</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[7]</td>
+	<td>$227.12</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[8]</td>
+	<td>Shelf 2</td>
+</tr>
+<!--Transfer in-->
+<tr>
+	<td>click</td>
+	<td>link=Transfer In</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku</td>
+	<td>99-999999</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=to</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>88</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Couldn't find Sku</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Transfer In</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=to</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>33</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>33</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Transfer Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=from</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>11</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>22</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Transfer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=from</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=to</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>150</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>21</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>150</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>150</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=to</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>150</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>20</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>19</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Transfer Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=from</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantity</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[5]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr/td[5]</td>
+	<td>3</td>
+</tr>
+<!--Mange Skus-->
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=description_string_id</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment_string_id</td>
+	<td>NEWER</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=bu_string_id</td>
+	<td>55</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cost_string_id</td>
+	<td>$1.11</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=category_string_id</td>
+	<td>CAT</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=stock_level_string_id</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//thead[@id='sku_table_head_id']/tr/th[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td</td>
+	<td>55</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[2]</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[3]</td>
+	<td>NEW</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[4]</td>
+	<td>CAT</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[5]</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[6]</td>
+	<td>$1.11</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[7]</td>
+	<td>$3.33</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_table_id']/tbody/tr[3]/td[8]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_retired_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-00001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_retired_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=description_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>80-000000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>80-000001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string_id</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=description_string_id</td>
+	<td>The sub assembly</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=bu_string_id</td>
+	<td>44</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment_string_id</td>
+	<td>New comment</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Find stock by SKU</td>
+	<td>Find stock by SKU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sku_string</td>
+	<td>*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string_id</td>
+	<td>zzzzz</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Couldn't find Location</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string_id</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/display_manage_location_request_screen/Shelf%201</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment_string_id</td>
+	<td>Comment for location Shelf 1a</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage SKUs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string_id</td>
+	<td>Self 1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Locations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string_id</td>
+	<td>Shelf 1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/display_manage_location_request_screen/Shelf%201</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=location_string_id</td>
+	<td>Shelf 22</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment_string_id</td>
+	<td>Comment for location Shelf 22</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Enter or update User</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_string_id</td>
+	<td>TechB</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=comment_string_id</td>
+	<td>comment for user 2</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_retired_string_id</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_admin_string_id</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_retired_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_admin_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Ok</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Manage Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_string_id</td>
+	<td>TechB</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=comment_string_id</td>
+	<td>comment for user 2</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_retired_string_id</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_admin_string_id</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Transactions</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sizzle1508542755119']/div/table/tbody/tr[2]/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sizzle1508542755119']/div/table/tbody/tr[4]/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!---->
+</tbody></table>
+</body>
+</html>

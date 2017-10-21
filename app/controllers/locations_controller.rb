@@ -1,65 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy]
-
-  # GET /locations
-  # GET /locations.json
-  def index
-    @locations = Location.all
-  end
-
-  # GET /locations/1
-  # GET /locations/1.json
-  def show
-  end
-
-  # GET /locations/new
-  def new
-    @location = Location.new
-  end
-
-  # GET /locations/1/edit
-  def edit
-  end
-
-  # POST /locations
-  # POST /locations.json
-  def create
-    @location = Location.new(location_params)
-
-    respond_to do |format|
-      if @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render :show, status: :created, location: @location }
-      else
-        format.html { render :new }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /locations/1
-  # PATCH/PUT /locations/1.json
-  def update
-    respond_to do |format|
-      if @location.update(location_params)
-        format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.json { render :show, status: :ok, location: @location }
-      else
-        format.html { render :edit }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /locations/1
-  # DELETE /locations/1.json
-  def destroy
-    @location.destroy
-    respond_to do |format|
-      format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  #before_action :set_location, only: [:show, :edit, :update, :destroy]
 
 
   ##############################################
@@ -105,19 +45,62 @@ class LocationsController < ApplicationController
 
   def display_manage_location_request_screen
 
+    if params.key?(:location_string_from_url)
+      begin
+        the_location = Location.find_by!(name: params[:location_string_from_url])
+
+        @pre_pop_location = the_location.name
+        @pre_pop_comment = the_location.comment
+        @pre_pop_is_retired = the_location.is_retired
+      rescue ActiveRecord::RecordNotFound => e
+        @error_message = e.message
+        render "login/generic_error"
+        return
+      end
+    else
+      @pre_pop_location = nil
+      @pre_pop_comment = nil
+      @pre_pop_is_retired = false
+    end
+
+
   end
+
+
 
   def manage_location_result
 
 
-    if params['commit'] =="Create"
-      Location.create!(name: params[:location_string])
-    else
+    if params[:commit] == "Refresh"
 
-      the_location = Location.find_by(name: params[:location_string])
+      new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
-      if params['commit'] == "Retire"
-        the_location.update!(is_retired: true)
+      redirect_to new_place
+      return
+
+    elsif params['commit'] == "Create"
+
+      Location.create!(name: params[:location_string],
+        comment: params[:comment_string],
+        is_retired: params.key?(:is_retired_string),
+        user_id: session[:user_id]
+      )
+
+    elsif params['commit'] == 'Update'
+
+      begin
+        the_location = Location.find_by!(name: params[:location_string])
+
+        the_location.update!(
+          comment: params[:comment_string],
+          is_retired: params.key?(:is_retired_string),
+          user_id: session[:user_id]
+
+          )
+      rescue ActiveRecord::RecordNotFound => e
+        @error_message = e.message
+        render "login/generic_error"
+        return
       end
 
     end

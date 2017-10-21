@@ -1,65 +1,6 @@
 class SkusController < ApplicationController
   before_action :set_sku, only: [:show, :edit, :update, :destroy]
 
-  # GET /skus
-  # GET /skus.json
-  def index
-    @skus = Sku.all
-  end
-
-  # GET /skus/1
-  # GET /skus/1.json
-  def show
-  end
-
-  # GET /skus/new
-  def new
-    @sku = Sku.new
-  end
-
-  # GET /skus/1/edit
-  def edit
-  end
-
-  # POST /skus
-  # POST /skus.json
-  def create
-    @sku = Sku.new(sku_params)
-
-    respond_to do |format|
-      if @sku.save
-        format.html { redirect_to @sku, notice: 'Sku was successfully created.' }
-        format.json { render :show, status: :created, location: @sku }
-      else
-        format.html { render :new }
-        format.json { render json: @sku.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /skus/1
-  # PATCH/PUT /skus/1.json
-  def update
-    respond_to do |format|
-      if @sku.update(sku_params)
-        format.html { redirect_to @sku, notice: 'Sku was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sku }
-      else
-        format.html { render :edit }
-        format.json { render json: @sku.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /skus/1
-  # DELETE /skus/1.json
-  def destroy
-    @sku.destroy
-    respond_to do |format|
-      format.html { redirect_to skus_url, notice: 'Sku was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
 
 ##############################################
@@ -70,38 +11,9 @@ end
 
 def display_skus
 
-
   @a_sku_pattern = params[:sku_string]
 
-
 end
-
-#def sku_found
-
-#  @the_display_list = []
-
-#  sku_list_to_sql_regexp = "skus.name LIKE " +
-#    session[:sku_string]
-#    .tr("*", "%")
-#    .split(',')
-#    .map{|x| "'" + x.strip + "'"}
-#    .join(' OR skus.name LIKE ')
-
-#    @the_display_list = Bin.joins(:sku).where(sku_list_to_sql_regexp).joins(:location).select(
-#      "bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
-#      "skus.cost as cost, bins.qty as qty, locations.name as loc").as_json
-
-    # Now decimal conversion to currency
-#    @the_display_list.map! do |x|
-#      x['extended'] =  ActionController::Base.helpers.number_to_currency(x['cost'] * x['qty'])
-#      x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
-#      x
-#    end
-
-
-#  render json: @the_display_list
-
-#end
 
 
 def sku_matching
@@ -134,7 +46,9 @@ end
 
 def display_manage_sku_request_screen
 
-  if params.key?(:sku) && ( the_sku = Sku.find_by(name: params[:sku]) )
+
+  if params.key?(:sku_string_from_url) && ( the_sku = Sku.find_by(name: params[:sku_string_from_url]) )
+
     @pre_pop_sku = the_sku.name
     @pre_pop_description = the_sku.description
     @pre_pop_comment = the_sku.comment
@@ -155,8 +69,32 @@ def display_manage_sku_request_screen
   end
 
 
+end
+
+
+def display_sku_catalog
 
 end
+
+def all_skus_as_json
+
+  @the_display_list = []
+
+    @the_display_list = Sku.joins(:user).select(
+      "skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, " +
+      "skus.cost as cost, users.name as user_name").as_json
+
+    # Now decimal conversion to currency
+    @the_display_list.map! do |x|      x['extended'] =  ActionController::Base.helpers.number_to_currency(x['cost'] * x['qty'])
+      x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
+      x
+    end
+
+
+  render json: @the_display_list
+
+end
+
 
 ###################################################################################
 #
@@ -165,27 +103,48 @@ end
 ###################################################################################
 def manage_sku_result
 
-  if params['commit'] == "Create"
+  if params[:commit] == "Refresh"
 
-    Sku.create!(name: params[:sku_string])
+    new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
+    puts "going to"
+    puts new_place
+    puts "thats where"
+    redirect_to new_place
+    return
 
-  elsif params['commit'] == 'Update'
+  elsif params['commit'] == "Create"
 
-
-    the_sku = Sku.find_by(name: params[:sku_string])
-
-    the_sku.update!(
+    Sku.create!(name: params[:sku_string],
       comment: params[:comment_string],
       minimum_stocking_level: params[:stock_level_string].to_i,
       is_retired: params.key?(:is_retired_string),
-      users_id: session[:user_id],
+      user_id: session[:user_id],
       bu: params[:bu_string],
       description: params[:description_string],
       category: params[:category_string],
       cost: params[:cost_string].gsub(/[^0-9.]/,'').to_d
-      )
+    )
 
+  elsif params['commit'] == 'Update'
 
+    begin
+
+      the_sku = Sku.find_by!(name: params[:sku_string])
+
+      the_sku.update!(
+        comment: params[:comment_string],
+        minimum_stocking_level: params[:stock_level_string].to_i,
+        is_retired: params.key?(:is_retired_string),
+        user_id: session[:user_id],
+        bu: params[:bu_string],
+        description: params[:description_string],
+        category: params[:category_string],
+        cost: params[:cost_string].gsub(/[^0-9.]/,'').to_d
+        )
+    rescue ActiveRecord::RecordNotFound => e
+        @error_message = e.message
+        render login/generic_error and return
+    end
 
 
   end
@@ -194,6 +153,9 @@ def manage_sku_result
 
 end
 
+def view_all
+
+end
 
 ###############################################
 
@@ -214,11 +176,11 @@ def bulk_import_result
 
     #Create a physical location, if needed
     the_loc = Location.find_by(name: location) || Location.create!( name: location,
-      users_id: session[:user_id])
+      user_id: session[:user_id])
 
     #Find or create a SKU
     the_sku = Sku.find_by(name: item_number) || Sku.create!( name: item_number,
-      minimum_stocking_level: 0, users_id: session[:user_id],
+      minimum_stocking_level: 0, user_id: session[:user_id],
       bu: bu,  description: description, category: category, cost: decimal_cost)
 
 

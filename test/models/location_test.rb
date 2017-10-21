@@ -20,14 +20,14 @@ class LocationTest < ActiveSupport::TestCase
       assert l.name == "Shelf 1"
       assert l.comment == "Comment for location Shelf 1"
       refute l.is_retired
-      assert l.users_id == 1
+      assert l.user_id == 1
 
       l2 = Location.find_by(name: "Shelf 2")
       assert l2.id == 2
       assert l2.name == "Shelf 2"
       assert l2.comment == "Comment for location Shelf 2"
       refute l2.is_retired
-      assert l2.users_id == 2
+      assert l2.user_id == 2
     end
 
     test "the scope from the model concerns" do

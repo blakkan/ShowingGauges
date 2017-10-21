@@ -1,15 +1,15 @@
 %h1
   ="SKUs found in search for [#{@a_sku_pattern}]"
 %table{ 'id' => "the_table_id", 'data-height' => "480", 'data-toggle' => "table", 'data-click-to-select' => "true", "data-url" => "sku_matching.json/#{URI.encode(@a_sku_pattern)}", "data-show-refresh" => "true", "data-show-columns" => "true", "data-striped" =>"true", "data-search" => "true"}
-  <thead>
+  <thead id="sku_table_head_id">
   <tr>
-  <th data-sortable="true" data-field="bu" data-sorter = "integer_sorter_jb">BU</th>
-  <th data-sortable="true" data-field="sku_num">SKU</th>
-  <th data-sortable="true" data-field="description">Description</th>
-  <th data-sortable="true" data-field="category">Category</th>
-  <th data-sortable="true" data-field="qty" data-sorter = "integer_sorter_jb">Quantity</th>
-  <th data-sortable="true" data-field="cost" data-sorter = "dollar_sorter_jb">Cost</th>
-  <th data-sortable="true" data-field="extended" data-sorter = "dollar_sorter_jb">Extended Cost</th>
+  <th data-sortable="true" data-field="bu" data-sorter = "integer_sorter_jb" id="bu_header_id">BU</th>
+  <th data-sortable="true" data-field="sku_num" id="sku_header_id">SKU</th>
+  <th data-sortable="true" data-field="description" id="description_header_id">Description</th>
+  <th data-sortable="true" data-field="category" id="category_header_id">Category</th>
+  <th data-sortable="true" data-field="qty" data-sorter = "integer_sorter_jb" id="qty_header_id">Quantity</th>
+  <th data-sortable="true" data-field="cost" data-sorter = "dollar_sorter_jb" id="cost_header_id">Cost</th>
+  <th data-sortable="true" data-field="extended" data-sorter = "dollar_sorter_jb" id="extended_header_id">Extended Cost</th>
   <th data-sortable="true" data-field="loc">Location</th>
   </tr>
   </thead>

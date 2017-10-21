@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20171011092610) do
     t.string "name"
     t.string "comment"
     t.boolean "is_retired", default: false
-    t.integer "users_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_locations_on_users_id"
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "skus", force: :cascade do |t|
@@ -37,14 +37,14 @@ ActiveRecord::Schema.define(version: 20171011092610) do
     t.string "comment"
     t.integer "minimum_stocking_level", default: 0
     t.boolean "is_retired", default: false
-    t.integer "users_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "bu"
     t.string "description"
     t.string "category"
     t.decimal "cost", precision: 10, scale: 2
-    t.index ["users_id"], name: "index_skus_on_users_id"
+    t.index ["user_id"], name: "index_skus_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|

@@ -4,14 +4,10 @@
   %div.container
     %div.col-sm-3
       %div.input-group.date.datetimepicker_class
-        %input.form-control{type: 'text', id: "start_date_id", name: "start_date_name"}
+        %input.form-control{type: 'date', id: "start_date_id", name: "start_date_name"}
     %div.col-sm-3
       %div.input-group.date.datetimepicker_class
-        %input.form-control{type: 'text', id: "end_date_id", name: "end_date_name"}
+        %input.form-control{type: 'date', id: "end_date_id", name: "end_date_name"}
     %div.col.sm-6
   %br
   =submit_tag 'Submit', id: 'submit_btn_id', class: 'btn btn-primary'
-  :javascript
-    $(function () {
-    $('.datetimepicker_class input').datepicker();
-    });

@@ -4,6 +4,8 @@
   %label{for: "user_name_id"}
     %h3
       Input user name
-  =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
-  %br
-  =submit_tag 'Submit', id: "submit_id", class: 'btn btn-primary'
+    %div.row
+      %div.col-md-6
+        =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
+      %div.col-md-6
+        =submit_tag 'Submit', id: "submit_id", class: 'btn btn-primary'

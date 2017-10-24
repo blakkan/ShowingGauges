@@ -1,202 +1,171 @@
 class BinsController < ApplicationController
+    ###########################################################
+    #
+    # Transfer from one bin to another
+    #
+    ###########################################################
+    def display_transfer_request_screen; end
 
-  ###########################################################
-  #
-  # Transfer from one bin to another
-  #
-  ###########################################################
-  def display_transfer_request_screen
+    def display_transfer_result
+        # view will pre-populate FROM string if in params[:from]
 
-  end
+        # Need to update bins in a transaction; will have model
+        # validation do various checks (e.g. attempt to go below zero)
+        # view will pre-populate FROM string if in params[:from]
 
-  def display_transfer_result
-    #view will pre-populate FROM string if in params[:from]
+        # Need to update bins in a transaction; will have model
+        # validation do various checks (e.g. attempt to go below zero)
 
-    # Need to update bins in a transaction; will have model
-    # validation do various checks (e.g. attempt to go below zero)
-    #view will pre-populate FROM string if in params[:from]
+        # short circuit over to transfer out
+        return display_transfer_out_result if params[:commit] == 'Remove'
 
-    # Need to update bins in a transaction; will have model
-    # validation do various checks (e.g. attempt to go below zero)
+        ActiveRecord::Base.transaction do
+            action_tracker = 'find sku id'
 
-    #short circuit over to transfer out
-    if params[:commit] == "Remove"
-      return display_transfer_out_result
-    end
+            # Find destination bin with matching sku and location
 
+            src_sku_id = Sku.find_by!(name: params[:sku]).id
+            action_tracker = 'find src location id'
+            src_location_id = Location.find_by!(name: params[:from]).id
 
-    ActiveRecord::Base.transaction do
+            action_tracker = 'find src bin ' + params[:from]
+            src_bin = Bin.find_by!(sku_id: src_sku_id, location_id: src_location_id)
 
-      action_tracker = 'find sku id'
+            # Find destination bin with matching sku and location
+            action_tracker = 'find dest id'
+            dest_sku_id = Sku.find_by!(name: params[:sku]).id
+            action_tracker = 'find dest location id'
+            dest_location_id = Location.find_by!(name: params[:to]).id
 
-      # Find destination bin with matching sku and location
-      begin
-        src_sku_id = Sku.find_by!( name: params[:sku]).id
-        action_tracker = 'find src location id'
-        src_location_id = Location.find_by!( name: params[:from]).id
+            dest_bin = Bin.find_by(sku_id: dest_sku_id, location_id: dest_location_id)
 
-        action_tracker = 'find src bin ' + params[:from]
-        src_bin = Bin.find_by!( sku_id: src_sku_id, location_id: src_location_id )
+            if dest_bin.nil?
 
-        # Find destination bin with matching sku and location
-        action_tracker = 'find dest id'
-        dest_sku_id = Sku.find_by!( name: params[:sku]).id
-        action_tracker = 'find dest location id'
-        dest_location_id = Location.find_by!( name: params[:to]).id
+                dest_bin = Bin.create(sku_id: dest_sku_id,
+                                      location_id: dest_location_id,
+                                      qty: params[:quantity].to_i)
+                ## Don't use decrement!, it skips validations
+                src_bin.qty -= params[:quantity].to_i
+                src_bin.save!
+            # src_bin.decrement!(:qty, params[:quantity].to_i)
+
+            else
+
+                ## Don't use increment or decrement, they skip validations
+                src_bin.qty -= params[:quantity].to_i
+                src_bin.save!
+                # src_bin.decrement!(:qty, params[:quantity].to_i)
+                dest_bin.qty += params[:quantity].to_i
+                dest_bin.save!
+                # dest_bin.increment!(:qty, params[:quantity].to_i)
+
+            end
+
+            src_bin.destroy! if src_bin.qty < 1
+
+            Transaction.create!(from_id: src_location_id, to_id: dest_location_id,
+                                qty: params[:quantity].to_i,
+                                sku_id: src_sku_id, user_id: session[:user_id])
+        end
+
+        render template: 'login/generic_ok'
+
+      rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+
+          @error_message = e.message
+          render template: 'login/generic_error'
+      end
+
+    ##########################################################
+    #
+    # Increase quantity in a bin, or create a bin if
+    # none exists
+    #
+    ##########################################################
+    def display_transfer_in_request_screen; end
+
+    def display_transfer_in_result
+        # view will pre-populate FROM string if in params[:from]
+
+        # Need to update bins in a transaction; will have model
+        # validation do various checks (e.g. attempt to go below zero)
+
+        ActiveRecord::Base.transaction do
+            # find the bin in question, creating a destination
+            # bin if necessary
+
+            # Find destination bin with matching sku and location
+
+            dest_sku_id = Sku.find_by!(name: params[:sku]).id
+            dest_location_id = Location.find_by!(name: params[:to]).id
+
+            dest_bin = Bin.find_by(sku_id: dest_sku_id, location_id: dest_location_id)
+
+            if dest_bin.nil?
+
+                dest_bin = Bin.create(sku_id: dest_sku_id,
+                                      location_id: dest_location_id,
+                                      qty: params[:quantity].to_i)
+            else
+
+                ## Don't use increment!, it bypasses validations
+                # dest_bin.increment!(:qty, params[:quantity].to_i)
+                dest_bin.qty += params[:quantity].to_i
+                dest_bin.save!
+
+            end
+
+            Transaction.create!(to_id: dest_location_id,
+                                qty: params[:quantity].to_i,
+                                sku_id: dest_sku_id, user_id: session[:user_id])
+        end
+
+        render template: 'login/generic_ok'
 
       rescue ActiveRecord::RecordNotFound => e
 
-        @error_message = e.message + " while attempting " + action_tracker
-
-        render template: "login/generic_error"
-        return
-
+          @error_message = e.message
+          render template: 'login/generic_error'
       end
 
-      dest_bin = Bin.find_by( sku_id: dest_sku_id, location_id: dest_location_id)
+    #########################################################
+    #
+    # Decrease quantity in a bin, and delete the bin
+    # if it has gone to zero
+    #
+    #########################################################
+    def display_transfer_out_request_screen; end
 
-      if dest_bin.nil?
+    def display_transfer_out_result
+        # view will pre-populate FROM string if in params[:from]
 
-        dest_bin = Bin.create( sku_id: dest_sku_id,
-                       location_id: dest_location_id,
-                        qty: params[:quantity].to_i )
-        src_bin.decrement!(:qty, params[:quantity].to_i)
+        # Need to update bins in a transaction; will have model
+        # validation do various checks (e.g. attempt to go below zero)
 
+        ActiveRecord::Base.transaction do
+            # Find destination bin with matching sku and location
 
-      else
+            src_sku_id = Sku.find_by!(name: params[:sku]).id
+            src_location_id = Location.find_by!(name: params[:from]).id
+            src_bin = Bin.find_by!(sku_id: src_sku_id, location_id: src_location_id)
 
-        src_bin.decrement!(:qty, params[:quantity].to_i)
-        dest_bin.increment!(:qty, params[:quantity].to_i)
+            ## don't use decrement!, it bypasses validations
+            src_bin.qty -= params[:quantity].to_i
+            src_bin.save!
+            # src_bin.decrement!(:qty, params[:quantity].to_i)
 
+            src_bin.destroy! if src_bin.qty < 1
+
+            Transaction.create!(from_id: src_location_id,
+                                qty: params[:quantity].to_i,
+                                sku_id: src_sku_id, user_id: session[:user_id])
+        end
+
+        render template: 'login/generic_ok'
+
+      rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+
+          @error_message = e.message
+          render template: 'login/generic_error'
       end
-
-      if src_bin.qty < 1
-        src_bin.destroy!
-      end
-
-      Transaction.create!(from_id: src_location_id, to_id: dest_location_id,
-                  qty: params[:quantity].to_i,
-                  sku_id: src_sku_id, user_id: session[:user_id])
-    end
-
-    render template: 'login/generic_ok'
-
-  end
-
-  ##########################################################
-  #
-  # Increase quantity in a bin, or create a bin if
-  # none exists
-  #
-  ##########################################################
-  def display_transfer_in_request_screen
-
-  end
-
-  def display_transfer_in_result
-    #view will pre-populate FROM string if in params[:from]
-
-    # Need to update bins in a transaction; will have model
-    # validation do various checks (e.g. attempt to go below zero)
-
-    ActiveRecord::Base.transaction do
-
-      # find the bin in question, creating a destination
-      # bin if necessary
-
-
-      # Find destination bin with matching sku and location
-
-      begin
-
-        dest_sku_id = Sku.find_by!( name: params[:sku]).id
-        dest_location_id = Location.find_by!( name: params[:to]).id
-
-      rescue ActiveRecord::RecordNotFound => e
-
-        @error_message = e.message
-
-        render template: "login/generic_error"
-        return
-
-      end
-
-      dest_bin = Bin.find_by( sku_id: dest_sku_id, location_id: dest_location_id )
-
-      if dest_bin.nil?
-
-        dest_bin = Bin.create( sku_id: dest_sku_id,
-                     location_id: dest_location_id,
-                      qty: params[:quantity].to_i )
-      else
-
-        dest_bin.increment!(:qty, params[:quantity].to_i)
-
-      end
-
-
-      Transaction.create!( to_id: dest_location_id,
-                        qty: params[:quantity].to_i,
-                  sku_id: dest_sku_id, user_id: session[:user_id])
-
-    end
-
-
-    render template: 'login/generic_ok'
-
-  end
-
-  #########################################################
-  #
-  # Decrease quantity in a bin, and delete the bin
-  # if it has gone to zero
-  #
-  #########################################################
-  def display_transfer_out_request_screen
-
-  end
-
-  def display_transfer_out_result
-    #view will pre-populate FROM string if in params[:from]
-
-    # Need to update bins in a transaction; will have model
-    # validation do various checks (e.g. attempt to go below zero)
-
-    ActiveRecord::Base.transaction do
-
-      # Find destination bin with matching sku and location
-
-      begin
-
-        src_sku_id = Sku.find_by!( name: params[:sku]).id
-        src_location_id = Location.find_by!( name: params[:from]).id
-        src_bin = Bin.find_by!( sku_id: src_sku_id, location_id: src_location_id )
-
-      rescue ActiveRecord::RecordNotFound => e
-
-        @error_message = e.message
-
-        render template: "login/generic_error"
-        return
-
-      end
-
-
-      src_bin.decrement!(:qty, params[:quantity].to_i)
-
-      if src_bin.qty < 1
-        src_bin.destroy!
-      end
-
-      Transaction.create!( from_id: src_location_id,
-                        qty: params[:quantity].to_i,
-                  sku_id: src_sku_id, user_id: session[:user_id])
-
-    end
-
-    render template: 'login/generic_ok'
-
-  end
-
-
 end

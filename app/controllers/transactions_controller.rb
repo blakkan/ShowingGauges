@@ -16,6 +16,21 @@ class TransactionsController < ApplicationController
 
   def display_all_transactions
 
+      # Scrub dates
+      @the_start_date = @the_end_date = nil
+
+      begin
+        @the_start_date = Date.parse(params[:start_date_name])
+      rescue ArgumentError
+        @the_start_date = Date.parse("1901-01-01")
+      end
+      begin
+        @the_end_date = Date.parse(params[:end_date_name])
+      rescue ArgumentError
+        @the_end_date = Date.parse("2101-01-01")
+      end
+
+
 
   end
 
@@ -23,10 +38,25 @@ class TransactionsController < ApplicationController
   def transaction_found
 
     @the_display_list = []
-    #TODO respect date ranges
+
+    begin
+      the_start_date = Date.parse(params[:start_date_requested])
+    rescue ArgumentError
+      the_start_date = Date.parse("1901-01-01")
+    end
+    begin
+      the_end_date = Date.parse(params[:end_date_requested])
+    rescue ArgumentError
+      the_end_date = Date.parse("2101-01-01")
+    end
+
+
+
     #TODO replace all this with a join returning as_json
 
-    Transaction.order(created_at: :desc).all.each do |transaction|
+
+
+    Transaction.where(created_at: the_start_date.beginning_of_day..the_end_date.beginning_of_day).order(created_at: :desc).all.each do |transaction|
 
       @the_display_list << {
         sku_num: ((transaction.sku_id.nil? || (not Sku.exists?(transaction.sku_id))) ? "NA" : Sku.find(transaction.sku_id).name),

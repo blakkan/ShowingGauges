@@ -111,9 +111,7 @@ def manage_sku_result
   elsif params[:commit] == "Refresh"
 
     new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
-    puts "going to"
-    puts new_place
-    puts "thats where"
+
     redirect_to new_place
     return
 
@@ -196,7 +194,10 @@ def bulk_import_result
     dest_bin = Bin.find_by(sku_id: the_sku.id, location_id: the_loc.id) ||
                 Bin.create!(sku_id: the_sku.id, location_id: the_loc.id, qty: 0)
 
-    dest_bin.increment!(:qty, quantity.to_i)
+    #Don't use increrment!, it bypasses validations
+    #dest_bin.increment!(:qty, quantity.to_i)
+    dest_bin.qty += params[:quantity].to_i
+    dest_bin.save!
 
   end
 

@@ -5,7 +5,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "get list of all transactions" do
 
-    get "/transactions_found.json"
+    get "/transactions_found.json/1901-01-01/2101-01-01"
     assert_response :success
     z = JSON.parse(response.body)
 

@@ -1,6 +1,8 @@
 %h2
   Enter Location Name (comma separated if multiple)
 =form_tag '/display_shelf_items', method: 'get' do
-  =text_field_tag(:location_string, (session.key?(:location_string) ? session[:location_string] : ''), id: 'list_input_id', class: 'form-control input-sm')
-  %br
-  =submit_tag :Submit, id: 'submit_button_id', class: 'btn btn-primary'
+  %div.row
+    %div.col-md-6
+      =text_field_tag(:location_string, (session.key?(:location_string) ? session[:location_string] : ''), id: 'list_input_id', class: 'form-control input-sm')
+    %div.col-md-6
+      =submit_tag :Submit, id: 'submit_button_id', class: 'btn btn-primary'

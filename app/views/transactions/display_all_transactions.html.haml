@@ -1,16 +1,15 @@
 %h1
   ="Transactions found"
-<table id="the_transactions_table_id" data-height = "480" data-toggle="table" data-click-to-select="true" data-url="transactions_found.json" data-show-refresh="true" data-show-columns="true" data-striped="true" data-search="true">
-<thead>
-<tr>
-<th data-sortable="true" data-field="sku_num">SKU</th>
-<th data-sortable="true" data-field="description">Description</th>
-<th data-sortable="true" data-field="from">From</th>
-<th data-sortable="true" data-field="to">To</th>
-<th data-sortable="true" data-field="qty">Quantity</th>
-<th data-sortable="true" data-field="comment">Comment</th>
-<th data-sortable="true" data-field="timestamp">Timestamp</th>
-<th data-sortable="true" data-field="who">User</th>
-</tr>
-</thead>
-</table>
+%table{"id" => "the_transactions_table_id", "data-height" => "480", "data-toggle" => "table", "data-click-to-select" => "true", "data-url" => "transactions_found.json/#{@the_start_date}/#{@the_end_date}", "data-show-refresh" => "true", "data-show-columns" => "true", "data-striped" => "true", "data-search" => "true"}
+  <thead>
+  <tr>
+  <th data-sortable="true" data-field="sku_num">SKU</th>
+  <th data-sortable="true" data-field="description">Description</th>
+  <th data-sortable="true" data-field="from">From</th>
+  <th data-sortable="true" data-field="to">To</th>
+  <th data-sortable="true" data-field="qty">Quantity</th>
+  <th data-sortable="true" data-field="comment">Comment</th>
+  <th data-sortable="true" data-field="timestamp">Timestamp</th>
+  <th data-sortable="true" data-field="who">User</th>
+  </tr>
+  </thead>

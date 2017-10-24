@@ -1,28 +1,44 @@
 %h2
   Transfer request:
-=form_tag '/display_transfer_result', method: 'get' do
+=form_tag '/display_transfer_result', autocomplete: 'off', method: 'get' do
   %h3
     SKU
   -if params.key?(:sku)
-    =text_field_tag :sku, params[:sku], class: 'form-control input-sm'
+    =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
   -else
-    =text_field_tag :sku, nil, class: 'form-control input-sm'
+    =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
   %h3
     From location
   - if params.key?(:loc)
-    =text_field_tag :from, params[:loc], class: 'form-control input-sm'
+    =#text_field_tag :from, params[:loc], id: 'from_id', class: 'form-control input-sm'
+    <input list="the_list" value="#{params[:loc]}" name="from" id="from_id" class="form-control input-sm"/>
+    =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
+    <datalist id="the_list">
+    -Location.all.pluck(:name).sort.each do |loc|
+      %option= loc
+    </datalist>
   -else
-    =text_field_tag :from, nil, class: 'form-control input-sm'
+    <input list="the_list" name="from" id="from_id" class="form-control input-sm"/>
+    =#text_field_tag :to, nil, id: 'from_id', list: "the_list", class: 'form-control input-sm'
+    <datalist id="the_list">
+    -Location.all.pluck(:name).sort.each do |loc|
+      %option= loc
+    </datalist>
   %h3
     To location
-  =text_field_tag :to, nil, class: 'form-control input-sm'
+  <input list="the_other_list" name="to" id="to_id" class="form-control input-sm"/>
+  =#text_field_tag :to, nil, id: 'to_id', list: "the_other_list", class: 'form-control input-sm'
+  <datalist id="the_other_list">
+  -Location.all.pluck(:name).sort.each do |loc|
+    %option= loc
+  </datalist>
   %h3
     Quantity
   -if params.key?(:qty)
-    =text_field_tag :quantity, params[:qty], class: 'form-control input-sm'
+    =text_field_tag :quantity, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
   -else
-    =text_field_tag :quantity, nil, class: 'form-control input-sm'
+    =text_field_tag :quantity, nil,  id: 'qty_id', class: 'form-control input-sm'
   %br
   %br
-  =submit_tag 'Transfer', class: 'btn btn-primary'
-  =submit_tag 'Remove', class: 'btn btn-primary'
+  =submit_tag 'Transfer', class: 'btn btn-primary', id: 'transfer_button_id'
+  =submit_tag 'Remove', class: 'btn btn-primary', id: 'remove_button_id'

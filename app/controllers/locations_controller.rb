@@ -71,7 +71,12 @@ class LocationsController < ApplicationController
   def manage_location_result
 
 
-    if params[:commit] == "Refresh"
+    if params[:commit] == "Cancel"
+
+      redirect_to "/display_manage_location_request_screen"
+      return
+
+    elsif params[:commit] == "Refresh"
 
       new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
@@ -88,7 +93,6 @@ class LocationsController < ApplicationController
 
     elsif params['commit'] == 'Update'
 
-      begin
         the_location = Location.find_by!(name: params[:location_string])
 
         the_location.update!(
@@ -97,20 +101,19 @@ class LocationsController < ApplicationController
           user_id: session[:user_id]
 
           )
-      rescue ActiveRecord::RecordNotFound => e
-        @error_message = e.message
-        render "login/generic_error"
-        return
-      end
 
     end
 
     render 'login/generic_ok'
+    return
+
+  rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+
+    @error_message = e.message
+    render "login/generic_error"
+    return
 
   end
-
-
-
 
 
   private

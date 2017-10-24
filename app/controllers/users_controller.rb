@@ -25,7 +25,12 @@ class UsersController < ApplicationController
   def manage_user_result
 
 
-    if params[:commit] == "Refresh"
+    if params[:commit] == "Cancel"
+
+      redirect_to "/display_manage_user_request_screen"
+      return
+
+    elsif params[:commit] == "Refresh"
 
       new_place =  "/display_manage_user_request_screen/" + params[:user_string]
 
@@ -42,7 +47,6 @@ class UsersController < ApplicationController
 
     elsif params['commit'] == 'Update'
 
-      begin
 
         the_user = User.find_by!(name: params[:user_string])
 
@@ -59,14 +63,18 @@ class UsersController < ApplicationController
           )
         end
 
-      rescue ActiveRecord::RecordNotFound => e
-            @error_message = e.message
-            render login/generic_error and return
-      end
+
 
     end
 
     render 'login/generic_ok'
+    return
+
+  rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+
+    @error_message = e.message
+    render "login/generic_error"
+    return
 
   end
 

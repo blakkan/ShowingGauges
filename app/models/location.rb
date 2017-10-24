@@ -4,7 +4,11 @@ class Location < ApplicationRecord
   has_many :bins
   has_many :skus, through: :bins
 
+  
+  validates :name, presence: true
+  validates :name, uniqueness: true
+
   # Bring in shared scopes from the concerns file
   include AllActive
-  
+
 end

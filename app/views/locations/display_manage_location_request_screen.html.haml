@@ -20,6 +20,7 @@
           Is Retired?
       =check_box_tag :is_retired_string, nil, @pre_pop_is_retired, id: :is_retired_string_id, class: 'form-control input-sm'
   %br
-  =submit_tag 'Create', class: 'btn btn-primary'
-  =submit_tag 'Update', class: 'btn btn-primary'
-  =submit_tag 'Refresh', class: 'btn btn-primary'
+  =submit_tag 'Cancel', id: 'cancel_button_id', class: 'btn'
+  =submit_tag 'Create', id: 'create_button_id', class: 'btn btn-primary'
+  =submit_tag 'Update', id: 'update_button_id', class: 'btn btn-primary'
+  =submit_tag 'Refresh', id: 'refresh_button_id', class: 'btn btn-primary'

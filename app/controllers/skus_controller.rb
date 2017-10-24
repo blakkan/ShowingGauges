@@ -103,7 +103,12 @@ end
 ###################################################################################
 def manage_sku_result
 
-  if params[:commit] == "Refresh"
+  if params[:commit] == "Cancel"
+
+    redirect_to "/display_manage_sku_request_screen"
+    return
+
+  elsif params[:commit] == "Refresh"
 
     new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
     puts "going to"
@@ -127,7 +132,7 @@ def manage_sku_result
 
   elsif params['commit'] == 'Update'
 
-    begin
+
 
       the_sku = Sku.find_by!(name: params[:sku_string])
 
@@ -141,15 +146,18 @@ def manage_sku_result
         category: params[:category_string],
         cost: params[:cost_string].gsub(/[^0-9.]/,'').to_d
         )
-    rescue ActiveRecord::RecordNotFound => e
-        @error_message = e.message
-        render login/generic_error and return
-    end
 
 
   end
 
-  render 'login/generic_ok'
+    render 'login/generic_ok'
+    return
+
+  rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
+
+    @error_message = e.message
+    render "login/generic_error"
+    return
 
 end
 

@@ -1,15 +1,20 @@
 %h2
   Transfer In request:
-=form_tag '/display_transfer_in_result', method: 'get' do
+=form_tag '/display_transfer_in_result', autocomplete: 'off', method: 'get' do
   %h3
     SKU
-  =text_field_tag :sku, nil, class: 'form-control input-sm'
+  =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
   %h3
     To location
-  =text_field_tag :to, nil, class: 'form-control input-sm'
+  <input list="the_list" name="to" id="to_id" class="form-control input-sm"/>
+  =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
+  <datalist id="the_list">
+  -Location.all.pluck(:name).sort.each do |loc|
+    %option= loc
+  </datalist>
   %h3
     Quantity
-  =text_field_tag :quantity, nil, class: 'form-control input-sm'
+  =text_field_tag :quantity, nil, id: 'qty_id', class: 'form-control input-sm'
   %br
   %br
-  =submit_tag 'Submit', class: 'btn btn-primary'
+  =submit_tag 'Transfer In', id: 'transfer_in_btn_id', class: 'btn btn-primary'

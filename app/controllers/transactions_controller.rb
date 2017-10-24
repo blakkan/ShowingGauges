@@ -24,7 +24,8 @@ class TransactionsController < ApplicationController
 
     @the_display_list = []
     #TODO respect date ranges
-    #TODO replace all this with a join
+    #TODO replace all this with a join returning as_json
+
     Transaction.order(created_at: :desc).all.each do |transaction|
 
       @the_display_list << {
@@ -38,6 +39,7 @@ class TransactionsController < ApplicationController
         who: ((transaction.user_id.nil? || (not User.exists?(transaction.user_id))) ? "NA" : User.find(transaction.user_id).name)}
 
     end
+
 
     render json: @the_display_list
 

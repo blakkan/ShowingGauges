@@ -89,7 +89,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -165,7 +165,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -476,12 +476,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=location_string</td>
+	<td>id=list_input_id</td>
 	<td>*,*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -582,22 +582,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sku</td>
+	<td>id=sku_id</td>
 	<td>99-999999</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=to</td>
+	<td>id=to_id</td>
 	<td>Shelf 2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>88</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=transfer_in_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -617,22 +617,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sku</td>
+	<td>id=sku_id</td>
 	<td>80-000000</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=to</td>
+	<td>id=to_id</td>
 	<td>Shelf 2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>33</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=transfer_in_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -640,6 +640,7 @@
 	<td>css=h1</td>
 	<td>Ok</td>
 </tr>
+<!--Transfer Out-->
 <tr>
 	<td>click</td>
 	<td>link=Find stock by SKU</td>
@@ -652,7 +653,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -672,22 +673,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sku</td>
+	<td>id=sku_id</td>
 	<td>80-000000</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=from</td>
+	<td>id=from_id</td>
 	<td>Shelf 2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>11</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=transfer_out_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -702,7 +703,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -722,27 +723,27 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sku</td>
+	<td>id=sku_id</td>
 	<td>80-000000</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=from</td>
+	<td>id=from_id</td>
 	<td>Shelf 2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=to</td>
+	<td>id=to_id</td>
 	<td>Shelf 1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=remove_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -762,7 +763,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -812,17 +813,17 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=to</td>
+	<td>id=to_id</td>
 	<td>Shelf 1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=remove_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -842,7 +843,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -867,12 +868,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=remove_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -892,7 +893,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -912,22 +913,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sku</td>
+	<td>id=sku_id</td>
 	<td>53-000001</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=from</td>
+	<td>id=from_id</td>
 	<td>Shelf 2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantity</td>
+	<td>id=qty_id</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=transfer_out_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -947,7 +948,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1008,7 +1009,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=update_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1028,7 +1029,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1093,7 +1094,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=update_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1123,7 +1124,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1138,7 +1139,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1158,7 +1159,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1173,7 +1174,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1188,7 +1189,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1198,7 +1199,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1208,7 +1209,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1223,7 +1224,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1238,32 +1239,22 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=create_btn_id</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=sku_string_id</td>
-	<td>80-000000</td>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Error</td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
-	<td></td>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Validation failed: Name has already been taken</td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>link=Manage SKUs</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=sku_string_id</td>
-	<td>80-000000</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
 	<td></td>
 </tr>
 <tr>
@@ -1273,32 +1264,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=sku_string_id</td>
-	<td>53-000001</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=description_string_id</td>
-	<td>The sub assembly</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=bu_string_id</td>
-	<td>44</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Manage SKUs</td>
+	<td>id=create_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1316,6 +1282,7 @@
 	<td>link=Manage SKUs</td>
 	<td></td>
 </tr>
+<!--Location management-->
 <tr>
 	<td>click</td>
 	<td>link=Manage Locations</td>
@@ -1328,8 +1295,18 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=create_button_id</td>
 	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Validation failed: Name can't be blank</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -1343,17 +1320,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_button_id</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>link=Manage Locations</td>
-	<td></td>
-</tr>
-<tr>
-	<td>selectWindow</td>
-	<td>null</td>
 	<td></td>
 </tr>
 <tr>
@@ -1363,7 +1335,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1384,11 +1356,11 @@
 <tr>
 	<td>type</td>
 	<td>id=location_string_id</td>
-	<td>Shelf 1</td>
+	<td>Shelf 1a</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1403,13 +1375,18 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=create_button_id</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertText</td>
 	<td>css=h1</td>
-	<td>Ok</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Validation failed: Name has already been taken</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -1428,7 +1405,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1443,7 +1420,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=update_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1463,7 +1440,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=create_button_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1471,6 +1448,7 @@
 	<td>css=h1</td>
 	<td>Ok</td>
 </tr>
+<!--Manage users-->
 <tr>
 	<td>click</td>
 	<td>link=Manage Users</td>
@@ -1488,7 +1466,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1518,13 +1496,54 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[2]</td>
+	<td>id=create_btn_id</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertText</td>
 	<td>css=h1</td>
-	<td>Ok</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Validation failed: Name has already been taken</td>
+</tr>
+<!--Manage users-->
+<tr>
+	<td>click</td>
+	<td>link=Manage Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_string_id</td>
+	<td>TechB</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=refresh_btn_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=comment_string_id</td>
+	<td>comment for user 2</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_retired_string_id</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=is_admin_string_id</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_retired_string_id</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
@@ -1538,7 +1557,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//input[@name='commit'])[3]</td>
+	<td>id=refresh_btn_id</td>
 	<td></td>
 </tr>
 <tr>
@@ -1549,31 +1568,137 @@
 <tr>
 	<td>assertValue</td>
 	<td>id=is_retired_string_id</td>
-	<td>on</td>
+	<td>off</td>
 </tr>
 <tr>
 	<td>assertValue</td>
 	<td>id=is_admin_string_id</td>
-	<td>on</td>
+	<td>off</td>
 </tr>
+<tr>
+	<td>type</td>
+	<td>id=comment_string_id</td>
+	<td>comment for user 2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_retired_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=is_admin_string_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=create_btn_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h2</td>
+	<td>Validation failed: Name has already been taken</td>
+</tr>
+<!--Work with Transactions-->
 <tr>
 	<td>click</td>
 	<td>link=View Transactions</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='sizzle1508542755119']/div/table/tbody/tr[2]/td</td>
-	<td></td>
+	<td>type</td>
+	<td>//input[@id='start_date_id']</td>
+	<td>2017-10-01</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='sizzle1508542755119']/div/table/tbody/tr[4]/td[5]</td>
-	<td></td>
+	<td>type</td>
+	<td>//input[@id='end_date_id']</td>
+	<td>2017-10-01</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=commit</td>
+	<td>id=submit_btn_id</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[3]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[4]</td>
+	<td>NA</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[5]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[6]</td>
+	<td>-</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr/td[8]</td>
+	<td>TechA</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td</td>
+	<td>53-000001</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[3]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[4]</td>
+	<td>Shelf 2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[5]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[6]</td>
+	<td>Transaction two comment</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='the_transactions_table_id']/tbody/tr[8]/td[8]</td>
+	<td>TechB</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Transactions</td>
 	<td></td>
 </tr>
 <!---->

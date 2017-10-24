@@ -3,13 +3,27 @@
 =form_tag '/display_transfer_out_result', method: 'get' do
   %h3
     SKU
-  =text_field_tag :sku, nil, class: 'form-control input-sm'
+  =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
   %h3
     From location
-  =text_field_tag :from, nil, class: 'form-control input-sm'
+  - if params.key?(:loc)
+    =#text_field_tag :from, params[:loc], id: 'from_id', class: 'form-control input-sm'
+    <input list="the_list" value="#{params[:loc]}" name="from" id="from_id" class="form-control input-sm"/>
+    =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
+    <datalist id="the_list">
+    -Location.all.pluck(:name).sort.each do |loc|
+      %option= loc
+    </datalist>
+  -else
+    <input list="the_list" name="from" id="from_id" class="form-control input-sm"/>
+    =#text_field_tag :to, nil, id: 'from_id', list: "the_list", class: 'form-control input-sm'
+    <datalist id="the_list">
+    -Location.all.pluck(:name).sort.each do |loc|
+      %option= loc
+    </datalist>
   %h3
     Quantity
-  =text_field_tag :quantity, nil, class: 'form-control input-sm'
+  =text_field_tag :quantity, nil, id: 'qty_id', class: 'form-control input-sm'
   %br
   %br
-  =submit_tag 'Submit', class: 'btn btn-primary'
+  =submit_tag 'Submit', id: 'transfer_out_btn_id', class: 'btn btn-primary'

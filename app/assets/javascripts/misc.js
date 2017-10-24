@@ -31,9 +31,11 @@ $(document).ready (
 
 
 
-    $(function () {
-      $('.datetimepicker_class input').datepicker();
-      });
+
 
   }
 );
+
+$(function () {
+  $('.datetimepicker_class input').datepicker();
+  });

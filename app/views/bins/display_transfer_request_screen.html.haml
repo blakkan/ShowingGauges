@@ -1,44 +1,70 @@
 %h2
   Transfer request:
 =form_tag '/display_transfer_result', method: 'get' do
-  %h3
-    SKU
-  -if params.key?(:sku)
-    =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
-  -else
-    =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
-  %h3
-    From location
-  - if params.key?(:loc)
-    =#text_field_tag :from, params[:loc], id: 'from_id', class: 'form-control input-sm'
-    <input list="the_list" value="#{params[:loc]}" name="from" id="from_id" class="form-control input-sm"/>
-    =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
-    <datalist id="the_list">
-    -Location.all.pluck(:name).sort.each do |loc|
-      %option= loc
-    </datalist>
-  -else
-    <input list="the_list" name="from" id="from_id" class="form-control input-sm"/>
-    =#text_field_tag :to, nil, id: 'from_id', list: "the_list", class: 'form-control input-sm'
-    <datalist id="the_list">
-    -Location.all.pluck(:name).sort.each do |loc|
-      %option= loc
-    </datalist>
-  %h3
-    To location
-  <input list="the_other_list" name="to" id="to_id" class="form-control input-sm"/>
-  =#text_field_tag :to, nil, id: 'to_id', list: "the_other_list", class: 'form-control input-sm'
-  <datalist id="the_other_list">
-  -Location.all.pluck(:name).sort.each do |loc|
-    %option= loc
-  </datalist>
-  %h3
-    Quantity
-  -if params.key?(:qty)
-    =text_field_tag :quantity, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
-  -else
-    =text_field_tag :quantity, nil,  id: 'qty_id', class: 'form-control input-sm'
+  %div.row
+    %div.col-md-4
+      %label{for: :sku_id}
+        %h3
+          SKU
+      -if params.key?(:sku)
+        =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
+      -else
+        =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
+    %div.col-md-4
+      %label{for: :from_id}
+        %h3
+          From location
+      - if params.key?(:loc)
+        =#text_field_tag :from, params[:loc], id: 'from_id', class: 'form-control input-sm'
+        <input list="the_list" value="#{params[:loc]}" name="from" id="from_id" class="form-control input-sm"/>
+        =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
+        <datalist id="the_list">
+        -Location.all.pluck(:name).sort.each do |loc|
+          %option= loc
+        </datalist>
+      -else
+        <input list="the_list" name="from" id="from_id" class="form-control input-sm"/>
+        =#text_field_tag :to, nil, id: 'from_id', list: "the_list", class: 'form-control input-sm'
+        <datalist id="the_list">
+        -Location.all.pluck(:name).sort.each do |loc|
+          %option= loc
+        </datalist>
+    %div.col-md-4
+      %label{for: :to_id}
+        %h3
+          To location
+      <input list="the_other_list" name="to" id="to_id" class="form-control input-sm"/>
+      =#text_field_tag :to, nil, id: 'to_id', list: "the_other_list", class: 'form-control input-sm'
+      <datalist id="the_other_list">
+      -Location.all.pluck(:name).sort.each do |loc|
+        %option= loc
+      </datalist>
+  %div.row
+    %div.col-md-6
+      %label{for: :qoh_id}
+        %h3
+          Quantity On Hand
+      -if params.key?(:qty)
+        =text_field_tag :qoh, params[:qty],  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
+      -else
+        =text_field_tag :qoh, "0",  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
+    %div.col-md-6
+      %label{for: :qty_id}
+        %h3
+          Quantity To Transfer
+      -if params.key?(:qty)
+        =text_field_tag :quantity, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
+      -else
+        =text_field_tag :quantity, nil,  id: 'qty_id', class: 'form-control input-sm'
+  %div.row
+    %div.col-md-12
+      %label{for: :comment_id}
+        %h3
+          Transfer Comment
+      =text_field_tag :comment, nil,  id: 'comment_id', class: 'form-control input-sm'
   %br
   %br
-  =submit_tag 'Transfer', class: 'btn btn-primary', id: 'transfer_button_id'
-  =submit_tag 'Remove', class: 'btn btn-primary', id: 'remove_button_id'
+  =submit_tag 'Cancel', id: 'cancel_btn_id', class: 'btn btn-default'
+  =submit_tag 'Transfer', class: 'btn btn-primary', id: 'transfer_btn_id'
+  =submit_tag 'Add to Stock', class: 'btn btn-primary', id: 'import_btn_id'
+  =submit_tag 'Remove from Stock', class: 'btn btn-primary', id: 'remove_btn_id'

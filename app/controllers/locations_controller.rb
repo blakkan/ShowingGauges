@@ -10,8 +10,13 @@ class LocationsController < ApplicationController
 
   def display_shelf_items
 
-    @a_location_pattern = params[:location_string]
-
+    if params[:commit] == "Cancel"
+      redirect_back fallback_location: "/display_find_shelf_items_screen",
+        notice: "Operation Cancelled"
+      return
+    else
+      @a_location_pattern = params[:location_string]
+    end
   end
 
   def shelf_item_matching
@@ -54,7 +59,8 @@ class LocationsController < ApplicationController
         @pre_pop_is_retired = the_location.is_retired
       rescue ActiveRecord::RecordNotFound => e
         @error_message = e.message
-        render "login/generic_error"
+        redirect_back fallback_location: "/display_manage_location_request_screen",
+          alert: @error_message
         return
       end
     else
@@ -73,7 +79,8 @@ class LocationsController < ApplicationController
 
     if params[:commit] == "Cancel"
 
-      redirect_to "/display_manage_location_request_screen"
+      redirect_back fallback_location: "/display_manage_location_request_screen",
+        notice: "Operation Cancelled"
       return
 
     elsif params[:commit] == "Refresh"
@@ -104,13 +111,15 @@ class LocationsController < ApplicationController
 
     end
 
-    render 'login/generic_ok'
+    redirect_back fallback_location: "/display_manage_location_request_screen",
+      notice: "Location #{params[:location_string]} updated"
     return
 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
-    render "login/generic_error"
+    redirect_back fallback_location: "/display_manage_location_request_screen",
+      alert: @error_message
     return
 
   end

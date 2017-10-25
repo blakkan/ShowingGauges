@@ -10,8 +10,6 @@
       <li class='nav-item'><%= link_to 'Find stock by SKU', '/display_find_skus_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'Find stock by Loc', '/display_find_shelf_items_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'Transfer', '/display_transfer_request_screen', class: 'nav-link' %></li>
-      <li class='nav-item'><%= link_to 'Transfer In', '/display_transfer_in_request_screen', class: 'nav-link' %></li>
-      <li class='nav-item'><%= link_to 'Transfer Out', '/display_transfer_out_request_screen', class: 'nav-link' %></li>
 
       <% if session[:user_id] && User.find(session[:user_id]) && User.find(session[:user_id]).capabilities =~ /admin/ %>
       <li class='nav-item'><%= link_to 'Manage SKUs', '/display_manage_sku_request_screen', class: 'nav-link' %></li>

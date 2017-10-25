@@ -27,13 +27,13 @@ class UsersController < ApplicationController
 
     if params[:commit] == "Cancel"
 
-      redirect_to "/display_manage_user_request_screen"
-      return
+      redirect_back fallback_location: "/display_manage_user_request_screen",
+        notice: "Operation Cancelled"
+        return
 
     elsif params[:commit] == "Refresh"
 
       new_place =  "/display_manage_user_request_screen/" + params[:user_string]
-
       redirect_to new_place
       return
 
@@ -67,13 +67,15 @@ class UsersController < ApplicationController
 
     end
 
-    render 'login/generic_ok'
+    redirect_back fallback_location: "/display_manage_user_request_screen",
+      notice: "User information updated"
     return
 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
-    render "login/generic_error"
+    redirect_back fallback_location: "/display_manage_user_request_screen",
+      alert: @error_message
     return
 
   end

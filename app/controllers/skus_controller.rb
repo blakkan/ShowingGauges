@@ -11,7 +11,13 @@ end
 
 def display_skus
 
-  @a_sku_pattern = params[:sku_string]
+  if params[:commit] == "Cancel"
+    redirect_back fallback_location: "/display_find_skus_screen",
+      notice: "Operation Cancelled"
+    return
+  else
+    @a_sku_pattern = params[:sku_string]
+  end
 
 end
 
@@ -105,7 +111,8 @@ def manage_sku_result
 
   if params[:commit] == "Cancel"
 
-    redirect_to "/display_manage_sku_request_screen"
+    redirect_back fallback_location: "/display_manage_sku_request_screen",
+      notice: "Operation Cancelled"
     return
 
   elsif params[:commit] == "Refresh"
@@ -148,13 +155,15 @@ def manage_sku_result
 
   end
 
-    render 'login/generic_ok'
+    redirect_back fallback_location: "/display_manage_sku_request_screen",
+      notice: "SKU information updated"
     return
 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
-    render "login/generic_error"
+    redirect_back fallback_location: "/display_manage_sku_request_screen",
+      alert: @error_message
     return
 
 end

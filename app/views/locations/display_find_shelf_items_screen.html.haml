@@ -5,4 +5,10 @@
     %div.col-md-6
       =text_field_tag(:location_string, (session.key?(:location_string) ? session[:location_string] : ''), id: 'list_input_id', class: 'form-control input-sm')
     %div.col-md-6
-      =submit_tag :Submit, id: 'submit_button_id', class: 'btn btn-primary'
+  %br
+  %br
+  %div.row
+    %div.col-md-4
+      =submit_tag 'Cancel', id: "cancel_btn_id", class: 'btn btn-default'
+      =submit_tag 'Submit', id: "submit_btn_id", class: 'btn btn-primary'
+    %div.col-md-8

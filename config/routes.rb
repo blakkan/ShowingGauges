@@ -4,11 +4,6 @@ Rails.application.routes.draw do
 
 
   get 'display_login_screen' => 'login#display_login_screen'
-  get 'display_find_sku_screen' => 'controller#method'
-  get 'display_shelf_list_screen' => 'controller#method'
-  get 'display_transfer_screen' => 'controller#method'
-  get 'display_transfer_in_screen' => 'controller#method'
-  get 'display_transfer_out_screen' => 'controller#method'
 
   get 'set_session_name/:user_name' => 'login#set_session_name'
   get 'set_session_name' => 'login#set_session_name'

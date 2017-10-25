@@ -4,7 +4,8 @@ class BinsController < ApplicationController
     # Transfer from one bin to another
     #
     ###########################################################
-    def display_transfer_request_screen; end
+    def display_transfer_request_screen
+    end
 
     def display_transfer_result
         # view will pre-populate FROM string if in params[:from]
@@ -17,9 +18,25 @@ class BinsController < ApplicationController
         # validation do various checks (e.g. attempt to go below zero)
 
         # short circuit over to transfer out
-        return display_transfer_out_result if params[:commit] == 'Remove'
 
-        ActiveRecord::Base.transaction do
+        if params[:commit] == "Cancel"
+
+          redirect_back fallback_location: "/display_find_skus_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+            notice: "Action Cancelled"
+          return
+
+        elsif params[:commit] == "Add to Stock"
+          return display_transfer_in_result
+
+        elsif params[:commit] == "Remove from Stock"
+          return display_transfer_out_result
+
+        else
+
+          qty_now = 0
+
+          ActiveRecord::Base.transaction do
+
             action_tracker = 'find sku id'
 
             # Find destination bin with matching sku and location
@@ -58,22 +75,27 @@ class BinsController < ApplicationController
                 dest_bin.qty += params[:quantity].to_i
                 dest_bin.save!
                 # dest_bin.increment!(:qty, params[:quantity].to_i)
-
+                qty_now = dest_bin.qty
             end
 
             src_bin.destroy! if src_bin.qty < 1
 
             Transaction.create!(from_id: src_location_id, to_id: dest_location_id,
                                 qty: params[:quantity].to_i,
-                                sku_id: src_sku_id, user_id: session[:user_id])
+                                sku_id: src_sku_id, user_id: session[:user_id],
+                                comment: params[:comment])
         end
+      end
 
-        render template: 'login/generic_ok'
+      redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        notice: "Success"
 
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
           @error_message = e.message
-          render template: 'login/generic_error'
+          #render template: 'login/generic_error'
+          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+            alert: @error_message
       end
 
     ##########################################################
@@ -90,12 +112,28 @@ class BinsController < ApplicationController
         # Need to update bins in a transaction; will have model
         # validation do various checks (e.g. attempt to go below zero)
 
+        if params[:commit] == "Cancel"
+
+          redirect_back fallback_location: "/display_transfer_request_screen",
+            notice: "Operation Cancelled"
+          return
+
+        elsif params[:to].nil? or params[:to] !~ /\S/
+          @error_message = "Must have a \"To Location \" to transfer new items into."
+          redirect_back fallback_location: "/display_transfer_request_screen",
+           alert: @error_message
+          return
+        end
+
+
+        qty_now = 0
+
         ActiveRecord::Base.transaction do
             # find the bin in question, creating a destination
             # bin if necessary
 
             # Find destination bin with matching sku and location
-
+            puts "About to try"
             dest_sku_id = Sku.find_by!(name: params[:sku]).id
             dest_location_id = Location.find_by!(name: params[:to]).id
 
@@ -113,19 +151,25 @@ class BinsController < ApplicationController
                 dest_bin.qty += params[:quantity].to_i
                 dest_bin.save!
 
+                qty_now = dest_bin.qty
+
             end
 
             Transaction.create!(to_id: dest_location_id,
                                 qty: params[:quantity].to_i,
                                 sku_id: dest_sku_id, user_id: session[:user_id])
-        end
+        end  #end of transaction
 
-        render template: 'login/generic_ok'
+
+          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+             notice: "Success"
 
       rescue ActiveRecord::RecordNotFound => e
 
-          @error_message = e.message
-          render template: 'login/generic_error'
+        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+          alert: @error_message
+
+
       end
 
     #########################################################
@@ -142,6 +186,15 @@ class BinsController < ApplicationController
         # Need to update bins in a transaction; will have model
         # validation do various checks (e.g. attempt to go below zero)
 
+        if params[:commit] == "Cancel"
+
+          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+            notice: "Operation Cancelled"
+          return
+        end
+
+        qty_now = 0
+
         ActiveRecord::Base.transaction do
             # Find destination bin with matching sku and location
 
@@ -150,7 +203,7 @@ class BinsController < ApplicationController
             src_bin = Bin.find_by!(sku_id: src_sku_id, location_id: src_location_id)
 
             ## don't use decrement!, it bypasses validations
-            src_bin.qty -= params[:quantity].to_i
+            qty_now = src_bin.qty -= params[:quantity].to_i
             src_bin.save!
             # src_bin.decrement!(:qty, params[:quantity].to_i)
 
@@ -161,11 +214,15 @@ class BinsController < ApplicationController
                                 sku_id: src_sku_id, user_id: session[:user_id])
         end
 
-        render template: 'login/generic_ok'
+        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+                    notice: "Success"
+
 
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
-          @error_message = e.message
-          render template: 'login/generic_error'
+        @error_message = e.message
+        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+          alert: @error_message
+
       end
 end

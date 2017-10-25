@@ -16,6 +16,14 @@ class TransactionsController < ApplicationController
 
   def display_all_transactions
 
+
+    if params[:commit] == "Cancel"
+
+      redirect_back fallback_location: "/display_transactions_request_screen",
+        notice: "Operation Cancelled"
+      return
+
+    else
       # Scrub dates
       @the_start_date = @the_end_date = nil
 
@@ -30,7 +38,7 @@ class TransactionsController < ApplicationController
         @the_end_date = Date.parse("2101-01-01")
       end
 
-
+end
 
   end
 

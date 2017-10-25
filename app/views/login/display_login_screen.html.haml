@@ -1,11 +1,13 @@
 %h2
   Login
 =form_tag '/set_session_name', method: 'get' do
-  %label{for: "user_name_id"}
-    %h3
-      Input user name
-    %div.row
-      %div.col-md-6
-        =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
-      %div.col-md-6
-        =submit_tag 'Submit', id: "submit_id", class: 'btn btn-primary'
+  %div.row
+    %div.col-md-6
+      =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
+    %div.col-md-6
+  %br
+  %br
+  %div.row
+    %div.col-md-2
+      =submit_tag 'Submit', id: "submit_btn_id", class: 'btn btn-primary'
+    %div.col-md-10

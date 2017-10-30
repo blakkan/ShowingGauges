@@ -26,7 +26,14 @@
         Is Admin?
       =check_box_tag :is_admin_string, nil, @pre_pop_is_admin, id: :is_admin_string_id, class: 'form-control input-sm'
 
-    %div.col-md-8
+    %div.col-md-2
+      %label{for: :reset_password_string_id}
+      %h3
+        Reset password?
+      =check_box_tag :reset_password_string, nil, nil, id: :reset_password_string_id, class: 'form-control input-sm'
+
+
+    %div.col-md-6
   %br
   %br
   =submit_tag 'Cancel', id: "cancel_btn_id", class: 'btn'

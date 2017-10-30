@@ -59,7 +59,7 @@ class UsersController < ApplicationController
         # clear password if requested
         if params.key?(:reset_password_string)
           the_user.update!(
-            encrypted_password_string: ''
+            encrypted_password: ''
           )
         end
 

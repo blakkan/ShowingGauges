@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'set_session_name/:user_name' => 'login#set_session_name'
   get 'set_session_name' => 'login#set_session_name'
 
+  get 'display_change_password_screen' => 'login#display_change_password_screen'
+  get 'change_password_result' => 'login#change_password_result'
+
   get 'display_manage_user_request_screen/:user_string_from_url' => 'users#display_manage_user_request_screen'
   get 'display_manage_user_request_screen' => 'users#display_manage_user_request_screen'
   get 'manage_user_result' => 'users#manage_user_result'

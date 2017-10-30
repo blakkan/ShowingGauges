@@ -5,7 +5,7 @@ class SkuTest < ActiveSupport::TestCase
   test 'create sku' do
 
     current_count = Sku.count()
-    Sku.create!(name: "Zippy")
+    Sku.create!(name: "Zippy", user_id: 1)
     assert Sku.count() == current_count + 1
     Sku.find_by!(name: "Zippy").destroy!
     assert Sku.count() == current_count

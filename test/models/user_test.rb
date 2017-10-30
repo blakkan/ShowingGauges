@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   test 'create user' do
 
     current_count = User.count()
-    User.create!(name: "Zippy")
+    User.create!(name: "Zippy", user_id: 1)
     assert User.count() == current_count + 1
     User.find_by!(name: "Zippy").destroy!
     assert User.count() == current_count

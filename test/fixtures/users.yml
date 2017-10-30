@@ -7,6 +7,9 @@ one:
   #encrypted_password: nil
   is_retired: false
   capabilities: "admin"
+  #Note that the initial user created itself...
+  user_id: 1
+
 
 two:
   id: 2
@@ -15,3 +18,5 @@ two:
   encrypted_password: ""
   is_retired: false
   capabilities: ""
+  # created by the first admin user
+  user_id: 1

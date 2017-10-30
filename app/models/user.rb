@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   # Bring in shared scopes from the concerns file
   include AllActive
+  include AdminValidator
+
+  validates_with AdminValidator
+
 
   # Define any of our own scopes for the user
 

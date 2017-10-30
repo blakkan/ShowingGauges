@@ -6,9 +6,9 @@ class LocationTest < ActiveSupport::TestCase
     test 'create Location' do
 
       current_count = Location.count()
-      Location.create!(name: "Zippy")
+      Location.create!(name: "Zippy", user_id: 1)
       assert Location.count() == current_count + 1
-      Location.find_by!(name: "Zippy").destroy!
+      Location.find_by!(name: "Zippy", user_id: 1).destroy!
       assert Location.count() == current_count
 
     end
@@ -33,9 +33,11 @@ class LocationTest < ActiveSupport::TestCase
     test "the scope from the model concerns" do
 
       assert Location.all_active.pluck(:name).sort == ["Shelf 1", "Shelf 2"]
-      Location.find_by(name: "Shelf 2").update_attributes!(is_retired: true)
+      Location.find_by(name: "Shelf 2").update_attributes!(is_retired: true, user_id: 1)
       assert Location.all_active.pluck(:name).sort == [ "Shelf 1" ]
-      Location.find_by(name: "Shelf 2").update_attributes!(is_retired: false)
+
+
+      Location.find_by(name: "Shelf 2").update_attributes!(is_retired: false, user_id: 1)
       assert Location.all_active.pluck(:name).sort == ["Shelf 1", "Shelf 2"]
     end
 

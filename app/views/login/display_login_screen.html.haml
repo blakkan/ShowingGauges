@@ -3,11 +3,24 @@
 =form_tag '/set_session_name', method: 'get' do
   %div.row
     %div.col-md-6
+      %label{ for: :user_name_id }
+        %h3
+          Login Name
       =text_field_tag :user_name, nil, id: "user_name_id", class: 'form-control input-sm'
+    %div.col-md-6
+  %br
+  %div.row
+    %div.col-md-6
+      %label{ for: :user_name_id }
+        %h3
+          Password
+      =text_field_tag :user_password, nil, id: "user_password_id", class: 'form-control input-sm'
     %div.col-md-6
   %br
   %br
   %div.row
-    %div.col-md-2
+    %div.col-md-1
       =submit_tag 'Submit', id: "submit_btn_id", class: 'btn btn-primary'
+    %div.col-md-1
+      =submit_tag 'Change Password', id: "change_password_id", class: 'btn btn-primary'
     %div.col-md-10

@@ -79,7 +79,7 @@ class LoginController < ApplicationController
 
       else
           User.find(session[:user_id]).update_attribute(
-            encrypted_password: Digest::MD5.hexdigest(params[:user_password]))
+            :encrypted_password, Digest::MD5.hexdigest(params[:user_password]))
           redirect_to '/', notice: 'Password Changed'
       end
 

@@ -91,7 +91,7 @@ def all_skus_as_json
       "skus.cost as cost, users.name as user_name").as_json
 
     # Now decimal conversion to currency
-    @the_display_list.map! do |x|      x['extended'] =  ActionController::Base.helpers.number_to_currency(x['cost'] * x['qty'])
+    @the_display_list.map! do |x|
       x['cost'] = ActionController::Base.helpers.number_to_currency(x['cost'])
       x
     end
@@ -161,6 +161,14 @@ def manage_sku_result
 
       redirect_to new_place
       return
+
+
+
+  elsif params['commit'] == 'List All SKU Types'
+
+    redirect_to "/display_sku_catalog"
+    return
+
   end
 
     redirect_back fallback_location: "/display_manage_sku_request_screen",

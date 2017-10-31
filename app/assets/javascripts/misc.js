@@ -55,6 +55,12 @@ $(document).ready (
         '/' + row['loc'];
         return false; //cut off any further processing
 
+      } else if  ( field == 'user' ) {
+
+        window.location.href = "/display_manage_user_request_screen" +
+          '/' + row['user'];
+          return false; //cut off any further processing
+
       } else {
         return false;
       } //end of choice

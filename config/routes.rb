@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'display_manage_user_request_screen/:user_string_from_url' => 'users#display_manage_user_request_screen'
   get 'display_manage_user_request_screen' => 'users#display_manage_user_request_screen'
   get 'manage_user_result' => 'users#manage_user_result'
-
+  get 'display_user_catalog' => 'users#display_user_catalog'
+  get 'all_users_as_json.json' => 'users#all_users_as_json'
 
   get 'display_find_skus_screen' => 'skus#display_find_skus_screen'
   get 'display_skus' => 'skus#display_skus'
@@ -36,6 +37,10 @@ Rails.application.routes.draw do
   get 'display_manage_location_request_screen/:location_string_from_url' => 'locations#display_manage_location_request_screen'
   get 'manage_location_result' => 'locations#manage_location_result'
   get 'shelf_item_matching.json/:match_string' => 'locations#shelf_item_matching'
+  get 'display_location_catalog' => 'locations#display_location_catalog'
+  get 'all_locations_as_json.json' => 'locations#all_locations_as_json'
+
+
 
   get 'display_transfer_request_screen/:sku/:loc/:qty' => 'bins#display_transfer_request_screen'
   get 'display_transfer_request_screen' => 'bins#display_transfer_request_screen'

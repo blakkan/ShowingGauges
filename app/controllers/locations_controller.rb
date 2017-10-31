@@ -119,6 +119,12 @@ class LocationsController < ApplicationController
         redirect_to new_place
         return
 
+      elsif params['commit'] == 'List All Locations'
+
+        redirect_to "/display_location_catalog"
+        return
+
+
     end
 
     redirect_back fallback_location: "/display_manage_location_request_screen",
@@ -134,6 +140,20 @@ class LocationsController < ApplicationController
 
   end
 
+  def display_location_catalog
+
+  end
+
+  def all_locations_as_json
+
+    @the_display_list = []
+
+    @the_display_list = Location.select(
+        "locations.name as loc, comment").as_json
+
+    render json: @the_display_list
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

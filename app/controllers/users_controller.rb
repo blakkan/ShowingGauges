@@ -74,6 +74,11 @@ class UsersController < ApplicationController
         redirect_to new_place
         return
 
+      elsif params['commit'] == 'List All Users'
+
+        redirect_to "/display_user_catalog"
+        return
+
     end
 
     redirect_back fallback_location: "/display_manage_user_request_screen",
@@ -90,6 +95,20 @@ class UsersController < ApplicationController
   end
 
 
+  def display_user_catalog
+
+  end
+
+  def all_users_as_json
+
+    @the_display_list = []
+
+    @the_display_list = User.select(
+        "users.name as user, users.comment as comment, users.capabilities as capabilities").as_json
+
+    render json: @the_display_list
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

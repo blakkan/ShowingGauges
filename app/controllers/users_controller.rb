@@ -45,6 +45,12 @@ class UsersController < ApplicationController
           capabilities:  params.key?(:is_admin_string) ? "admin" : ''
         )
 
+        new_place =  "/display_manage_user_request_screen/" + params[:user_string]
+
+        redirect_to new_place
+        return
+
+
     elsif params['commit'] == 'Update'
 
 
@@ -63,7 +69,10 @@ class UsersController < ApplicationController
           )
         end
 
+        new_place =  "/display_manage_user_request_screen/" + params[:user_string]
 
+        redirect_to new_place
+        return
 
     end
 

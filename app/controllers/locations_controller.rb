@@ -98,6 +98,11 @@ class LocationsController < ApplicationController
         user_id: session[:user_id]
       )
 
+      new_place =  "/display_manage_location_request_screen/" + params[:location_string]
+
+      redirect_to new_place
+      return
+
     elsif params['commit'] == 'Update'
 
         the_location = Location.find_by!(name: params[:location_string])
@@ -108,6 +113,11 @@ class LocationsController < ApplicationController
           user_id: session[:user_id]
 
           )
+
+        new_place =  "/display_manage_location_request_screen/" + params[:location_string]
+
+        redirect_to new_place
+        return
 
     end
 

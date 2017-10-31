@@ -135,6 +135,11 @@ def manage_sku_result
       cost: params[:cost_string].gsub(/[^0-9.]/,'').to_d
     )
 
+    new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
+
+    redirect_to new_place
+    return
+
   elsif params['commit'] == 'Update'
 
 
@@ -152,7 +157,10 @@ def manage_sku_result
         cost: params[:cost_string].gsub(/[^0-9.]/,'').to_d
         )
 
+      new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
 
+      redirect_to new_place
+      return
   end
 
     redirect_back fallback_location: "/display_manage_sku_request_screen",

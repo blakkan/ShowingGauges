@@ -137,7 +137,7 @@ def manage_sku_result
 
     new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
 
-    redirect_to new_place
+    redirect_to new_place, notice: "Created #{params[:sku_string]}"
     return
 
   elsif params['commit'] == 'Update'
@@ -159,9 +159,30 @@ def manage_sku_result
 
       new_place =  "/display_manage_sku_request_screen/" + params[:sku_string]
 
-      redirect_to new_place
+      redirect_to new_place, notice: "Updated #{params[:sku_string]}"
       return
 
+    elsif params['commit'] == 'Delete'
+
+
+        the_sku = Sku.find_by!(name: params[:sku_string])
+
+        # If there are some bins with a quantity of this sku, can't do it
+        if ( Bin.where(sku_id: the_sku.id).count != 0 ||
+           Transaction.where(["sku_id = ?", the_sku.id ]).count != 0 )
+          redirect_back fallback_location: "/display_manage_sku_request_screen/" + params[:sku_string],
+          alert: "Cannot delete sku type #{params[:sku_string]} since there is inventory in some location or a transaction record"
+          return
+
+          # otherwise, if there is no quanity, go ahead and delete
+        else
+          the_sku.destroy!
+          redirect_back fallback_location: "/display_manage_sku_request_screen",
+            notice: "Deleted #{params[:sku_string]}"
+
+          return
+
+      end
 
 
   elsif params['commit'] == 'List All SKU Types'

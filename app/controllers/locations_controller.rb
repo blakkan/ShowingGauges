@@ -100,7 +100,7 @@ class LocationsController < ApplicationController
 
       new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
-      redirect_to new_place
+      redirect_to new_place, notice: "Created #{params[:location_string]}"
       return
 
     elsif params['commit'] == 'Update'
@@ -116,8 +116,29 @@ class LocationsController < ApplicationController
 
         new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
-        redirect_to new_place
+        redirect_to new_place, notice: "Updated #{params[:location_string]}"
         return
+
+      elsif params['commit'] == 'Delete'
+
+
+          the_loc = Location.find_by!(name: params[:location_string])
+
+          # If there are some bins with a quantity of this sku, can't do it
+          if (Bin.where(location_id: the_loc.id).count != 0 ||
+              Transaction.where(["from_id = ? or to_id = ?", the_sku.id, the_sku.id ] ).count != 0 )
+            redirect_back fallback_location: "/display_manage_location_request_screen/" + params[:location_string],
+            alert: "Cannot delete location #{params[:location_string]} since there is inventory in it or a transaction record"
+            return
+          # otherwise, if there is no quanity, go ahead and delete
+          else
+            the_loc.destroy!
+            redirect_back fallback_location: "/display_manage_location_request_screen",
+              notice: "Deleted #{params[:location_string]}"
+
+          return
+
+        end
 
       elsif params['commit'] == 'List All Locations'
 

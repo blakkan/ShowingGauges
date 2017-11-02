@@ -57,6 +57,6 @@ Rails.application.routes.draw do
 
   get 'display_transactions_request_screen' => 'transactions#display_transactions_request_screen'
   get 'display_all_transactions' => 'transactions#display_all_transactions'
-  get 'transactions_found.json/:start_date_requested/:end_date_requested' => 'transactions#transaction_found'
+  get 'transactions_found.json/:start_date_name/:end_date_name' => 'transactions#transaction_found'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

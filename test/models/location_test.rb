@@ -13,6 +13,21 @@ class LocationTest < ActiveSupport::TestCase
 
     end
 
+    #Try to create a location with a non-admin user_id, should fail
+    test 'create Location by non-amin user' do
+      current_count = Location.count()
+
+      exception = assert_raises ActiveRecord::RecordInvalid do
+        Location.create!(name: "Zippy", user_id: 2)
+      end
+
+      assert exception.message =~ /Only admin users may update this/
+
+      assert Location.count() == current_count
+
+    end
+
+
     test 'find locations fixtures' do
 
       l = Location.find_by(name: "Shelf 1")

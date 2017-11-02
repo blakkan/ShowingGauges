@@ -25,20 +25,9 @@ class TransactionsController < ApplicationController
 
     else
       # Scrub dates
-      @the_start_date = @the_end_date = nil
+      @the_start_date, @the_end_date = scrubbed_dates()
 
-      begin
-        @the_start_date = Date.parse(params[:start_date_name])
-      rescue ArgumentError
-        @the_start_date = Date.parse("1901-01-01")
-      end
-      begin
-        @the_end_date = Date.parse(params[:end_date_name])
-      rescue ArgumentError
-        @the_end_date = Date.parse("2101-01-01")
-      end
-
-end
+    end
 
   end
 
@@ -47,18 +36,8 @@ end
 
     @the_display_list = []
 
-    begin
-      the_start_date = Date.parse(params[:start_date_requested])
-    rescue ArgumentError
-      the_start_date = Date.parse("1901-01-01")
-    end
-    begin
-      the_end_date = Date.parse(params[:end_date_requested])
-    rescue ArgumentError
-      the_end_date = Date.parse("2101-01-01")
-    end
 
-
+    the_start_date, the_end_date = scrubbed_dates()
 
     #TODO replace all this with a join returning as_json
 
@@ -84,6 +63,25 @@ end
   end
 
   private
+
+    def scrubbed_dates
+      the_start_date = the_end_date = nil
+      begin
+        the_start_date = Date.parse(params[:start_date_name])
+      rescue ArgumentError, TypeError
+        the_start_date = Date.parse("1901-01-01")
+      end
+      begin
+        the_end_date = Date.parse(params[:end_date_name])
+      rescue ArgumentError, TypeError
+        the_end_date = Date.parse("2101-01-01")
+      end
+
+      return the_start_date, the_end_date
+
+    end
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
       @transaction = Transaction.find(params[:id])

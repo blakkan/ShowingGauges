@@ -81,16 +81,17 @@ class LocationsController < ApplicationController
 
       redirect_back fallback_location: "/display_manage_location_request_screen",
         notice: "Operation Cancelled"
-      return
+
 
     elsif params[:commit] == "Refresh"
 
-      new_place =  "/display_manage_location_request_screen/" + params[:location_string]
+      new_place =  "/display_manage_location_request_screen" + (params[:location_string].nil? ? '' : ("/" + params[:location_string]))
 
       redirect_to new_place
-      return
+
 
     elsif params['commit'] == "Create"
+
 
       Location.create!(name: params[:location_string],
         comment: params[:comment_string],
@@ -101,7 +102,7 @@ class LocationsController < ApplicationController
       new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
       redirect_to new_place, notice: "Created #{params[:location_string]}"
-      return
+
 
     elsif params['commit'] == 'Update'
 
@@ -117,7 +118,7 @@ class LocationsController < ApplicationController
         new_place =  "/display_manage_location_request_screen/" + params[:location_string]
 
         redirect_to new_place, notice: "Updated #{params[:location_string]}"
-        return
+
 
       elsif params['commit'] == 'Delete'
 
@@ -126,31 +127,28 @@ class LocationsController < ApplicationController
 
           # If there are some bins with a quantity of this sku, can't do it
           if (Bin.where(location_id: the_loc.id).count != 0 ||
-              Transaction.where(["from_id = ? or to_id = ?", the_sku.id, the_sku.id ] ).count != 0 )
+              Transaction.where(["from_id = ? or to_id = ?", the_loc.id, the_loc.id ] ).count != 0 )
             redirect_back fallback_location: "/display_manage_location_request_screen/" + params[:location_string],
             alert: "Cannot delete location #{params[:location_string]} since there is inventory in it or a transaction record"
-            return
+
           # otherwise, if there is no quanity, go ahead and delete
           else
             the_loc.destroy!
-            redirect_back fallback_location: "/display_manage_location_request_screen",
+            redirect_to "/display_manage_location_request_screen",
               notice: "Deleted #{params[:location_string]}"
 
-          return
+
 
         end
 
       elsif params['commit'] == 'List All Locations'
 
         redirect_to "/display_location_catalog"
-        return
+
 
 
     end
 
-    redirect_back fallback_location: "/display_manage_location_request_screen",
-      notice: "Location #{params[:location_string]} updated"
-    return
 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 

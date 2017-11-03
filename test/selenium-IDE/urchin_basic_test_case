@@ -79,6 +79,11 @@
 	<td>TechA</td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=user_password_id</td>
+	<td>john</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>id=submit_btn_id</td>
 	<td></td>
@@ -101,8 +106,8 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>link=Manage SKUs</td>
-	<td>Manage SKUs</td>
+	<td>link=Manage SKU types</td>
+	<td>Manage SKU types</td>
 </tr>
 <tr>
 	<td>assertText</td>
@@ -126,8 +131,13 @@
 </tr>
 <tr>
 	<td>assertText</td>
+	<td>id=flash_notice</td>
+	<td>Welcome back, TechA</td>
+</tr>
+<tr>
+	<td>assertText</td>
 	<td>css=h2</td>
-	<td>Welcome TechA</td>
+	<td>Enter SKU (comma separated if multiple)</td>
 </tr>
 <!--Test Find Stock by SKU-->
 <tr>
@@ -330,13 +340,13 @@
 <!--Try clicking on SKU, verify it opens manage sku screen (just check screen presence)-->
 <tr>
 	<td>clickAndWait</td>
-	<td>//tr[@id='sizzle1508949975829']/td[2]</td>
+	<td>//text()[contains(., '80-000000')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertText</td>
 	<td>css=h2</td>
-	<td>Enter or update SKU</td>
+	<td>Enter or update SKU Type</td>
 </tr>
 <tr>
 	<td>assertText</td>
@@ -456,7 +466,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//tr[@id='sizzle1508951126222']/td[5]</td>
+	<td>//text()[contains(., '16')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -475,8 +485,13 @@
 	<td>80-000000</td>
 </tr>
 <tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
 	<td>assertText</td>
-	<td>//h3[2]</td>
+	<td>//div[2]/label/h3</td>
 	<td>From location</td>
 </tr>
 <tr>
@@ -486,7 +501,7 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//h3[3]</td>
+	<td>//div[3]/label/h3</td>
 	<td>To location</td>
 </tr>
 <tr>
@@ -496,12 +511,12 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//h3[4]</td>
+	<td>css=div.col-md-6 &gt; label &gt; h3</td>
 	<td>Quantity On Hand</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//h3[5]</td>
+	<td>//div[2]/div[2]/label/h3</td>
 	<td>Quantity To Transfer</td>
 </tr>
 <tr>
@@ -511,7 +526,7 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//h3[6]</td>
+	<td>css=div.col-md-12 &gt; label &gt; h3</td>
 	<td>Transfer Comment</td>
 </tr>
 <tr>
@@ -809,7 +824,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//tr[@id='sizzle1508953330529']/td[5]</td>
+	<td>//text()[.='15']</td>
 	<td></td>
 </tr>
 <tr>
@@ -880,12 +895,7 @@
 <!--Manage Skus-->
 <tr>
 	<td>click</td>
-	<td>link=Manage SKUs</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Manage SKUs</td>
+	<td>link=Manage SKU types</td>
 	<td></td>
 </tr>
 <tr>
@@ -901,7 +911,7 @@
 <tr>
 	<td>assertText</td>
 	<td>css=h2</td>
-	<td>Enter or update SKU</td>
+	<td>Enter or update SKU Type</td>
 </tr>
 <tr>
 	<td>assertText</td>
@@ -1025,8 +1035,8 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>css=h1</td>
-	<td>Ok</td>
+	<td>id=flash_notice</td>
+	<td>Updated 80-000000</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -1051,11 +1061,6 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>id=submit_btn_id</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Find stock by SKU</td>
 	<td></td>
 </tr>
 <tr>
@@ -1125,8 +1130,8 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>css=h1</td>
-	<td>Ok</td>
+	<td>id=flash_notice</td>
+	<td>Updated Shelf 1</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -1150,12 +1155,12 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>css=h1</td>
-	<td>Ok</td>
+	<td>id=flash_notice</td>
+	<td>Created Shelf 3</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Manage SKUs</td>
+	<td>link=Manage SKU types</td>
 	<td></td>
 </tr>
 <tr>
@@ -1199,6 +1204,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertText</td>
+	<td>id=flash_notice</td>
+	<td>Created 80-000002</td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>link=Find stock by SKU</td>
 	<td></td>
@@ -1215,7 +1225,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//tr[@id='sizzle1508953847805']/td[5]</td>
+	<td>//text()[.='4']</td>
 	<td></td>
 </tr>
 <tr>
@@ -1289,7 +1299,6 @@
 	<td>3</td>
 </tr>
 <!---->
-
 </tbody></table>
 </body>
 </html>

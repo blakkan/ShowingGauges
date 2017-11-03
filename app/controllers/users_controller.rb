@@ -29,17 +29,17 @@ class UsersController < ApplicationController
 
       redirect_back fallback_location: "/display_manage_user_request_screen",
         notice: "Operation Cancelled"
-        return
+
 
     elsif params[:commit] == "Refresh"
 
-      new_place =  "/display_manage_user_request_screen/" + params[:user_string]
+      new_place =  "/display_manage_user_request_screen" + (params.key?(:user_string) ? ("/" + params[:user_string]) : "")
       redirect_to new_place
-      return
 
     elsif params['commit'] == "Create"
 
         User.create!(name: params[:user_string],
+          user_id: session[:user_id], #note this is the user id of the creator
           comment: params[:comment_string],
           is_retired: params.key?(:is_retired_string),
           capabilities:  params.key?(:is_admin_string) ? "admin" : ''
@@ -47,8 +47,8 @@ class UsersController < ApplicationController
 
         new_place =  "/display_manage_user_request_screen/" + params[:user_string]
 
-        redirect_to new_place
-        return
+        redirect_to new_place, notice: "Created #{params[:user_string]}"
+
 
 
     elsif params['commit'] == 'Update'
@@ -57,6 +57,7 @@ class UsersController < ApplicationController
         the_user = User.find_by!(name: params[:user_string])
 
         the_user.update!(
+          user_id: session[:user_id],
           comment: params[:comment_string],
           is_retired: params.key?(:is_retired_string),
           capabilities:  params.key?(:is_admin_string) ? "admin" : ''
@@ -71,26 +72,22 @@ class UsersController < ApplicationController
 
         new_place =  "/display_manage_user_request_screen/" + params[:user_string]
 
-        redirect_to new_place
-        return
+        redirect_to new_place, notice: "Updated #{params[:user_string]}"
+
 
       elsif params['commit'] == 'List All Users'
 
         redirect_to "/display_user_catalog"
-        return
+
 
     end
 
-    redirect_back fallback_location: "/display_manage_user_request_screen",
-      notice: "User information updated"
-    return
 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
     redirect_back fallback_location: "/display_manage_user_request_screen",
       alert: @error_message
-    return
 
   end
 

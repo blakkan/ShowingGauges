@@ -1,7 +1,7 @@
 %h2
   Enter User
 =form_tag '/manage_user_result', method: 'get' do
-  =text_field_tag :user_string, nil, , class: 'form-control input-sm'
+  =text_field_tag :user_string, nil, class: 'form-control input-sm'
   <br>
   =submit_tag 'Create', id: 'create_btn_id', class: 'btn btn-primary'
   =submit_tag 'Retire', id: 'retire_btn_id', class: 'btn btn-primary'

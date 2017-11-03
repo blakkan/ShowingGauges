@@ -4,7 +4,7 @@ one:
   id: 1
   name: TechA
   comment: "comment for user 1"
-  #encrypted_password: nil
+  encrypted_password: "527bd5b5d689e2c32ae974c6229ff785"   #john
   is_retired: false
   capabilities: "admin"
   #Note that the initial user created itself...

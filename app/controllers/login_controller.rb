@@ -21,7 +21,7 @@ class LoginController < ApplicationController
         #
         # If the password is correct
         #
-        if (the_user.encrypted_password == Digest::MD5.hexdigest(params[:user_password]) ||    #must have password correct
+        if (the_user.encrypted_password == Digest::MD5.hexdigest(params[:user_password] || '') ||    #must have password correct
                 the_user.encrypted_password.nil? || the_user.encrypted_password == '')         #or a blank password
 
           #

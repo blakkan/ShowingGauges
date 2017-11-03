@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
     assert u.id == 1
     assert u.name == "TechA"
     assert u.comment == "comment for user 1"
-    assert u.encrypted_password.nil?
+    assert u.encrypted_password == "527bd5b5d689e2c32ae974c6229ff785" #john
     refute u.is_retired
     assert u.capabilities == "admin"
 

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'display_skus' => 'skus#display_skus'
   get 'display_sku_catalog' => 'skus#display_sku_catalog'
   get 'all_skus_as_json.json' => 'skus#all_skus_as_json'
-  get 'display_manage_sku_request_screen/:sku_string_from_url' => 'skus#display_manage_sku_request_screen'
+  get 'display_manage_sku_request_screen/:sku_string' => 'skus#display_manage_sku_request_screen'
   get 'display_manage_sku_request_screen' => 'skus#display_manage_sku_request_screen'
   get 'manage_sku_result' => 'skus#manage_sku_result'
   get 'sku_found.json' => 'skus#sku_found'

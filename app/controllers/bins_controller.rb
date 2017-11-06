@@ -21,7 +21,7 @@ class BinsController < ApplicationController
 
         if params[:commit] == "Cancel"
 
-          redirect_back fallback_location: "/display_find_skus_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
             notice: "Action Cancelled"
           return
 

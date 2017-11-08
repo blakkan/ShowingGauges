@@ -194,14 +194,17 @@ class SkusController < ApplicationController
                                                                     minimum_stocking_level: 0, user_id: session[:user_id],
                                                                     bu: bu, description: description, category: category, cost: decimal_cost)
 
-            # Find or create a BIN and add to it
-            dest_bin = Bin.find_by(sku_id: the_sku.id, location_id: the_loc.id) ||
-                       Bin.create!(sku_id: the_sku.id, location_id: the_loc.id, qty: 0)
+            ActiveRecord::Base.transaction do
+              # Find or create a BIN and add to it
+              dest_bin = Bin.find_by(sku_id: the_sku.id, location_id: the_loc.id) ||
+                         Bin.create!(sku_id: the_sku.id, location_id: the_loc.id, qty: 0)
 
-            # Don't use increrment!, it bypasses validations
-            # dest_bin.increment!(:qty, quantity.to_i)
-            dest_bin.qty += params[:quantity].to_i
-            dest_bin.save!
+              # Don't use increrment!, it bypasses validations
+              # dest_bin.increment!(:qty, quantity.to_i)
+
+              dest_bin.qty += quantity.to_i
+              dest_bin.save!
+            end
         end
 
         render 'login/generic_ok'

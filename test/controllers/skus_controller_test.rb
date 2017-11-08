@@ -288,7 +288,31 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "bulk import request" do
 
+    # usual login
+    get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
+    assert_redirected_to "/display_find_skus_screen"
+    assert flash[:notice] == "Welcome back, TechA"
+
+    #format (from second line) is:
+    #  bu, item_number, description, category, quantity, cost, extended, location
+    # They're tab separated in this input
+
+    assert (new_sku = Sku.find_by( name: "81-123456" )).nil?
+    assert (new_loc = Location.find_by( name: "Overflow3" )).nil?
+
+    post "/bulk_import_result", params:
+      { bulk_input: "first line\n11\t81-123456\tdescription\tcategory\t2\t$1.00\t$2.00\tOverflow3" }
+
+    refute (new_sku = Sku.find_by( name: "81-123456" )).nil?
+    refute (new_loc = Location.find_by( name: "Overflow3" )).nil?
+
+    assert new_sku.user_id == 1
+    assert new_loc.user_id == 1
+    assert Bin.find_by(sku_id: new_sku.id, location_id: new_loc.id).qty == 2
+
+  end
 
 
 

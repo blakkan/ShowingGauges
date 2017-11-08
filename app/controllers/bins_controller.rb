@@ -113,13 +113,9 @@ class BinsController < ApplicationController
         # Need to update bins in a transaction; will have model
         # validation do various checks (e.g. attempt to go below zero)
 
-        if params[:commit] == "Cancel"
+        # Can't be a cancel request at this point, since that's already handled
 
-          redirect_back fallback_location: "/display_transfer_request_screen",
-            notice: "Operation Cancelled"
-          return
-
-        elsif params[:to].nil? or params[:to] !~ /\S/
+        if params[:to].nil? or params[:to] !~ /\S/
           @error_message = "Must have a \"To Location \" to transfer new items into."
           redirect_back fallback_location: "/display_transfer_request_screen",
            alert: @error_message
@@ -178,7 +174,8 @@ class BinsController < ApplicationController
     # if it has gone to zero
     #
     #########################################################
-    def display_transfer_out_request_screen; end
+    def display_transfer_out_request_screen
+    end
 
     def display_transfer_out_result
         # view will pre-populate FROM string if in params[:from]
@@ -186,12 +183,7 @@ class BinsController < ApplicationController
         # Need to update bins in a transaction; will have model
         # validation do various checks (e.g. attempt to go below zero)
 
-        if params[:commit] == "Cancel"
-
-          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
-            notice: "Operation Cancelled"
-          return
-        end
+        # Can't be a cancel request since that's already handled
 
         qty_now = 0
 

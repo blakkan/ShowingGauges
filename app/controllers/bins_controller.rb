@@ -85,16 +85,16 @@ class BinsController < ApplicationController
                                 sku_id: src_sku_id, user_id: session[:user_id],
                                 comment: params[:comment])
         end
+
       end
 
       redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
         notice: "Success"
 
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
-
           @error_message = e.message
           #render template: 'login/generic_error'
-          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
             alert: @error_message
       end
 
@@ -104,7 +104,8 @@ class BinsController < ApplicationController
     # none exists
     #
     ##########################################################
-    def display_transfer_in_request_screen; end
+    def display_transfer_in_request_screen
+    end
 
     def display_transfer_in_result
         # view will pre-populate FROM string if in params[:from]
@@ -133,7 +134,6 @@ class BinsController < ApplicationController
             # bin if necessary
 
             # Find destination bin with matching sku and location
-            puts "About to try"
             dest_sku_id = Sku.find_by!(name: params[:sku]).id
             dest_location_id = Location.find_by!(name: params[:to]).id
 
@@ -166,8 +166,8 @@ class BinsController < ApplicationController
 
       rescue ActiveRecord::RecordNotFound => e
 
-        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
-          alert: @error_message
+        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/0",
+          alert: e.message
 
 
       end

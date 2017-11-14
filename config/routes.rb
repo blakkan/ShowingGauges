@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root 'login#display_login_screen'
 
 
+  get 'third_party_auth' => 'login#third_party_auth'
+  post 'third_party_auth' => 'login#third_party_auth'
+
   get 'display_login_screen' => 'login#display_login_screen'
 
   get 'set_session_name/:user_name' => 'login#set_session_name'

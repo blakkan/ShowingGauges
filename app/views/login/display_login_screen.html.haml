@@ -23,4 +23,7 @@
       =submit_tag 'Submit', id: "submit_btn_id", class: 'btn btn-primary'
     %div.col-md-1
       =submit_tag 'Change Password', id: "change_password_id", class: 'btn btn-primary'
-    %div.col-md-10
+    %div.col-md-2
+      %button.btn.btn-default{ name: 'commit', value: 'openid_connect', id: "openid_connect_id" }
+        %img{src: "/assets/btn_google_signin_dark_normal_web.png"}
+    %div.col-md-8

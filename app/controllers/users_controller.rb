@@ -10,11 +10,13 @@ class UsersController < ApplicationController
 
       @pre_pop_user = the_user.name
       @pre_pop_comment = the_user.comment
+      @pre_pop_google_email = the_user.google_email
       @pre_pop_is_retired = the_user.is_retired
       @pre_pop_is_admin = the_user.capabilities =~ /admin/
     else
       @pre_pop_user = nil
       @pre_pop_comment = nil
+      @pre_pop_google_email = nil
       @pre_pop_is_retired = false
       @pre_pop_is_admin = false
     end
@@ -41,6 +43,7 @@ class UsersController < ApplicationController
         User.create!(name: params[:user_string],
           user_id: session[:user_id], #note this is the user id of the creator
           comment: params[:comment_string],
+          google_email: params[:google_email_string],
           is_retired: params.key?(:is_retired_string),
           capabilities:  params.key?(:is_admin_string) ? "admin" : ''
         )
@@ -59,6 +62,7 @@ class UsersController < ApplicationController
         the_user.update!(
           user_id: session[:user_id],
           comment: params[:comment_string],
+          google_email: params[:google_email_string],
           is_retired: params.key?(:is_retired_string),
           capabilities:  params.key?(:is_admin_string) ? "admin" : ''
         )

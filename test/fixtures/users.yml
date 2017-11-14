@@ -9,6 +9,7 @@ one:
   capabilities: "admin"
   #Note that the initial user created itself...
   user_id: 1
+  google_email: 'john1@blakkan.net'
 
 
 two:

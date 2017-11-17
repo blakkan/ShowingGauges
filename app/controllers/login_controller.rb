@@ -2,19 +2,32 @@ require 'digest/md5'
 require 'net/http'
 
 class LoginController < ApplicationController
+
+    ############################################################
     #
-    # Draws the login screen
+    # display_login_screen
     #
+    #   Draws the login screen
+    #
+    ############################################################
     def display_login_screen
     end
 
+    ############################################################
     #
-    # draws the login result (and sets the session[:user_id]
+    # set_session_name
     #
+    #   This is the main login page.  It draws the login result
+    # (and sets the session[:user_id].)
+    #
+    # Note that it may work from the local password, or from
+    # google openid authentication
+    #
+    ############################################################
     def set_session_name
 
           #
-          # If we're trying to login
+          # If we're trying to login with a local password...
           #
           if params[:commit] == "Submit"
             #
@@ -30,14 +43,22 @@ class LoginController < ApplicationController
 
                       session[:user_id] = the_user.id
                       redirect_to '/display_find_skus_screen', notice: "Welcome back, #{params[:user_name]}"
-              else
+              else #password incorrect
                 session[:user_id] = nil
-                redirect_to '/display_find_skus_screen', alert: "No Matching User/password #{params[:user_name]}"
+                redirect_to '/display_login_screen', alert: "Incorrect Password"
 
-              end
+              end #end of password check
+
+            else #No such user name
+              session[:user_id] = nil
+              redirect_to '/display_login_screen', alert: "No user by that name"
+
+            end
+
+
 
           #
-          # If we're trying to change password
+          # If we're trying to change password (with simultaneous login)
           #
           elsif params[:commit] == 'Change Password'
 
@@ -54,16 +75,17 @@ class LoginController < ApplicationController
 
                 session[:user_id] = the_user.id
                 redirect_to '/display_change_password_screen'
-              else
+
+              else  #Bad password
 
                 session[:user_id] = nil
-                redirect_to '/display_find_skus_screen', alert: "No Matching User/password , #{params[:user_name]}"
+                redirect_to '/display_login_screen', alert: "Incorrect Password"
 
               end
 
-            else
+            else #No such user name
               session[:user_id] = nil
-              redirect_to '/display_find_skus_screen', alert: "No Matching User/password #{params[:user_name]}"
+              redirect_to '/display_login_screen', alert: "No user by that name"
 
             end
 
@@ -73,7 +95,10 @@ class LoginController < ApplicationController
         elsif params[:commit] == 'openid_connect'
 
           #
-          # Try a google login (or others, later)
+          # Try a google login (or others, later).
+          # Start by getting a randome token to send during the
+          # handshake with google, to prevent a replay attack
+          #
           session[:open_id_security_token] = SecureRandom.hex(40)
           # First, use the discovery document (at a well-known URL) to get the
           # authorization address
@@ -99,19 +124,16 @@ class LoginController < ApplicationController
           EOF
 
           uri_text = ura_string.gsub(/\n/,'')
-          puts "about to redirect"
 
           redirect_to uri_text
 
 
-        else
+        else #Internal error- didn't get recognizable button
           redirect_to '/display_login_screen', Alert: "Didn't recognize login attempt"
 
-        end
+        end #end of checking on button type
 
-      end
-
-    end
+    end #end of main set session name function (login function)
 
     #
     # Draws the change password screen
@@ -142,8 +164,6 @@ class LoginController < ApplicationController
     # For third party authentication callback
     #
     def third_party_auth
-
-      puts "entered 3rd parth auth"
 
       callback_uri = "http://" + request.host + ':' + request.port.to_s + '/third_party_auth'
 

@@ -42,6 +42,9 @@ group :development, :test do
   gem 'simplecov'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'watir-rails'
+  gem 'webdrivers'
+  gem 'chromedriver-helper'
 end
 
 group :test, :production do

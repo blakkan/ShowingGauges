@@ -178,6 +178,7 @@ class SkusController < ApplicationController
     def display_bulk_import_request_screen; end
 
     def bulk_import_result
+
         # walk through the tab separated lines
         params[:bulk_input].gsub(/[\r]/, '').split(/\n/).each_with_index do |line, index|
             next if index == 0 # trim off the header line
@@ -185,16 +186,19 @@ class SkusController < ApplicationController
             bu, item_number, description, category, quantity, cost, extended, location = line.split("\t").map(&:strip)
             decimal_cost = BigDecimal.new(cost.gsub(/[\$,]/, ''))
 
-            # Create a physical location, if needed
-            the_loc = Location.find_by(name: location) || Location.create!(name: location,
+
+            ActiveRecord::Base.transaction do
+
+
+              # Create a physical location, if needed
+              the_loc = Location.find_by(name: location) || Location.create!(name: location,
                                                                            user_id: session[:user_id])
 
-            # Find or create a SKU
-            the_sku = Sku.find_by(name: item_number) || Sku.create!(name: item_number,
+              # Find or create a SKU
+              the_sku = Sku.find_by(name: item_number) || Sku.create!(name: item_number,
                                                                     minimum_stocking_level: 0, user_id: session[:user_id],
                                                                     bu: bu, description: description, category: category, cost: decimal_cost)
 
-            ActiveRecord::Base.transaction do
               # Find or create a BIN and add to it
               dest_bin = Bin.find_by(sku_id: the_sku.id, location_id: the_loc.id) ||
                          Bin.create!(sku_id: the_sku.id, location_id: the_loc.id, qty: 0)
@@ -208,6 +212,9 @@ class SkusController < ApplicationController
         end
 
         render 'login/generic_ok'
+
+      rescue ActiveRecord::RecordNotFound => e
+        render 'login/generic_error'
       end
 
     private

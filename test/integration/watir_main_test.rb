@@ -5,7 +5,7 @@ class WatirMainTest < ActionDispatch::IntegrationTest
 
     setup do #before each test
         # put --headless in the switches to avoid showing pages
-        @b = Watir::Browser.new :chrome, :switches => %w{  }
+        @b = Watir::Browser.new :chrome, :switches => %w{ :headless }
         @b.goto 'http://localhost:3000'
         @b.wait
         @b.wait_until { @b.text.include? "Login" }

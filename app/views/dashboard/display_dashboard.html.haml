@@ -1,0 +1,218 @@
+%div.row
+  %div.col-md-4
+    %label{ for: :r1c1_id }
+      %h3
+        Vertical bar chart
+      %object{ id: :r1c1_id }
+  %div.col-md-4
+    %label{ for: :r1c2_id }
+      %h3
+        Gauge chart
+      %object{ id: :r1c2_id }
+  %div.col-md-4
+    %label{ for: :r1c3_id }
+      %h3
+        Scatterplot
+      %object{ id: :r1c3_id }
+%div.row
+  %div.col-md-4
+    %label{ for: :r2c1_id }
+      %h3
+        Line chart
+      %object{ id: :r2c1_id }
+  %div.col-md-4
+    %label{ for: :r2c2_id }
+      %h3
+        Time series
+      %object{ id: :r2c2_id }
+  %div.col-md-4
+    %label{ for: :r2c3_id }
+      %h3
+        Horizontal bar chart
+      %object{ id: :r2c3_id }
+
+:javascript
+
+  // Sample: vertical bar chart
+  var chart_r1c1 = c3.generate({
+    bindto: '#r1c1_id',
+    size: {
+      height: 200,
+      width: 320
+      },
+    data: {
+      columns: [
+        ['data1', 0, 0, 0, 30, 200, 100, 400, 150, 250, 0, 0, 0]
+      ],
+      type: 'bar'
+    },
+    bar: {
+      width: {
+        ratio: 0.8
+        }
+      },
+    legend: {
+      show: false
+      },
+
+    regions: [
+      {axis: 'x', start: 0, end: 3},
+      {axis: 'x', start: 9, end: 12},
+      ],
+    axis: {
+      x: {
+        tick: {
+          values: ['0','1','2','3','4','5','6','7','8','9','10', '11', '12']
+          }
+        }
+      }
+  });
+
+  // Silly, but always in demand gauge chart
+  var chart_r1c2 = c3.generate({
+    bindto: '#r1c2_id',
+    size: {
+      height: 200,
+      width: 320
+      },
+    data: {
+        columns: [
+            ['data', 91.4]
+        ],
+        type: 'gauge',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    },
+    gauge: {
+  //        label: {
+  //            format: function(value, ratio) {
+  //                return value;
+  //            },
+  //            show: false // to turn off the min/max labels.
+  //        },
+  //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+  //    max: 100, // 100 is default
+  //    units: ' %',
+  //    width: 39 // for adjusting arc thickness
+    },
+    color: {
+        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+        threshold: {
+  //            unit: 'value', // percentage is default
+  //            max: 200, // 100 is default
+            values: [30, 60, 90, 100]
+        }
+    }
+  });
+
+  // Scatter chart
+  var chart_r1c3 = c3.generate({
+    bindto: '#r1c3_id',
+    size: {
+      height: 200,
+      width: 320
+      },
+    data: {
+        xs: {
+            setosa: 'setosa_x',
+            versicolor: 'versicolor_x',
+        },
+        // iris data from R
+        columns: [
+            ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
+            ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
+            ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+            ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+        ],
+        type: 'scatter'
+    },
+    axis: {
+        x: {
+            label: 'Sepal.Width',
+            tick: {
+                fit: false
+            }
+        },
+        y: {
+            label: 'Petal.Width'
+        }
+    }
+  });
+
+  // (multi) line chart
+
+  var chart_r2c1 = c3.generate({
+    bindto: "#r2c1_id",
+    size: {
+      height: 200,
+      width: 320
+      },
+    data: {
+        xs: {
+            'data1': 'x1',
+            'data2': 'x2',
+        },
+        columns: [
+            ['x1', 10, 30, 45, 50, 70, 100],
+            ['x2', 30, 50, 75, 100, 120],
+            ['data1', 30, 200, 100, 400, 150, 250],
+            ['data2', 20, 180, 240, 100, 190]
+        ]
+    }
+
+  });
+
+  //timeseries
+  var chart_r2c2 = c3.generate({
+    bindto: "#r2c2_id",
+    size: {
+      height: 200,
+      width: 320
+      },
+    data: {
+        x: 'x',
+  //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
+        columns: [
+            ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+  //            ['x', '20130101', '20130102', '20130103', '20130104', '20130105', '20130106'],
+            ['data1', 30, 200, 100, 400, 150, 250],
+            ['data2', 130, 340, 200, 500, 250, 350]
+        ]
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+                format: '%Y-%m-%d'
+            }
+        }
+    }
+  });
+
+  //horizontal bar chart
+  var chart_r2c3 = c3.generate({
+    bindto: "#r2c3_id",
+    size: {
+      height: 200,
+      width: 320
+      },
+        padding: {
+            left: 60
+        },
+        data: {
+            x: 'x',
+            columns:
+            [
+                ['x', 'Category1', 'Category2'],
+                ['value', 300, 400]
+            ],
+            type: 'bar'
+        },
+        axis: {
+            rotated: true,
+            x: {
+                type: 'category'
+        }
+      }
+  });

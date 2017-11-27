@@ -97,11 +97,11 @@
   //    width: 39 // for adjusting arc thickness
     },
     color: {
-        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+        pattern: ['#60B044',  '#F6C600', '#FF2020'], // the color levels for the percentage values.
         threshold: {
   //            unit: 'value', // percentage is default
   //            max: 200, // 100 is default
-            values: [30, 60, 90, 100]
+            values: [80, 90, 100]
         }
     }
   });
@@ -216,3 +216,15 @@
         }
       }
   });
+
+  // Let's animate one of the demos...
+
+  var the_timer = window.setInterval( function(){
+    chart_r1c2.load(
+  {
+      columns: [
+          ['data', Math.random() * 100.0 ]
+      ]
+  }
+     );
+  }, 2000 );

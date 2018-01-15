@@ -8,7 +8,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get '/shelf_item_matching.json/*'
     assert_response :success
     z = JSON.parse(response.body)
-    assert z.length == 2
+    assert z.length == 3, "Expected 3, got #{z.length}"
 
     get '/shelf_item_matching.json/*0'
     assert_response :success
@@ -23,7 +23,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get '/shelf_item_matching.json/*2'
     assert_response :success
     z = JSON.parse(response.body)
-    assert z.length == 1
+    assert z.length == 2, "Expected 2, got #{z.length}"
 
     get '/shelf_item_matching.json/*3'
     assert_response :success
@@ -287,7 +287,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert response.content_type == "application/json"
 
     assert JSON.parse(response.body)[0]['loc'] == "Shelf 1"
-    assert JSON.parse(response.body)[1]['comment'] == "Comment for location Shelf 2"    
+    assert JSON.parse(response.body)[1]['comment'] == "Comment for location Shelf 2"
 
   end
 

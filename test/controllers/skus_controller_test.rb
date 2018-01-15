@@ -7,12 +7,12 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
     get '/sku_matching.json/*'
     assert_response :success
     z = JSON.parse(response.body)
-    assert z.length == 2
+    assert z.length == 3, "Expected 3, got #{z.length}"
 
     get '/sku_matching.json/*0'
     assert_response :success
     z = JSON.parse(response.body)
-    assert z.length == 1
+    assert z.length == 2, "Expected 2, got #{z.length}"
 
     get '/sku_matching.json/*1'
     assert_response :success

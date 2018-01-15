@@ -17,7 +17,7 @@ two:
   id: 2
   name: "53-000001"
   comment: "comment for sku 53-000001"
-  minimum_stocking_level: 2
+  minimum_stocking_level: 24   #was two
   is_retired: false
   user_id: 1
   bu: "22"

@@ -3,8 +3,11 @@ require 'minitest/autorun'
 
 class WatirMainTest < ActionDispatch::IntegrationTest
 
+
     setup do #before each test
         # put --headless in the switches to avoid showing pages
+        system("fuser -k 3000/tcp")
+        system("rails s -d -p 3000")
         @b = Watir::Browser.new :chrome, :switches => %w{ :headless }
         @b.goto 'http://localhost:3000'
         @b.wait
@@ -18,6 +21,7 @@ class WatirMainTest < ActionDispatch::IntegrationTest
 
     teardown do #after each test
         @b.close
+        system("fuser -k 3000/tcp")
     end
 
     test 'it shows properly formatted title' do

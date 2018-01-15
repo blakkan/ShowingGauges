@@ -12,3 +12,10 @@ two:
   qty: 4
   location_id: 2
   sku_id: 2
+
+three:
+  id: 3
+  qty: 4
+  location_id: 2
+  sku_id: 1
+  

@@ -31,6 +31,14 @@
         Horizontal bar chart
       %object{ id: :r2c3_id }
 
+%div.row
+  %div.col-md-4
+    %label{ for: :r3c1_id }
+      %h3
+        Table
+      %table{ id: :r3c1_id }
+
+
 :javascript
 
   // Sample: vertical bar chart
@@ -217,6 +225,19 @@
       }
   });
 
+  //Table (from DataTable)
+  var my_data = [
+    [ "Joe", 7 ],
+    [ "Joe1", 71 ],
+    [ "Joe2",  72 ],
+    [ "Joe3",  73 ],
+    [ "Joe4",  74 ],
+    [ "Fred", 19 ]  ];
+  var chart_r3c1 = $("#r3c1_id").DataTable( {
+    data: my_data,
+    aLengthMenu: [[5, 10, -1], [5, 10, "All"]],
+    columns: [ {title: "Name"}, {title: "Quantity"} ]
+  });
   // Let's animate one of the demos...
 
   var the_timer = window.setInterval( function(){
@@ -227,4 +248,10 @@
       ]
   }
      );
+
+     my_data.unshift([ "JoeN", Math.floor(Math.random() * 10) ]);
+     chart_r3c1.clear();
+     chart_r3c1.rows.add(my_data).draw();
+
+
   }, 2000 );

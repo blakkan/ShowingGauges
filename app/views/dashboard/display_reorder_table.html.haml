@@ -1,0 +1,10 @@
+%h1
+  ="Items with total quantity (in all locations) below reorder point"
+%table{ 'id' => "r3c1_id", 'data-height' => "480", 'data-toggle' => "table", 'data-click-to-select' => "true", "data-url" => "/data.json", "data-show-refresh" => "true", "data-show-columns" => "true", "data-striped" =>"true", "data-search" => "true"}
+  <thead id="sku_table_head_id">
+  <tr>
+  <th data-sortable="true" data-field="SKU" id="sku_header_id">SKU</th>
+  <th data-sortable="true" data-field="Quantity" data-sorter = "integer_sorter_jb" id="qty_header_id">Quantity</th>
+  <th data-sortable="true" data-field="Reorder" data-sorter = "integer_sorter_jb" id="qty_header_id">Reorder</th>
+  </tr>
+  </thead>

@@ -32,7 +32,7 @@ class SkuTest < ActiveSupport::TestCase
     assert s2.id == 2
     assert s2.name == "53-000001"
     assert s2.comment == "comment for sku 53-000001"
-    assert s2.minimum_stocking_level == 2
+    assert s2.minimum_stocking_level == 24
     refute s2.is_retired
     assert s2.user_id == 1
     assert s2.bu == "22"

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'login#display_login_screen'
 
   get 'display_dashboard' => 'dashboard#display_dashboard'
+  get 'display_reorder_table' => 'dashboard#display_reorder_table'
+  get 'data.json' => 'dashboard#data'
 
   get 'third_party_auth' => 'login#third_party_auth'
   post 'third_party_auth' => 'login#third_party_auth'

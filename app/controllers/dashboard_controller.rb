@@ -22,13 +22,13 @@ class DashboardController < ApplicationController
         [ "80-9238",  74, 100 ],
         [ "80-1234", 19, 20 ]  ]
 
-      my_data =  Bin.joins(:sku).
-        select("skus.name as 'SKU', sum(bins.qty) as 'Quantity', skus.minimum_stocking_level as 'Reorder'").
-        group("bins.sku_id").
-        having("sum(bins.qty) < skus.minimum_stocking_level")
+      my_rel2 = Bin.joins("LEFT JOIN skus ON skus.id = bins.sku_id").
+        select('sku_id, skus.name, sum(bins.qty) as Quantity, skus.minimum_stocking_level as Reorder').
+        group("sku_id", "skus.minimum_stocking_level", "skus.name").
+        having("sum(bins.qty) < max(skus.minimum_stocking_level)")
 
-      p my_data
-      render :json => my_data.as_json
+
+      render :json => my_rel2.as_json
 
     end
 

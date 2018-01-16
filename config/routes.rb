@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'login#display_login_screen'
 
   get 'display_dashboard' => 'dashboard#display_dashboard'
+  get 'display_advanced_search_screen' => 'dashboard#display_advanced_search_screen'
   get 'display_reorder_table' => 'dashboard#display_reorder_table'
   get 'data.json' => 'dashboard#data'
 

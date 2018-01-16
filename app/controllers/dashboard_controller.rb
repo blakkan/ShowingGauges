@@ -8,6 +8,9 @@ class DashboardController < ApplicationController
     def display_dashboard
     end
 
+    def display_advanced_search_screen
+    end
+    
     def display_reorder_table
     end
 

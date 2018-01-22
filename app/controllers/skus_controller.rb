@@ -18,12 +18,13 @@ class SkusController < ApplicationController
     def sku_matching
         @the_display_list = []
 
-        sku_list_to_sql_regexp = 'skus.name LIKE ' +
-                                 URI.decode(params[:match_string])
+        sku_list_to_sql_regexp = 'lower(skus.name) LIKE ' +
+                                    URI.decode(params[:match_string])
+                                    .downcase
                                     .tr('*', '%')
                                     .split(',')
                                     .map { |x| "'" + x.strip + "'" }
-                                 .join(' OR skus.name LIKE ')
+                                    .join(' OR skus.name LIKE ')
 
         @the_display_list = Bin.joins(:sku).where(sku_list_to_sql_regexp).joins(:location).select(
             'bins.sku_id as sku_id, bins.location_id as location_id, skus.name as sku_num, skus.bu as bu, skus.description as description, skus.category as category, ' \

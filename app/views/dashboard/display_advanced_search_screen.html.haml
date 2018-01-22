@@ -1,6 +1,9 @@
 %h2
   Search for items at or below reorder point:
 =form_tag '/display_reorder_table', method: 'get' do
-
-  =link_to 'Cancel', "/", id: 'cancel_btn_id', class: 'btn btn-default'
-  =submit_tag 'Search', id: 'display_reorder_table_btn_id', class: 'btn btn-primary'
+  =submit_tag 'Display in page', id: 'display_reorder_table_btn_id', class: 'btn btn-primary'
+%p
+=form_tag '/data.csv', method: 'get' do
+  =submit_tag 'Export to CSV', id: 'display_reorder_table_csv_btn_id', class: 'btn btn-primary'
+%p
+=link_to 'Cancel', "/", id: 'cancel_btn_id', class: 'btn btn-default'

@@ -12,11 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171113223005) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "plperl"
-
-  create_table "bins", id: :serial, force: :cascade do |t|
+  create_table "bins", force: :cascade do |t|
     t.integer "qty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171113223005) do
     t.index ["sku_id"], name: "index_bins_on_sku_id"
   end
 
-  create_table "locations", id: :serial, force: :cascade do |t|
+  create_table "locations", force: :cascade do |t|
     t.string "name"
     t.string "comment"
     t.boolean "is_retired", default: false
@@ -36,7 +32,7 @@ ActiveRecord::Schema.define(version: 20171113223005) do
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
-  create_table "skus", id: :serial, force: :cascade do |t|
+  create_table "skus", force: :cascade do |t|
     t.string "name"
     t.string "comment"
     t.integer "minimum_stocking_level", default: 0
@@ -51,7 +47,7 @@ ActiveRecord::Schema.define(version: 20171113223005) do
     t.index ["user_id"], name: "index_skus_on_user_id"
   end
 
-  create_table "transactions", id: :serial, force: :cascade do |t|
+  create_table "transactions", force: :cascade do |t|
     t.integer "qty"
     t.string "comment"
     t.datetime "created_at", null: false
@@ -66,7 +62,7 @@ ActiveRecord::Schema.define(version: 20171113223005) do
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "comment"
     t.string "encrypted_password"

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'display_dashboard' => 'dashboard#display_dashboard'
   get 'display_advanced_search_screen' => 'dashboard#display_advanced_search_screen'
   get 'display_reorder_table' => 'dashboard#display_reorder_table'
-  get 'data.json' => 'dashboard#data'
+  get 'data(.:format)' => 'dashboard#data'
 
   get 'third_party_auth' => 'login#third_party_auth'
   post 'third_party_auth' => 'login#third_party_auth'

@@ -23,8 +23,9 @@ class LocationsController < ApplicationController
 
     @the_display_list = []
 
-    location_list_to_sql_regexp = "locations.name LIKE " +
+    location_list_to_sql_regexp = "lower(locations.name) LIKE " +
       URI.decode(params[:match_string])
+      .downcase
       .tr("*", "%")
       .split(',')
       .map{|x| "'" + x.strip + "'"}

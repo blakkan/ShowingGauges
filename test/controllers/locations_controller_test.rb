@@ -118,8 +118,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/display_find_skus_screen"
     assert flash[:notice] == "Welcome back, TechA"
     get "/manage_location_result", params:
-      { commit: 'Create', location_string: "NEWLOC", comment_string: "NEWCOMMENT",
-      is_retired_string: "T"}
+      { commit: 'Create', location_string: "NEWLOC", location_comment_string: "NEWCOMMENT",
+      location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen/NEWLOC"
     assert flash[:notice] == "Created NEWLOC"
@@ -133,8 +133,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
     assert_redirected_to "/display_find_skus_screen"
     get "/manage_location_result", params:
-      { commit: 'Create', location_string: "NEW_LOC", comment_string: "NEW_COMMENT",
-      is_retired_string: "T"}
+      { commit: 'Create', location_string: "NEW_LOC", location_comment_string: "NEW_COMMENT",
+      location_is_retired_string: "T"}
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:alert] == "Validation failed: Only admin users may update this"
     assert Location.count == 2
@@ -145,8 +145,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
     assert Location.count == 2
     get "/manage_location_result", params:
-      { commit: 'Create', location_string: "NEW_LOC", comment_string: "NEW_COMMENT",
-      is_retired_string: "T" }
+      { commit: 'Create', location_string: "NEW_LOC", location_comment_string: "NEW_COMMENT",
+      location_is_retired_string: "T" }
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:alert] == "Validation failed: Only admin users may update this"
     assert Location.count == 2
@@ -160,8 +160,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/display_find_skus_screen"
     assert flash[:notice] == "Welcome back, TechA"
     get "/manage_location_result", params:
-      { commit: 'Update', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Update', location_string: "Shelf 1", location_comment_string: "updated",
+      location_location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen/Shelf 1"
     assert flash[:notice] == "Updated Shelf 1"
@@ -176,8 +176,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
     assert_redirected_to "/display_find_skus_screen"
     get "/manage_location_result", params:
-      { commit: 'Update', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Update', location_string: "Shelf 1", location_comment_string: "updated",
+      location_is_retired_string: "T"}
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:alert] == "Validation failed: Only admin users may update this"
     assert Location.count == 2
@@ -189,8 +189,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
     assert Location.count == 2
     get "/manage_location_result", params:
-      { commit: 'Update', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T" }
+      { commit: 'Update', location_string: "Shelf 1", location_comment_string: "updated",
+      location_is_retired_string: "T" }
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:alert] == "Validation failed: Only admin users may update this"
     assert Location.count == 2
@@ -205,8 +205,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/display_find_skus_screen"
     assert flash[:notice] == "Welcome back, TechA"
     get "/manage_location_result", params:
-      { commit: 'Delete', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Delete', location_string: "Shelf 1", location_comment_string: "updated",
+      location_location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen/Shelf 1"
     assert flash[:alert] == "Cannot delete location Shelf 1 since there is inventory in it or a transaction record"
@@ -214,16 +214,16 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
     # now create one and delete it
     get "/manage_location_result", params:
-      { commit: 'Create', location_string: "NEWLOC", comment_string: "NEWCOMMENT",
-      is_retired_string: "T"}
+      { commit: 'Create', location_string: "NEWLOC", location_comment_string: "NEWCOMMENT",
+      location_location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen/NEWLOC"
     assert flash[:notice] == "Created NEWLOC"
     assert Location.count == 3
 
     get "/manage_location_result", params:
-      { commit: 'Delete', location_string: "NEWLOC", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Delete', location_string: "NEWLOC", location_comment_string: "updated",
+      location_location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:notice] == "Deleted NEWLOC"
@@ -237,8 +237,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
     assert_redirected_to "/display_find_skus_screen"
     get "/manage_location_result", params:
-      { commit: 'Delete', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Delete', location_string: "Shelf 1", location_comment_string: "updated",
+      location_is_retired_string: "T"}
     assert_redirected_to "/display_manage_location_request_screen/Shelf 1"
     assert flash[:alert] == "Cannot delete location Shelf 1 since there is inventory in it or a transaction record"
     assert Location.count == 2
@@ -249,8 +249,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
     assert Location.count == 2
     get "/manage_location_result", params:
-      { commit: 'Delete', location_string: "Shelf 1", comment_string: "updated",
-      is_retired_string: "T" }
+      { commit: 'Delete', location_string: "Shelf 1", location_comment_string: "updated",
+      location_is_retired_string: "T" }
     assert_redirected_to "/display_manage_location_request_screen/Shelf 1"
     assert flash[:alert] == "Cannot delete location Shelf 1 since there is inventory in it or a transaction record"
     assert Location.count == 2
@@ -269,8 +269,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
 
     get "/manage_location_result", params:
-      { commit: 'Delete', location_string: "UnknownLOC", comment_string: "updated",
-      is_retired_string: "T"}
+      { commit: 'Delete', location_string: "UnknownLOC", location_comment_string: "updated",
+      location_is_retired_string: "T"}
 
     assert_redirected_to "/display_manage_location_request_screen"
     assert flash[:alert] == "Couldn't find Location"

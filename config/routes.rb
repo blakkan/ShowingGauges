@@ -62,6 +62,10 @@ Rails.application.routes.draw do
   #TODO change to post
   get 'display_transfer_out_result' => 'bins#display_transfer_out_result'
 
+  get 'display_new_sku_request_screen' => 'bins#display_new_sku_request_screen'
+  get 'display_new_sku_result' => 'bins#display_new_sku_result'
+
+
   get 'display_transactions_request_screen' => 'transactions#display_transactions_request_screen'
   get 'display_all_transactions' => 'transactions#display_all_transactions'
   get 'transactions_found.json/:start_date_name/:end_date_name' => 'transactions#transaction_found'

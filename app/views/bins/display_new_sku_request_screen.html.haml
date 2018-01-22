@@ -1,0 +1,18 @@
+%div{:style => "transform: scale(.75);transform-origin: top left;"}
+  %h2
+    Add SKU with: new sku, new location, and initial quantity
+  =form_tag '/display_new_sku_result', method: 'get' do
+    %div{:style =>"background-color:#F0F0F0;padding: 1%;padding-top: 0;"}
+      =render "skus/sku_input_fields"
+    %p
+    %div{:style =>"background-color:#F0F0F0;padding: 1%;padding-top: 0;"}
+      =render "locations/location_input_fields"
+    %p
+    %div{:style =>"background-color:#F0F0F0;padding: 1%;"}
+      %label{for: :qty_id}
+        %h3
+          Quantity
+      =text_field_tag :quantity, nil, id: 'qty_id', class: 'form-control input-sm'
+    %p
+    =link_to 'Cancel', "/", id: 'cancel_btn_id', class: 'btn btn-default'
+    =submit_tag 'Create', id: 'create_btn_id', class: 'btn btn-primary'

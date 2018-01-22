@@ -94,8 +94,8 @@ class LocationsController < ApplicationController
 
 
       Location.create!(name: params[:location_string],
-        comment: params[:comment_string],
-        is_retired: params.key?(:is_retired_string),
+        comment: params[:location_comment_string],
+        is_retired: params.key?(:location_is_retired_string),
         user_id: session[:user_id]
       )
 
@@ -109,8 +109,8 @@ class LocationsController < ApplicationController
         the_location = Location.find_by!(name: params[:location_string])
 
         the_location.update!(
-          comment: params[:comment_string],
-          is_retired: params.key?(:is_retired_string),
+          comment: params[:location_comment_string],
+          is_retired: params.key?(:location_is_retired_string),
           user_id: session[:user_id]
 
           )

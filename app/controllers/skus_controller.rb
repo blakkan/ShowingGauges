@@ -110,9 +110,8 @@ class SkusController < ApplicationController
                         category: params[:category_string],
                         cost:
                           (params.key?(:cost_string) && params[:cost_string] =~ /\d/) ?
-                           params[:cost_string].gsub(/[^0-9.]/, '').to_d :
-                           0
-                  )
+                           params[:cost_string].gsub(/[^0-9.]/, '').to_d : 0
+                        )
 
             new_place = '/display_manage_sku_request_screen/' + params[:sku_string]
 

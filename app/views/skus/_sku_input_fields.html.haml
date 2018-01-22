@@ -1,0 +1,51 @@
+%div.row
+  %div.col-md-3
+    %label{for: :sku_string_id}
+      %h3
+        SKU
+      =text_field_tag :sku_string, @pre_pop_sku, id: :sku_string_id, class: 'form-control input-sm'
+  %div.col-md-9
+    %label{for: :description_string_id}
+      %h3
+        Description
+      =text_field_tag :description_string, @pre_pop_description, id: :description_string_id, class: 'form-control input-sm'
+
+%div.row
+  %div.col-md-12
+    %label{for: :comment_string_id}
+    %h3
+      Comment
+    =text_field_tag :comment_string, @pre_pop_comment, id: :comment_string_id, class: 'form-control input-sm'
+
+%div.row
+  %div.col-md-1
+
+    %label{for: :bu_string_id}
+      %h3
+        BU
+    =text_field_tag :bu_string, @pre_pop_bu, id: :bu_string_id, class: 'form-control input-sm'
+
+  %div.col-md-3
+    %label{for: :cost_string_id}
+      %h3
+        Cost
+    =text_field_tag :cost_string, @pre_pop_cost, id: :cost_string_id, class: 'form-control input-sm'
+
+  %div.col-md-3
+    %label{for: :category_string_id}
+      %h3
+        Category
+      =text_field_tag :category_string, @pre_pop_category, id: :category_string_id, class: 'form-control input-sm'
+
+  %div.col-md-3
+    %label{for: :stock_level_string_id}
+      %h3
+        Re-order point
+      =text_field_tag :stock_level_string, @pre_pop_reorder_point, id: :stock_level_string_id, class: 'form-control input-sm'
+
+
+  %div.col-md-2
+    %label{for: :is_retired_string_id}
+      %h3
+        Is Retired?
+    =check_box_tag :is_retired_string, nil, @pre_pop_is_retired, id: :is_retired_string_id, class: 'form-control input-sm'

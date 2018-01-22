@@ -35,7 +35,7 @@
     %label{for: :category_string_id}
       %h3
         Category
-      =text_field_tag :category_string, @pre_pop_category, id: :category_string_id, class: 'form-control input-sm'
+      =select_tag :category_string, options_for_select(["PRD", "OBS", "EOL", "DSC"], @pre_pop_category ), id: :category_string_id, class: 'form-control input-sm'
 
   %div.col-md-3
     %label{for: :stock_level_string_id}

@@ -179,13 +179,51 @@ class SkusController < ApplicationController
 
     def bulk_import_result
 
+        results_report_string = "Omitting these lines (including header)\n"
+
         # walk through the tab separated lines
         params[:bulk_input].gsub(/[\r]/, '').split(/\n/).each_with_index do |line, index|
-            next if index == 0 # trim off the header line
 
-            bu, item_number, description, category, quantity, cost, extended, location = line.split("\t").map(&:strip)
-            decimal_cost = BigDecimal.new(cost.gsub(/[\$,]/, ''))
+            line.gsub!(/\"/, "")
 
+            next if line.length == 0
+
+            if ( index == 0 )# trim off the header line
+              results_report_string += ("#{index.to_s} Header: " + line + "\n")
+              next
+            end
+
+            if (  not line.split("\t").map(&:strip).length.between?(7,10) )
+              results_report_string += ("#{index.to_s} Didn't have 7-10 items on line: " + line + "\n")
+              next
+            end
+
+            bu, item_number, description, category, quantity, cost, extended, location, re_order_point = line.split("\t").map(&:strip)
+
+            if re_order_point.nil? or re_order_point !~ /\d+/
+              re_order_point = "0"
+            end
+
+            if location.nil? or location !~ /\S+/
+              location = "UNKNOWN"
+            end
+
+            begin
+              decimal_cost = BigDecimal.new(cost.gsub(/[\$,]/, ''))
+              decimal_qty = BigDecimal.new(quantity)
+              decimal_extended  = BigDecimal.new(extended.gsub(/[\$,]/, ''))
+              decimal_re_order_point = BigDecimal.new(re_order_point)
+
+
+  ##FIXME            if decimal_extended != (decimal_cost * decimal_qty)
+  ##FIXME              results_report_string += ("#{index.to_s} Extended not equal cost * quantity " + line + "\n" )
+  ##FIXME              next
+  ##FIXME            end
+
+            rescue Exception => e
+              results_report_string += ("#{index.to_s} Exception during numberic conversion: #{e.message} " + line + "\n" )
+              next
+            end
 
             ActiveRecord::Base.transaction do
 
@@ -196,7 +234,7 @@ class SkusController < ApplicationController
 
               # Find or create a SKU
               the_sku = Sku.find_by(name: item_number) || Sku.create!(name: item_number,
-                                                                    minimum_stocking_level: 0, user_id: session[:user_id],
+                                                                    minimum_stocking_level: decimal_re_order_point, user_id: session[:user_id],
                                                                     bu: bu, description: description, category: category, cost: decimal_cost)
 
               # Find or create a BIN and add to it
@@ -208,14 +246,20 @@ class SkusController < ApplicationController
 
               dest_bin.qty += quantity.to_i
               dest_bin.save!
-            end
-        end
 
-        render 'login/generic_ok'
+            end #end of transaction
+
+        end #end of loop on lines
+
+        render plain: results_report_string
+        return
 
       rescue ActiveRecord::RecordNotFound => e
+
         render 'login/generic_error'
-      end
+        return
+
+      end #end of definition (and implicit begin/rescue block)
 
     private
 

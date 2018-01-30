@@ -47,6 +47,10 @@ group :development, :test do
   gem 'chromedriver-helper'
 end
 
+group :test do
+  gem 'simplecov'
+end
+
 group :test, :production do
   gem 'pg'
 end

@@ -1,7 +1,7 @@
 if ENV['COVERAGE']
   require 'simplecov'
   SimpleCov.start 'rails' do
-    command_name 'minitest'
+    #command_name 'minitest'
     merge_timeout 3600
   end
 end

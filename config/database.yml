@@ -28,10 +28,15 @@ test:
 
 production:
   adapter: postgresql
-  host: 10.8.52.12
-  port: 5432
+  url: <%= ENV['DATABASE_URL'] %>
   encoding: UTF8
-  pool: 5
-  database: urchin
-  username: postgres
-  password: postgres
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
+  #adapter: postgresql
+  #host: 10.8.52.12
+  #port: 5432
+  #encoding: UTF8
+  #pool: 5
+  #database: urchin
+  #username: postgres
+  #password: postgres

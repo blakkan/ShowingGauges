@@ -279,12 +279,17 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
   test "get all skus as json" do
 
     get "/all_skus_as_json.json"
-
     assert_response :success
     assert response.content_type == "application/json"
-
     assert JSON.parse(response.body)[0]['sku_num'] == "80-000000"
     assert JSON.parse(response.body)[1]['category'] == "Cat2"
+
+    #FIXME get "/data.json"
+    #FIXME assert_response :success
+    #FIXME assert response.content_type == "application/json"
+    #FIXME assert JSON.parse(response.body)[0]['sku_num'] == "80-000000"
+    #FIXME assert JSON.parse(response.body)[1]['category'] == "Cat2"
+
 
   end
 

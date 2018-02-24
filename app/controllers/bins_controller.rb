@@ -153,7 +153,8 @@ class BinsController < ApplicationController
 
             Transaction.create!(to_id: dest_location_id,
                                 qty: params[:quantity].to_i,
-                                sku_id: dest_sku_id, user_id: session[:user_id])
+                                sku_id: dest_sku_id, user_id: session[:user_id],
+                                comment: params[:comment])
         end  #end of transaction
 
 
@@ -203,7 +204,8 @@ class BinsController < ApplicationController
 
             Transaction.create!(from_id: src_location_id,
                                 qty: params[:quantity].to_i,
-                                sku_id: src_sku_id, user_id: session[:user_id])
+                                sku_id: src_sku_id, user_id: session[:user_id],
+                                comment: params[:comment])
         end
 
         redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",

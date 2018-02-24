@@ -94,6 +94,8 @@ class LoginController < ApplicationController
           #
         elsif params[:commit] == 'openid_connect'
 
+          puts "entered openid connect"
+
           #
           # Try a google login (or others, later).
           # Start by getting a randome token to send during the
@@ -164,6 +166,8 @@ class LoginController < ApplicationController
     # For third party authentication callback
     #
     def third_party_auth
+
+      puts "Entering third party auth"
 
       callback_uri = "http://" + request.host + ':' + request.port.to_s + '/third_party_auth'
 

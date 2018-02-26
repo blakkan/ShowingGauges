@@ -293,6 +293,68 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
   end
 
+
+
+test "call to display_sku_catalog" do
+
+  get "/display_sku_catalog"
+  assert_response :success
+
+  assert response.body =~ /All SKUs/
+
+  ###FIXME that's a prettey lame test just now, not really looking
+  ### at the structure of the table
+
+end
+
+
+
+
+test "get list of all transactions in json for the bootstrap-table" do
+
+  get "/transactions_found.json/1901-01-01/2101-01-01"
+  assert_response :success
+  z = JSON.parse(response.body)
+
+  assert z.length == 2
+  assert z[0]['sku_num'] == "80-000000"
+  assert OpenStruct.new(z[0]).sku_num == "80-000000"
+  assert z[1]['sku_num'] == "53-000001"
+
+end
+
+
+
+test "request to export csv is appropriately redirected" do
+  get "/display_all_transactions", params:
+    { start_date_name: 'Scooby-Doo', end_date_name: 'Where are you?',
+    commit:  "Export results" }
+  assert_response :redirect
+  assert response.header["Location"] ==
+      "http://www.example.com/transactions_found.csv/1901-01-01/2101-01-01"
+
+end
+
+
+
+
+test "get list of all transactions in csv for export" do
+
+  get "/transactions_found.csv/1901-01-01/2101-01-01"
+  assert_response :success
+  assert response.header["Content-Type"] == "text/csv"
+  the_stuff= CSV.parse(response.body)
+  assert the_stuff[0][0] == 'SKU'
+  assert the_stuff[0][7] == 'User'
+  assert the_stuff[-1][0] == '53-000001'
+  assert the_stuff[-1][-1] == 'TechB'
+
+
+
+end
+
+
+
   test "bulk import request" do
 
     # usual login

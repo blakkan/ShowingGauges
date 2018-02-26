@@ -64,7 +64,8 @@ class SkusController < ApplicationController
         end
         end
 
-    def display_sku_catalog; end
+    def display_sku_catalog
+    end
 
     def all_skus_as_json
         @the_display_list = []

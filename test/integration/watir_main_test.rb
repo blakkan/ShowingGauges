@@ -20,22 +20,27 @@ class WatirMainTest < ActionDispatch::IntegrationTest
         system("fuser -k 3000/tcp")
     end
 
-#    test 'it shows properly formatted title' do
-#      puts "doing regular login"
-#      #FIXME needs an if env
-#      SimpleCov.command_name "regular_login"
-#      @b.text_field( id: "user_name_id").set("TechA")
-#      @b.text_field( id: "user_password_id").set("john")
-#      @b.button( text: "Submit").click
-#      @b.wait
-#      @b.wait_until { @b.text.include? "Welcome back, TechA" }
-#      assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+$/
-#    end
+    test 'it shows properly formatted title' do
+      puts "doing regular login"
+     #FIXME needs an if env
+      SimpleCov.command_name "regular_login"
+      ###@b.a(id: "logout_id").link.when_present.click
+      ###@b.wait
+      @b.text_field( id: "user_name_id").set("TechA")
+      @b.text_field( id: "user_password_id").set("john")
+      @b.button( text: "Submit").click
+      @b.wait
+      @b.wait_until { @b.text.include? "Welcome back, TechA" }
+      assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+$/
+      @b.a(id: "logout_id").click
+    end
 
     test 'Google login shows properly formatted title' do
       puts "doing google login"
       #FIXME needs an if env
       SimpleCov.command_name "google_login"
+      ###@b.a(id: "logout_id").link.when_present.click
+      ###@b.wait
       @b.text_field( id: "user_name_id").set("TechA")
       #@b.text_field( id: "user_password_id").set("john")
       @b.button( text: "Login with Google").click
@@ -45,6 +50,7 @@ class WatirMainTest < ActionDispatch::IntegrationTest
       assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+$/
       assert @b.div(id: "flash_notice").inner_html =~ /Welcome back, TechA/,
         "Expected welcome back of TechA, but got [#{@b.div(id: "flash_notice").inner_html}]"
+      @b.a(id: "logout_id").click
     end
 
 

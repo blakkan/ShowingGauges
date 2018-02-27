@@ -27,18 +27,11 @@ test:
   password: postgres
 
 production:
-  pool: 5
-  timeout: 5000
   adapter: postgresql
-  #url: <%= ENV['DATABASE_URL'] %>
-  #encoding: UTF8
-  #password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
-
-  #adapter: postgresql
-  #host: 10.8.52.12
-  #port: 5432
-  #encoding: UTF8
-  #pool: 5
-  #database: urchin
-  #username: postgres
-  #password: postgres
+  host: 10.8.52.12
+  port: 5432
+  encoding: UTF8
+  pool: 5
+  database: urchin
+  username: postgres
+  password: postgres

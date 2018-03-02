@@ -3,7 +3,10 @@ require 'ostruct'
 
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
+
+
   test "get the transaction request screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/display_transactions_request_screen"
     assert_response :success
@@ -15,6 +18,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "The transaction reply screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_all_transactions", params:
       { start_date_name: '1900-01-01', end_date_name: '2101-01-01' }
     assert_response :success
@@ -29,6 +33,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "Transaction display date scrubbing" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/display_all_transactions", params:
       { start_date_name: '1900-01-01', end_date_name: '' }
@@ -53,6 +58,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cancel request for transactions" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_all_transactions", params:
       { commit: 'Cancel' }
     assert_redirected_to "/display_transactions_request_screen"
@@ -62,6 +68,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "get list of all transactions in json for the bootstrap-table" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/transactions_found.json/1901-01-01/2101-01-01"
     assert_response :success
@@ -77,6 +84,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "request to export csv is appropriately redirected" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_all_transactions", params:
       { start_date_name: 'Scooby-Doo', end_date_name: 'Where are you?',
       commit:  "Export results" }
@@ -90,6 +98,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "get list of all transactions in csv for export" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/transactions_found.csv/1901-01-01/2101-01-01"
     assert_response :success

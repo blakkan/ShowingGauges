@@ -2,8 +2,8 @@ require 'test_helper'
 
 class DashboardControllerTest < ActionDispatch::IntegrationTest
 
-
   test "display dashboard" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     ##NOTE:  This is just a dumnmy display of C3 items
     get "/display_dashboard"
     assert_response :success
@@ -11,17 +11,20 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display advanced search screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_advanced_search_screen"
     assert_response :success
   end
 
   test "display reorder table" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_reorder_table"
     assert_response :success
   end
 
 
 test "get list of all skus in json for the bootstrap-table" do
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
   get "/data.json"
   assert_response :success
@@ -35,6 +38,7 @@ end
 
 
 test "get list of all skus in csv for export" do
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
   get "/data.csv"
   assert_response :success

@@ -3,6 +3,8 @@ require 'net/http'
 
 class LoginController < ApplicationController
 
+    skip_before_action :require_login, only: [:display_login_screen, :set_session_name]
+
     ############################################################
     #
     # display_login_screen

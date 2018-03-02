@@ -2,7 +2,10 @@ require 'test_helper'
 
 class SkusControllerTest < ActionDispatch::IntegrationTest
 
+
+
   test "get list of skus" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get '/sku_matching.json/*'
     assert_response :success
@@ -28,6 +31,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
 
   test "cancel request for skus" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_skus", params:
       { commit: 'Cancel' }
     assert_redirected_to "/display_find_skus_screen"
@@ -36,6 +40,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
 
   test "request for skus matching pattern" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_skus", params:
       { commit: 'Submit', sku_string: "80-*" }
     assert_response :success
@@ -44,6 +49,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
 
   test "display_manage_sku_request_screen should be blank" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_manage_sku_request_screen"  #no parms
     assert_response :success
     html_doc = Nokogiri::HTML(response.body)
@@ -74,6 +80,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
     #
     # Cancel
     #
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/manage_sku_result", params:
       { commit: 'Cancel' }
@@ -109,6 +116,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage sku results - create with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -125,6 +133,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage sku results - create with non-admin user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
@@ -144,13 +153,14 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
     get "/manage_sku_result", params:
       { commit: 'Create', sku_string: "NEW_SKU", comment_string: "NEW_COMMENT",
       is_retired_string: "T" }
-    assert_redirected_to "/display_manage_sku_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert Sku.count == 2
 
   end
 
   test "manage sku results - update with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -188,14 +198,15 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
     get "/manage_sku_result", params:
       { commit: 'Update', sku_string: "80-000000", comment_string: "updated",
       is_retired_string: "T" }
-    assert_redirected_to "/display_manage_sku_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert Sku.count == 2
     assert Sku.find_by(name: "80-000000").comment != "updated"
 
   end
 
   test "manage sku results - Delete with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -229,6 +240,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage Sku results - Delete with non-admin user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
@@ -244,6 +256,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
   test "manage sku results - Delete with no user ID" do
 
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     assert Sku.count == 2
     get "/manage_sku_result", params:
       { commit: 'Delete', sku_string: "80-000000", comment_string: "updated",
@@ -255,6 +268,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage sku results - attempt to delete non-existing sku with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Sku.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -277,6 +291,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
 
   test "get all skus as json" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/all_skus_as_json.json"
     assert_response :success
@@ -296,7 +311,7 @@ class SkusControllerTest < ActionDispatch::IntegrationTest
 
 
 test "call to display_sku_catalog" do
-
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
   get "/display_sku_catalog"
   assert_response :success
 
@@ -311,6 +326,7 @@ end
 
 
 test "get list of all transactions in json for the bootstrap-table" do
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
   get "/transactions_found.json/1901-01-01/2101-01-01"
   assert_response :success
@@ -326,6 +342,7 @@ end
 
 
 test "request to export csv is appropriately redirected" do
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
   get "/display_all_transactions", params:
     { start_date_name: 'Scooby-Doo', end_date_name: 'Where are you?',
     commit:  "Export results" }
@@ -339,6 +356,7 @@ end
 
 
 test "get list of all transactions in csv for export" do
+  get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
   get "/transactions_found.csv/1901-01-01/2101-01-01"
   assert_response :success
@@ -356,6 +374,7 @@ end
 
 
   test "bulk import request" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     # usual login
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }

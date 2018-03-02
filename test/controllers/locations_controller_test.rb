@@ -3,7 +3,9 @@ require 'nokogiri'
 
 class LocationsControllerTest < ActionDispatch::IntegrationTest
 
+
   test "get list of items in locations" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get '/shelf_item_matching.json/*'
     assert_response :success
@@ -33,6 +35,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cancel request for locations" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_shelf_items", params:
       { commit: 'Cancel' }
     assert_redirected_to "/display_find_shelf_items_screen"
@@ -40,6 +43,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "request for items by location" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_shelf_items", params:
       { commit: 'Submit', location_string: "Shelf *" }
     assert_response :success
@@ -48,6 +52,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "display_manage_location_request_screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_manage_location_request_screen"  #no parms
     assert_response :success
     html_doc = Nokogiri::HTML(response.body)
@@ -77,6 +82,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     #
     # Cancel
     #
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/manage_location_result", params:
       { commit: 'Cancel' }
@@ -112,6 +118,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage location results - create with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -128,6 +135,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage location results - create with non-admin user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
@@ -142,18 +150,20 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage location results - create with no user ID" do
+#    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/manage_location_result", params:
       { commit: 'Create', location_string: "NEW_LOC", location_comment_string: "NEW_COMMENT",
       location_is_retired_string: "T" }
-    assert_redirected_to "/display_manage_location_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert Location.count == 2
 
   end
 
   test "manage location results - update with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -191,15 +201,14 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get "/manage_location_result", params:
       { commit: 'Update', location_string: "Shelf 1", location_comment_string: "updated",
       location_is_retired_string: "T" }
-    assert_redirected_to "/display_manage_location_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert Location.count == 2
     assert Location.find_by(name: "Shelf 1").comment != "updated"
 
   end
 
   test "manage location results - Delete with good user ID" do
-
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
     assert_redirected_to "/display_find_skus_screen"
@@ -251,13 +260,14 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get "/manage_location_result", params:
       { commit: 'Delete', location_string: "Shelf 1", location_comment_string: "updated",
       location_is_retired_string: "T" }
-    assert_redirected_to "/display_manage_location_request_screen/Shelf 1"
-    assert flash[:alert] == "Cannot delete location Shelf 1 since there is inventory in it or a transaction record"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert Location.count == 2
 
   end
 
   test "manage location results - attempt to delete non-existing location with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -280,6 +290,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "get all locations as json" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/all_locations_as_json.json"
 

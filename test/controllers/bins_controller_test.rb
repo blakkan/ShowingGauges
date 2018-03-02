@@ -4,6 +4,8 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "display transfer request screen with sku, loc, and qty" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
     get "/display_transfer_request_screen/80-000000/Shelf%201/8"
     #p response.body
     assert_response :success
@@ -16,6 +18,8 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer request screen without  sku, loc, or qty" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
     get "/display_transfer_request_screen"
     #p response.body
     assert_response :success
@@ -28,6 +32,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result with cancel" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Cancel', sku: "80-123456", from: "Shelf 1", to: "Shelf 2", quantity: "0"  }
     assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
@@ -38,6 +43,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   # Add to stock
   #
   test "display transfer result with add non-existing sku to stock" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Add to Stock', sku: "80-000004",  to: "Shelf 1", quantity: "3"  }
     assert_redirected_to "/display_transfer_request_screen/80-000004/Shelf%201/0"
@@ -46,6 +52,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result without source/dest" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Add to Stock', sku: "80-000004", quantity: "3"  }
     assert_redirected_to "/display_transfer_request_screen"
@@ -53,6 +60,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result with add existing sku to stock" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count = Bin.find_by(sku_id: 1, location_id: 1).qty
     get "/display_transfer_result", params:
       { commit: 'Add to Stock', sku: "80-000000",  to: "Shelf 1", quantity: "3"  }
@@ -62,6 +70,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result with add existing sku to stock and creating bin" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
     get "/display_transfer_result", params:
       { commit: 'Add to Stock', sku: "53-000001",  to: "Shelf 1", quantity: "3"  }
@@ -74,6 +83,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   # Remove from stock
   #
   test "display transfer result with removing non existing from to stock" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-123456", from: "Shelf 1", quantity: "1"  }
     assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
@@ -81,6 +91,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result with removing existing from to stock below zero" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-000000", from: "Shelf 1", quantity: "100" }
     #FIXME this shouldn't go to -84, should be zero with a warning
@@ -89,6 +100,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "display transfer result with removing existing stock destroying bin" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == 16
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-000000", from: "Shelf 1", quantity: "16" }
@@ -99,6 +111,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "display transfer result with removing non-existing from to stock" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-123456", from: "Shelf 1",  quantity: "1"  }
     assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
@@ -106,6 +119,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer from a to b" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
@@ -128,6 +142,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer from a to b destroying source bin and creating dest bin (changed)" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
@@ -139,6 +154,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer non-existing from a to b" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000006", from: "Shelf 1", to: "Shelf 2", quantity: "1" }
     assert_redirected_to "/display_transfer_request_screen/80-000006/Shelf%201/0"
@@ -146,6 +162,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer excess quantity from a to b" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count = Bin.find_by(sku_id: 2, location_id: 2).qty
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
     get "/display_transfer_result", params:
@@ -157,6 +174,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer from a to b with bad source location" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1a", to: "Shelf 2", quantity: "3" }
@@ -166,6 +184,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "transfer from a to b with bad dest location" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count = Bin.find_by(sku_id: 1, location_id: 1).qty
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2a", quantity: "3" }

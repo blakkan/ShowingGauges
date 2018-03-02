@@ -3,7 +3,10 @@ require 'nokogiri'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
+
+
   test "display_manage_user_request_screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_manage_user_request_screen"  #no parms
     assert_response :success
     html_doc = Nokogiri::HTML(response.body)
@@ -35,6 +38,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     #
     # Cancel
     #
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/manage_user_result", params:
       { commit: 'Cancel' }
@@ -69,6 +73,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage user results - create with good user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert User.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -85,6 +90,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage user results - create with non-admin user ID" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert User.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechB", user_password: "" }
@@ -106,14 +112,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get "/manage_user_result", params:
       { commit: 'Create', user_string: "NewUser", comment_string: "NEWCOMMENT",
       is_retired_string: "T", is_admin_string: "T" }
-    assert_redirected_to "/display_manage_user_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert User.count == 2
 
   end
 
   test "manage user results - update with good user ID" do
-
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
     assert_redirected_to "/display_find_skus_screen"
@@ -130,6 +135,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "manage user results - update with good user ID and reset password string" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     assert Location.count == 2
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
@@ -168,8 +174,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get "/manage_user_result", params:
       { commit: 'Update', user_string: "TechA", comment_string: "updated",
       is_retired_string: "T" }
-    assert_redirected_to "/display_manage_user_request_screen"
-    assert flash[:alert] == "Validation failed: Only admin users may update this"
+    assert_redirected_to "/display_login_screen"
+    assert flash[:alert] == "You must login to access this"
     assert User.count == 2
     assert User.find_by(name: "TechA").comment != "updated"
 
@@ -182,6 +188,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
 
   test "get all users as json" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
 
     get "/all_users_as_json.json"
 

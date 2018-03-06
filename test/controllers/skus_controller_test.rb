@@ -374,8 +374,6 @@ end
 
 
   test "bulk import request" do
-    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
-
     # usual login
     get "/set_session_name", params: { commit: "Submit", user_name: "TechA", user_password: "john" }
     assert_redirected_to "/display_find_skus_screen"
@@ -390,6 +388,7 @@ end
 
     post "/bulk_import_result", params:
       { bulk_input: "first line\n11\t81-123456\tdescription\tcategory\t2\t$1.00\t$2.00\tOverflow3" }
+    assert_response :success
 
     refute (new_sku = Sku.find_by( name: "81-123456" )).nil?
     refute (new_loc = Location.find_by( name: "Overflow3" )).nil?

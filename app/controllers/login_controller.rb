@@ -9,10 +9,11 @@ class LoginController < ApplicationController
     #
     # display_login_screen
     #
-    #   Draws the login screen
+    #   Draws the login screen (and logs out)
     #
     ############################################################
     def display_login_screen
+      session[:user_id] = nil
     end
 
     ############################################################

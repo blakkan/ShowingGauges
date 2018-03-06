@@ -33,6 +33,11 @@ class WatirMainTest < ActionDispatch::IntegrationTest
       @b.wait_until { @b.text.include? "Welcome back, TechA" }
       assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+$/
       @b.a(id: "logout_id").click
+      @b.wait
+      @b.li(id: "logout_link_id").click
+      @b.wait_until { @b.text.include? "Login" }
+      assert @b.a(id: "logout_id").inner_html =~ /Login/
+
     end
 
 #    test 'Google login shows properly formatted title' do

@@ -31,7 +31,7 @@ class WatirMainTest < ActionDispatch::IntegrationTest
       @b.button( text: "Submit").click
       @b.wait
       @b.wait_until { @b.text.include? "Welcome back, TechA" }
-      assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+$/
+      assert @b.title =~ /Sea Urchin \d+\.\d+\.\d+a$/
       @b.a(id: "logout_id").click
       @b.wait
       @b.li(id: "logout_link_id").click

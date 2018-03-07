@@ -5,7 +5,8 @@
   =render "sku_input_fields"
 
   %br
-  =link_to 'Cancel', "/", id: 'cancel_btn_id', class: 'btn'
+  -#=submit_tag 'Cancel', id: 'cancel_btn_id', class: 'btn'
+  =submit_tag 'Cancel', id: 'cancel_btn_id', class: 'btn'
   =submit_tag 'Create', id: 'create_btn_id', class: 'btn btn-primary'
   =submit_tag 'Update', id: 'update_btn_id', class: 'btn btn-primary'
   =submit_tag 'Delete', id: 'delete_btn_id', class: 'btn btn-primary'

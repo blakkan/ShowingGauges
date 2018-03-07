@@ -154,7 +154,7 @@ class LoginController < ApplicationController
 
       # first check that new passwords match
       if params[:user_password] != params[:user_password2]
-          redirect_back fallback_location: '/display_change_password_screen',
+          redirect_to '/display_change_password_screen',
                       alert: 'Failed: Passwords did not match' # notice for info, alert for error
 
       else
@@ -183,7 +183,7 @@ class LoginController < ApplicationController
        response1 = Net::HTTP.post_form(URI.parse('https://www.googleapis.com/oauth2/v4/token'),
         { code: params[:code],
           client_id: "549167835186-fkmvas29tv88h8gqo8c3iur7goil6d21.apps.googleusercontent.com",
-          client_secret: "l2x3yuXn86eJgyKFxS9zRbvI",
+          client_secret: "x",
           redirect_uri: callback_uri,
           grant_type: "authorization_code"
         })

@@ -6,4 +6,4 @@
 =form_tag '/data.csv', method: 'get' do
   =submit_tag 'Export to CSV', id: 'display_reorder_table_csv_btn_id', class: 'btn btn-primary'
 %p
-=link_to 'Cancel', "/", id: 'cancel_btn_id', class: 'btn btn-default'
+=submit_tag 'Cancel', id: 'cancel_btn_id', class: 'btn btn-default'

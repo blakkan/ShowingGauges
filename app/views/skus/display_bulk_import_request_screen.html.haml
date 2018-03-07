@@ -2,5 +2,8 @@
   Paste in CSV file
 =form_tag '/bulk_import_result', method: 'post' do
   =text_area_tag :bulk_input
+  %label{ for: :clear_tables_box_id }
+    Check to clear all Inventory, Transactions, SKU types, and Locations.
+  =check_box_tag  :clear_tables_box
   %br
   =submit_tag :Submit, class: 'btn btn-primary'

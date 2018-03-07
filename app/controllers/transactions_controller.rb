@@ -20,7 +20,7 @@ class TransactionsController < ApplicationController
 
     if params[:commit] == "Cancel"
 
-      redirect_back fallback_location: "/display_transactions_request_screen",
+      redirect_to "/display_transactions_request_screen",
         notice: "Operation Cancelled"
       return
 

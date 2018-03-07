@@ -21,7 +21,7 @@ class BinsController < ApplicationController
 
         if params[:commit] == "Cancel"
 
-          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
+          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
             notice: "Action Cancelled"
           return
 
@@ -94,7 +94,7 @@ class BinsController < ApplicationController
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
           @error_message = e.message
           #render template: 'login/generic_error'
-          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
+          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
             alert: @error_message
       end
 
@@ -117,7 +117,7 @@ class BinsController < ApplicationController
 
         if params[:to].nil? or params[:to] !~ /\S/
           @error_message = "Must have a \"To Location \" to transfer new items into."
-          redirect_back fallback_location: "/display_transfer_request_screen",
+          redirect_to "/display_transfer_request_screen",
            alert: @error_message
           return
         end
@@ -158,12 +158,12 @@ class BinsController < ApplicationController
         end  #end of transaction
 
 
-          redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
              notice: "Success"
 
       rescue ActiveRecord::RecordNotFound => e
 
-        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/0",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/0",
           alert: e.message
 
 
@@ -208,14 +208,14 @@ class BinsController < ApplicationController
                                 comment: params[:comment])
         end
 
-        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
                     notice: "Success"
 
 
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
         @error_message = e.message
-        redirect_back fallback_location: "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
           alert: @error_message
 
       end
@@ -250,8 +250,8 @@ class BinsController < ApplicationController
 
         if (params[:quantity].to_i < 1)
 
-          redirect_back fallback_location: "/display_new_sku_request_screen",
-          alert: "Quantity must be 1 or greater.  Request cancelled. \n"
+          redirect_to "/display_new_sku_request_screen",
+            alert: "Quantity must be 1 or greater.  Request cancelled. \n"
           return
         end
 
@@ -303,27 +303,27 @@ class BinsController < ApplicationController
       end  #end of activerrecrod transaction
 
       # Now determine what to tell user
-      alert_message = ""
+      notice_message = ""
 
-      alert_message += "Items entered, but sku type already existed, so new sku details ignored. \n" if sku_initial_find
-      alert_message += "Items entered, but location already existed, so new location details ignored. \n" if loc_initial_find
+      notice_message += "Items entered, but sku type already existed, so new sku details ignored. \n" if sku_initial_find
+      notice_message += "Items entered, but location already existed, so new location details ignored. \n" if loc_initial_find
 
-      if alert_message.length > 0
-        redirect_back fallback_location: "/display_new_sku_request_screen",
-        alert: alert_message
+      if notice_message.length > 0
+        redirect_to "/display_new_sku_request_screen",
+        notice: notice_message
 
       else
-       redirect_back fallback_location: "/display_new_sku_request_screen",
+       redirect_to "/display_new_sku_request_screen",
        notice: "Success"
      end
 
   rescue ActiveRecord::RecordNotFound => e
 
-    redirect_back fallback_location: "/display_new_sku_request_screen",
+    redirect_to "/display_new_sku_request_screen",
     alert: "Couldn't find record"
 
   rescue ActiveRecord::RecordInvalid => e
-    redirect_back fallback_location: "/display_new_sku_request_screen",
+    redirect_to "/display_new_sku_request_screen",
     alert: "SKU or Location error: #{e.message}"
 
   end #end of method

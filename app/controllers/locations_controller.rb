@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   def display_shelf_items
 
     if params[:commit] == "Cancel"
-      redirect_back fallback_location: "/display_find_shelf_items_screen",
+      redirect_to "/display_find_shelf_items_screen",
         notice: "Operation Cancelled"
       return
     else
@@ -60,7 +60,7 @@ class LocationsController < ApplicationController
         @pre_pop_is_retired = the_location.is_retired
       rescue ActiveRecord::RecordNotFound => e
         @error_message = e.message
-        redirect_back fallback_location: "/display_manage_location_request_screen",
+        redirect_to "/display_manage_location_request_screen",
           alert: @error_message
         return
       end
@@ -80,7 +80,7 @@ class LocationsController < ApplicationController
 
     if params[:commit] == "Cancel"
 
-      redirect_back fallback_location: "/display_manage_location_request_screen",
+      redirect_to "/display_manage_location_request_screen",
         notice: "Operation Cancelled"
 
 
@@ -129,7 +129,7 @@ class LocationsController < ApplicationController
           # If there are some bins with a quantity of this sku, can't do it
           if (Bin.where(location_id: the_loc.id).count != 0 ||
               Transaction.where(["from_id = ? or to_id = ?", the_loc.id, the_loc.id ] ).count != 0 )
-            redirect_back fallback_location: "/display_manage_location_request_screen/" + params[:location_string],
+            redirect_to "/display_manage_location_request_screen/" + params[:location_string],
             alert: "Cannot delete location #{params[:location_string]} since there is inventory in it or a transaction record"
 
           # otherwise, if there is no quanity, go ahead and delete
@@ -154,7 +154,7 @@ class LocationsController < ApplicationController
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
-    redirect_back fallback_location: "/display_manage_location_request_screen",
+    redirect_to "/display_manage_location_request_screen",
       alert: @error_message
     return
 

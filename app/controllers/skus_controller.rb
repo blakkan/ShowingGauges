@@ -7,7 +7,7 @@ class SkusController < ApplicationController
 
     def display_skus
         if params[:commit] == 'Cancel'
-            redirect_back fallback_location: '/display_find_skus_screen',
+            redirect_to '/display_find_skus_screen',
                           notice: 'Operation Cancelled'
             nil
         else
@@ -92,9 +92,10 @@ class SkusController < ApplicationController
     def manage_sku_result
         if params[:commit] == 'Cancel'
 
-            redirect_back fallback_location: '/display_manage_sku_request_screen',
+          #  redirect_to '/display_manage_sku_request_screen',
+          #                notice: 'Operation Cancelled')
+            redirect_back fallback_location: :display_manage_sku_request_screen,
                           notice: 'Operation Cancelled'
-
         elsif params[:commit] == 'Refresh'
 
             new_place = '/display_manage_sku_request_screen' + (params.key?(:sku_string) && params[:sku_string] =~ /\S/ ? "/#{params[:sku_string]}" : '')
@@ -148,13 +149,13 @@ class SkusController < ApplicationController
             # If there are some bins with a quantity of this sku, can't do it
             if Bin.where(sku_id: the_sku.id).count != 0 ||
                Transaction.where(['sku_id = ?', the_sku.id]).count != 0
-                redirect_back fallback_location: '/display_manage_sku_request_screen/' + params[:sku_string],
+                redirect_to '/display_manage_sku_request_screen/' + params[:sku_string],
                               alert: "Cannot delete sku type #{params[:sku_string]} since there is inventory in some location or a transaction record"
 
             # otherwise, if there is no quanity, go ahead and delete
             else
                 the_sku.destroy!
-                redirect_back fallback_location: '/display_manage_sku_request_screen',
+                redirect_to '/display_manage_sku_request_screen',
                               notice: "Deleted #{params[:sku_string]}"
 
           end
@@ -168,7 +169,7 @@ class SkusController < ApplicationController
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid, Exception => e
 
             @error_message = e.message
-            redirect_back fallback_location: '/display_manage_sku_request_screen',
+            redirect_to '/display_manage_sku_request_screen',
                           alert: @error_message
         end
 
@@ -176,9 +177,20 @@ class SkusController < ApplicationController
 
     ###############################################
 
-    def display_bulk_import_request_screen; end
+    def display_bulk_import_request_screen
+    end
 
     def bulk_import_result
+
+      # Delete all but users, if re-initializing
+        if params[:clear_tables_box]
+          puts "Clearing all"
+          Bin.delete_all
+          Location.delete_all
+          Transaction.delete_all
+          Sku.delete_all
+        end
+
 
         results_report_string = "Omitting these lines (including header)\n"
 

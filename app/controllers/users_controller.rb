@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
     if params[:commit] == "Cancel"
 
-      redirect_back fallback_location: "/display_manage_user_request_screen",
+      redirect_to "/display_manage_user_request_screen",
         notice: "Operation Cancelled"
 
 
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
     @error_message = e.message
-    redirect_back fallback_location: "/display_manage_user_request_screen",
+    redirect_to "/display_manage_user_request_screen",
       alert: @error_message
 
   end

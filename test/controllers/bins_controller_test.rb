@@ -193,4 +193,28 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count
   end
 
+
+  test "view the new sku screen" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+    get "/display_new_sku_request_screen"
+    assert_response :success
+    assert response.body =~ /Add SKU with: new sku, new location, and initial quantity/
+  end
+
+  test "make a new sku with new loc and qty" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+    get "/display_new_sku_result", params: {
+      commit: "Create", sku_string: "NEW-STRING-SKU", location_string: "NEW-STRING-LOC",
+      quantity: "44" }
+
+    #assert_response :success
+    get "/sku_matching.json/*"
+    assert_response :success
+    assert JSON.parse(response.body)[-1]['sku_num'] == 'NEW-STRING-SKU'
+    assert JSON.parse(response.body)[-1]['loc'] == 'NEW-STRING-LOC'
+    assert JSON.parse(response.body)[-1]['qty'] ==  44
+
+  end
+
+
 end

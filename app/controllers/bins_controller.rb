@@ -290,9 +290,6 @@ class BinsController < ApplicationController
                               qty: params[:quantity].to_i).
                               find_or_create_by!(sku_id: the_sku_type.id, location_id: dest_location.id)
 
-          ## Don't use increment!, it bypasses validations
-          # dest_bin.increment!(:qty, params[:quantity].to_i)
-          dest_bin.qty += params[:quantity].to_i
           dest_bin.save!
 
           #Now log it in the journal

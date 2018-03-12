@@ -204,16 +204,34 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   test "make a new sku with new loc and qty" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_new_sku_result", params: {
-      commit: "Create", sku_string: "NEW-STRING-SKU", location_string: "NEW-STRING-LOC",
-      quantity: "44" }
+      commit: "Create",
+      sku_string: "NEW-STRING-SKU",
+      description_string: "NEW-SKU-DESCRIPTION",
+      comment_string: "NEW-SKU-TYPE-COMMENT",
+      bu_string: "NEW-BU",
+      cost_string: "$1.11",
+      category_string: "ABC",
+      stock_level_string: "4",
+      location_string: "NEW-STRING-LOC",
+      location_comment_string: "NEW-LOCATION-COMMENT",
+      quantity: "3" }
 
     #assert_response :success
     get "/sku_matching.json/*"
     assert_response :success
     assert JSON.parse(response.body)[-1]['sku_num'] == 'NEW-STRING-SKU'
     assert JSON.parse(response.body)[-1]['loc'] == 'NEW-STRING-LOC'
-    assert JSON.parse(response.body)[-1]['qty'] ==  44
+    #comment doesn't show here...
+    assert JSON.parse(response.body)[-1]['bu'] == 'NEW-BU'
+    assert JSON.parse(response.body)[-1]['description'] == 'NEW-SKU-DESCRIPTION'
+    assert JSON.parse(response.body)[-1]['category'] == 'ABC'
+    assert JSON.parse(response.body)[-1]['cost'] == '$1.11'
+    assert JSON.parse(response.body)[-1]['extended'] == '$3.33'
 
+    assert JSON.parse(response.body)[-1]['qty'] ==  3
+
+    #FIXME also chedk the transactions to see if it's there
+    #FIXME also check the report to note that it's below reorder point
   end
 
 

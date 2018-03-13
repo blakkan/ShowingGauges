@@ -19,7 +19,7 @@ class BinsController < ApplicationController
 
         # short circuit over to transfer out
 
-        qty_now = 0
+        src_qty_now = -1  #so all can see our grevious error
 
         if params[:commit] == "Cancel"
 
@@ -75,10 +75,14 @@ class BinsController < ApplicationController
                 dest_bin.qty += params[:quantity].to_i
                 dest_bin.save!
                 # dest_bin.increment!(:qty, params[:quantity].to_i)
-                qty_now = dest_bin.qty
             end
 
-            src_bin.destroy! if src_bin.qty < 1
+            if src_bin.qty < 1
+              src_bin.destroy!
+              src_qty_now = 0
+            else
+              src_qty_now = src_bin.qty
+            end
 
             Transaction.create!(from_id: src_location_id, to_id: dest_location_id,
                                 qty: params[:quantity].to_i,
@@ -88,7 +92,8 @@ class BinsController < ApplicationController
 
       end #enf of main actgion decison
 
-      redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+
+      redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{src_qty_now.to_s}",
         notice: "Success"
 
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e

@@ -120,12 +120,17 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
 
   test "transfer from a to b" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
+    #Verify we start with 16
     old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 4, "Expected 4, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "3" }
     #FIXME why is the last character below zero instead of 3?
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/7"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
     assert Bin.find_by(sku_id: 1, location_id: 2).qty == 7, "Expected 7, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
@@ -133,9 +138,12 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     #Do it again, with an additional quantity
     old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
     old_count_2 =  Bin.find_by(sku_id: 1, location_id: 2).qty
+    assert old_count_1 == 13, "Expected 13, saw #{assert old_count_1.to_s}"
+    assert old_count_2 == 7, "Expected 7, saw #{assert old_count_1.to_s}"
+
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "2" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/9"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/11"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 2
     assert Bin.find_by(sku_id: 1, location_id: 2).qty == old_count_2 + 2
@@ -144,13 +152,15 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   test "transfer from a to b destroying source bin and creating dest bin (changed)" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "16" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/20"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/0"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).nil?
-    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 20, "Expected 20, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 20, "Expected 0, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
   end
 
   test "transfer non-existing from a to b" do

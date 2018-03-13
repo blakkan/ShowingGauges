@@ -3,9 +3,9 @@
 =form_tag '/manage_location_result', method: 'get' do
   =render "location_input_fields"
   %br
-  =submit_tag 'Cancel', id: 'cancel_btn_id', class: 'btn'
-  =submit_tag 'Create', id: 'create_btn_id', class: 'btn btn-primary'
-  =submit_tag 'Update', id: 'update_btn_id', class: 'btn btn-primary'
-  =submit_tag 'Delete', id: 'delete_btn_id', class: 'btn btn-primary'
+  =button_tag 'Cancel', id: 'cancel_btn_id', class: 'btn'
+  =button_tag 'Create', id: 'create_btn_id', class: 'btn btn-primary'
+  =button_tag 'Update', id: 'update_btn_id', class: 'btn btn-primary'
+  =button_tag 'Delete', id: 'delete_btn_id', class: 'btn btn-primary'
   =submit_tag 'Refresh', id: 'refresh_btn_id', class: 'btn btn-primary'
-  =submit_tag 'List All Locations', id: 'list_all_btn_id', class: 'btn btn-primary'
+  =button_tag 'List All Locations', id: 'list_all_btn_id', class: 'btn btn-primary'

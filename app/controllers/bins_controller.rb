@@ -19,6 +19,8 @@ class BinsController < ApplicationController
 
         # short circuit over to transfer out
 
+        qty_now = 0
+
         if params[:commit] == "Cancel"
 
           redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
@@ -32,8 +34,6 @@ class BinsController < ApplicationController
           return display_transfer_out_result
 
         else
-
-          qty_now = 0
 
           ActiveRecord::Base.transaction do
 
@@ -84,9 +84,9 @@ class BinsController < ApplicationController
                                 qty: params[:quantity].to_i,
                                 sku_id: src_sku_id, user_id: session[:user_id],
                                 comment: params[:comment])
-        end
+         end #end of transaction
 
-      end
+      end #enf of main actgion decison
 
       redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
         notice: "Success"

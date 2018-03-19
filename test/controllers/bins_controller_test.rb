@@ -31,11 +31,19 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert_nil  html_doc.at_css('input#qty_id')['value']
   end
 
-  test "display transfer result with cancel" do
+  test "display transfer result with cancel without comment" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
-      { commit: 'Cancel', sku: "80-123456", from: "Shelf 1", to: "Shelf 2", quantity: "0"  }
-    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
+      { commit: 'Cancel', sku: "80-123456", from: "Shelf 1", to: "Shelf 2", quantity: "0" }
+    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0/Shelf%202"
+    assert flash[:notice] == "Action Cancelled"
+  end
+
+  test "display transfer result with cancel with comment" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+    get "/display_transfer_result", params:
+      { commit: 'Cancel', sku: "80-123456", from: "Shelf 1", to: "Shelf 2", quantity: "0", comment: ""  }
+    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0/Shelf%202/"
     assert flash[:notice] == "Action Cancelled"
   end
 
@@ -128,9 +136,9 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
 
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "3" }
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "3", comment: "" }
     #FIXME why is the last character below zero instead of 3?
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13/Shelf%202/"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
     assert Bin.find_by(sku_id: 1, location_id: 2).qty == 7, "Expected 7, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
@@ -142,8 +150,8 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert old_count_2 == 7, "Expected 7, saw #{assert old_count_1.to_s}"
 
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "2" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/11"
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "2", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/11/Shelf%202/"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 2
     assert Bin.find_by(sku_id: 1, location_id: 2).qty == old_count_2 + 2
@@ -156,8 +164,8 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
 
     #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "16" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/0"
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2", quantity: "16", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/0/Shelf%202/"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).nil?
     assert Bin.find_by(sku_id: 1, location_id: 2).qty == 20, "Expected 0, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
@@ -166,9 +174,9 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
   test "transfer non-existing from a to b" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000006", from: "Shelf 1", to: "Shelf 2", quantity: "1" }
-    assert_redirected_to "/display_transfer_request_screen/80-000006/Shelf%201/0"
-    assert flash[:alert] == "Couldn't find Sku"
+      { commit: 'Submit', sku: "80-000006", from: "Shelf 1", to: "Shelf 2", quantity: "1", comment: ""}
+    assert_redirected_to "/display_transfer_request_screen/80-000006/Shelf%201/1/Shelf%202/"
+    assert flash[:alert] == "Could not find SKU with that number", "Expected flash Could not find SKU with that number, got #{flash[:alert]}"
   end
 
   test "transfer excess quantity from a to b" do
@@ -176,8 +184,8 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     old_count = Bin.find_by(sku_id: 2, location_id: 2).qty
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "53-000001", from: "Shelf 2", to: "Shelf 1", quantity: "300" }
-    assert_redirected_to "/display_transfer_request_screen/53-000001/Shelf%202/0"
+      { commit: 'Submit', sku: "53-000001", from: "Shelf 2", to: "Shelf 1", quantity: "300", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/53-000001/Shelf%202/300/Shelf%201/"
     assert flash[:alert] == "Validation failed: Qty Attempt to take quantity below zero"
     assert Bin.find_by(sku_id: 2, location_id: 2).qty == old_count
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
@@ -187,19 +195,31 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000000", from: "Shelf 1a", to: "Shelf 2", quantity: "3" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201a/0"
-    assert flash[:alert] == "Couldn't find Location"
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1a", to: "Shelf 2", quantity: "3", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201a/3/Shelf%202/"
+    assert flash[:alert] == "Could not find that source location name", "Expected flash of Could not find that source location name, got #{flash[:alert]}"
     assert Bin.find_by(sku_id: 2, location_id: 1).nil?
   end
+
+  test "transfer from a to b with good source location, but no bin" do
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+    assert Bin.find_by(sku_id: 2, location_id: 1).nil?
+    get "/display_transfer_result", params:
+      { commit: 'Submit', sku: "53-000001", from: "Shelf 1", to: "Shelf 2", quantity: "1", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/53-000001/Shelf%201/1/Shelf%202/"
+    assert flash[:alert] == "Could not find a quantity of requested SKU in requested location", "Expected flash of Could not find a quantity of requested SKU in requested location, got #{flash[:alert]}"
+    assert Bin.find_by(sku_id: 2, location_id: 1).nil?
+  end
+
 
   test "transfer from a to b with bad dest location" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     old_count = Bin.find_by(sku_id: 1, location_id: 1).qty
     get "/display_transfer_result", params:
-      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2a", quantity: "3" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/0"
-    assert flash[:alert] == "Couldn't find Location"
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Shelf 2a", quantity: "3", comment: "" }
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/3/Shelf%202a/"
+    assert flash[:alert] == "Could not find destination location", "Expected flash of Could not find destination location, got #{flash[:alert]}"
+
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count
   end
 

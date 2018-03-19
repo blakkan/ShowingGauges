@@ -67,13 +67,13 @@ $(document).ready (
     } // end of callback function
   ); // end of callback registration function
 
-      //
-      // This little runt function is just needed to give the
-      // bootstrap date picker a little kick.
-      // (We also repeat this, possibly redundantly) in some
-      // of the html itself.
+  //
+  // This little runt function is just needed to give the
+  // bootstrap date picker a little kick.
+  // (We also repeat this, possibly redundantly) in some
+  // of the html itself.
 
-      $('.datetimepicker_class input').datepicker();
+  $('.datetimepicker_class input').datepicker();
 
   }  // end of anonymous function
 

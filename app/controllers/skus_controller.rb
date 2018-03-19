@@ -1,6 +1,6 @@
 class SkusController < ApplicationController
     before_action :set_sku, only: [:show, :edit, :update, :destroy]
-
+    skip_before_action :verify_authenticity_token, only: [:bulk_import_result]
     ##############################################
 
     def display_find_skus_screen; end

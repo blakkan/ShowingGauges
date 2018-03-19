@@ -19,12 +19,17 @@ class BinsController < ApplicationController
 
         # short circuit over to transfer out
 
-        src_qty_now = -1  #so all can see our grevious error
+        src_qty_now = -1  #so all can see our grevious error, start with a default clearly non-sensical value
 
         if params[:commit] == "Cancel"
+          if params.key?(:comment)
+            redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+              notice: "Action Cancelled"
+          else
+            redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}",
+              notice: "Action Cancelled"
 
-          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
-            notice: "Action Cancelled"
+          end
           return
 
         elsif params[:commit] == "Add to Stock"
@@ -37,47 +42,95 @@ class BinsController < ApplicationController
 
           ActiveRecord::Base.transaction do
 
-            action_tracker = 'find sku id'
+            # Find destination bin with matching sku and location
+            begin
+              src_sku_id = Sku.find_by!(name: params[:sku]).id
+            rescue ActiveRecord::RecordNotFound => e
+                @error_message = e.message
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: "Could not find SKU with that number"
+                return
+            end
 
+
+            begin
+              src_location_id = Location.find_by!(name: params[:from]).id
+            rescue ActiveRecord::RecordNotFound => e
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: "Could not find that source location name"
+                return
+            end
+
+
+            begin
+              src_bin = Bin.find_by!(sku_id: src_sku_id, location_id: src_location_id)
+            rescue ActiveRecord::RecordNotFound => e
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: "Could not find a quantity of requested SKU in requested location"
+                return
+            end
             # Find destination bin with matching sku and location
 
-            src_sku_id = Sku.find_by!(name: params[:sku]).id
-            action_tracker = 'find src location id'
-            src_location_id = Location.find_by!(name: params[:from]).id
+            begin
+              dest_location_id = Location.find_by!(name: params[:to]).id
+            rescue ActiveRecord::RecordNotFound => e
+              #render template: 'login/generic_error'
+              redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                alert: "Could not find destination location"
+              return
+            end
 
-            action_tracker = 'find src bin ' + params[:from]
-            src_bin = Bin.find_by!(sku_id: src_sku_id, location_id: src_location_id)
 
-            # Find destination bin with matching sku and location
-            action_tracker = 'find dest id'
-            dest_sku_id = Sku.find_by!(name: params[:sku]).id
-            action_tracker = 'find dest location id'
-            dest_location_id = Location.find_by!(name: params[:to]).id
-
-            dest_bin = Bin.find_by(sku_id: dest_sku_id, location_id: dest_location_id)
+            dest_bin = Bin.find_by(sku_id: src_sku_id, location_id: dest_location_id)
 
             if dest_bin.nil?
 
-                dest_bin = Bin.create(sku_id: dest_sku_id,
-                                      location_id: dest_location_id,
-                                      qty: params[:quantity].to_i)
+              begin
+
                 ## Don't use decrement!, it skips validations
                 src_bin.qty -= params[:quantity].to_i
                 src_bin.save!
+
+                dest_bin = Bin.create(sku_id: src_sku_id,
+                                      location_id: dest_location_id,
+                                      qty: params[:quantity].to_i)
+
+              rescue ActiveRecord::RecordInvalid=> e
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: e.message
+                return
+              end
+
             # src_bin.decrement!(:qty, params[:quantity].to_i)
 
             else
 
+              begin
                 ## Don't use increment or decrement, they skip validations
                 src_bin.qty -= params[:quantity].to_i
                 src_bin.save!
-                # src_bin.decrement!(:qty, params[:quantity].to_i)
+
                 dest_bin.qty += params[:quantity].to_i
                 dest_bin.save!
-                # dest_bin.increment!(:qty, params[:quantity].to_i)
+              rescue ActiveRecord::RecordInvalid => e
+
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: e.message
+                return
+
+
+              end
+
+
+
             end
 
-            if src_bin.qty < 1
+            if src_bin.qty < 1  #should only be zero at this point.
               src_bin.destroy!
               src_qty_now = 0
             else
@@ -90,17 +143,9 @@ class BinsController < ApplicationController
                                 comment: params[:comment])
          end #end of transaction
 
-      end #enf of main actgion decison
+      end #end of main action decision
 
-
-      redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{src_qty_now.to_s}",
-        notice: "Success"
-
-      rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
-          @error_message = e.message
-          #render template: 'login/generic_error'
-          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/0",
-            alert: @error_message
+      redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{src_qty_now.to_s}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}", notice: "Success"
       end
 
     ##########################################################

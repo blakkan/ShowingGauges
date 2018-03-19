@@ -82,7 +82,7 @@ class TransactionsController < ApplicationController
 
 
     else
-      p params
+      ;
     end
 
 

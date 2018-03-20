@@ -18,7 +18,7 @@ class WatirlessIntegrationTest < ActionDispatch::IntegrationTest
 
       get "/", params: {}
       assert_response :success
-      assert_select "title", {:count => 1, :text=>"Sea Urchin 0.0.1d"}
+      assert_select "title", {:count => 1, :text=>"Sea Urchin 0.0.1e"}
 
 
     end

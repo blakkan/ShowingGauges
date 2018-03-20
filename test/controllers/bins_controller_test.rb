@@ -223,7 +223,165 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count
   end
 
+  test "transfer from location to account with a comment" do
 
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
+    # First, make sure we don't have our test transaction in there already...
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+    refute transactions_seen[0]['comment'] == 'Account 12345'
+
+
+    #Verify we start with 16
+    old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 4, "Expected 4, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+
+    #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
+    get "/display_transfer_result", params:
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Account", quantity: "3", comment: "Account 12345" }
+    #FIXME why is the last character below zero instead of 3?
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"  #We moved out three of the original 16
+    assert flash[:notice] == "Success", "Expected a notice of success, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
+    assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
+
+    # now check transactions, white-boxing down into the model
+    assert Transaction.last.comment == "Account 12345"
+    assert Transaction.last.to_id.nil?  #should be gone
+
+    # now check the transactions as we should, through the system
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    assert transactions_seen[0]['to'] == 'TRANS.OUT'
+    assert transactions_seen[0]['comment'] == 'Account 12345'
+
+  end
+
+  test "transfer from location to work order with a comment" do
+
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
+    # First, make sure we don't have our test transaction in there already...
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+    refute transactions_seen[0]['comment'] == 'WO 12345'
+
+
+    #Verify we start with 16
+    old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 4, "Expected 4, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+
+    #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
+    get "/display_transfer_result", params:
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Account", quantity: "3", comment: "WO 12345" }
+    #FIXME why is the last character below zero instead of 3?
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"  #We moved out three of the original 16
+    assert flash[:notice] == "Success", "Expected a notice of success, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
+    assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
+
+    # now check transactions, white-boxing down into the model
+    assert Transaction.last.comment == "WO 12345"
+    assert Transaction.last.to_id.nil?  #should be gone
+
+    # now check the transactions as we should, through the system
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    assert transactions_seen[0]['to'] == 'TRANS.OUT'
+    assert transactions_seen[0]['comment'] == 'WO 12345'
+
+  end
+
+  test "transfer from location to account without a comment" do
+
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
+    # First, make sure we don't have our test transaction in there already...
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+    refute transactions_seen[0]['comment'] == 'Account 12345'
+
+
+    #Verify we start with 16
+    old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 4, "Expected 4, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+
+    #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
+    get "/display_transfer_result", params:
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Account", quantity: "3", }
+    #FIXME why is the last character below zero instead of 3?
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/3/Account"  #We moved out three of the original 16
+    assert flash[:alert] == "It appears you are trying to transfer to an account or work order, but with no comment.  Please indicate in the comment an account or work order number", "Expected an alert of no comment, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
+    assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1
+
+    # now check transactions, white-boxing down into the model
+    refute Transaction.last.to_id.nil?  #should be gone
+
+    # now check the transactions as we should, through the system
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+
+  end
+
+  test "transfer from location to work order without a comment" do
+
+    get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
+
+    # First, make sure we don't have our test transaction in there already...
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+    refute transactions_seen[0]['comment'] == 'WO 12345'
+
+
+    #Verify we start with 16
+    old_count_1 = Bin.find_by(sku_id: 1, location_id: 1).qty
+    assert old_count_1 == 16   #from fixture
+    assert Bin.find_by(sku_id: 1, location_id: 2).qty == 4, "Expected 4, saw #{Bin.find_by(sku_id: 1, location_id: 2).qty}"
+
+    #assert Bin.find_by(sku_id: 1, location_id: 2).nil?
+    get "/display_transfer_result", params:
+      { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "WO 12345", quantity: "3", }
+    #FIXME why is the last character below zero instead of 3?
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/3/WO%2012345"  #We moved out three of the original 16
+    assert flash[:alert] == "It appears you are trying to transfer to an account or work order, but with no comment.  Please indicate in the comment an account or work order number", "Expected an alert of no comment, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
+    assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1
+
+    # now check transactions, white-boxing down into the model
+    refute Transaction.last.to_id.nil?  #should be gone
+
+    # now check the transactions as we should, through the system
+    get "/transactions_found.json/1900-01-01/2101-01-01"
+    assert_response :success
+    #assert response.body =~ /transactions_found.json\/1900-01-01\/2101-01-01/
+    transactions_seen = JSON.parse(response.body)
+    refute transactions_seen[0]['to'] == 'TRANS.OUT'
+
+  end
+
+
+
+  #TODO this should move to sku controller, probably.
   test "view the new sku screen" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_new_sku_request_screen"
@@ -231,6 +389,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert response.body =~ /Add SKU with: new sku, new location, and initial quantity/
   end
 
+  #TODO this should move to sku controller, probably.
   test "make a new sku with new loc and qty" do
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_new_sku_result", params: {

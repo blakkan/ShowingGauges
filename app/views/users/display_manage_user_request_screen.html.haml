@@ -16,12 +16,6 @@
 
   %div.row
     %div.col-md-3
-      %label{for: :google_email_string_id}
-      %h3
-        Google email
-        =text_field_tag :google_email_string, @pre_pop_google_email, id: :google_email_string_id, class: 'form-control input-sm'
-
-    %div.col-md-3
       %label{for: :is_retired_string_id}
       %h3
         Is Retired?
@@ -38,7 +32,7 @@
       %h3
         Reset password?
       =check_box_tag :reset_password_string, nil, nil, id: :reset_password_string_id, class: 'form-control input-sm'
-    %div.col-md-3
+    %div.col-md-6
   %br
   %br
   =submit_tag 'Refresh', id: "refresh_btn_id", class: 'btn btn-primary'

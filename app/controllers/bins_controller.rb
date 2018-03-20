@@ -38,6 +38,18 @@ class BinsController < ApplicationController
         elsif params[:commit] == "Remove from Stock"
           return display_transfer_out_result
 
+        elsif params[:to] =~ /(Account)|(Work order)|(WO)/i
+          if params.key?(:comment) and (params[:comment] =~ /\S/)
+            return display_transfer_out_result
+
+          else
+            redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:quantity])}/#{URI.encode(params[:to])}",
+              alert: "It appears you are trying to transfer to an account or work order, but with no comment.  Please indicate in the comment an account or work order number"
+            return
+
+          end
+
+
         else
 
           ActiveRecord::Base.transaction do

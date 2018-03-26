@@ -112,7 +112,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == 16
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-000000", from: "Shelf 1", quantity: "16" }
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/0"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201//0"
     assert flash[:notice] == "Success"
     assert Bin.find_by(sku_id: 1, location_id: 1).nil?
   end
@@ -245,7 +245,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Account", quantity: "3", comment: "Account 12345" }
     #FIXME why is the last character below zero instead of 3?
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"  #We moved out three of the original 16
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/Account/13"  #We moved out three of the original 16
     assert flash[:notice] == "Success", "Expected a notice of success, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
 
@@ -285,7 +285,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/display_transfer_result", params:
       { commit: 'Submit', sku: "80-000000", from: "Shelf 1", to: "Account", quantity: "3", comment: "WO 12345" }
     #FIXME why is the last character below zero instead of 3?
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/13"  #We moved out three of the original 16
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/Account/13"  #We moved out three of the original 16
     assert flash[:notice] == "Success", "Expected a notice of success, but got a notice of [#{flash[:notice]}] and an alert of [#{flash[:alert]}]"
     assert Bin.find_by(sku_id: 1, location_id: 1).qty == old_count_1 - 3
 

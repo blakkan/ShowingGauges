@@ -166,8 +166,8 @@ class BinsController < ApplicationController
     # none exists
     #
     ##########################################################
-    def display_transfer_in_request_screen
-    end
+  #$  def display_transfer_in_request_screen
+  #$  end
 
     def display_transfer_in_result
         # view will pre-populate FROM string if in params[:from]
@@ -237,8 +237,8 @@ class BinsController < ApplicationController
     # if it has gone to zero
     #
     #########################################################
-    def display_transfer_out_request_screen
-    end
+  #$  def display_transfer_out_request_screen
+  #$  end
 
     def display_transfer_out_result
         # view will pre-populate FROM string if in params[:from]
@@ -270,7 +270,9 @@ class BinsController < ApplicationController
                                 comment: params[:comment])
         end
 
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        params[:to] = '' unless params.key?(:to)
+
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
                     notice: "Success"
 
 

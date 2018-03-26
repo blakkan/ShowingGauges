@@ -279,7 +279,8 @@ class BinsController < ApplicationController
       rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
 
         @error_message = e.message
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        params[:to] = '' unless params.key?(:to)
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
           alert: @error_message
 
       end

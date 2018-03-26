@@ -94,7 +94,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-123456", from: "Shelf 1", quantity: "1"  }
-    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
+    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201//0"
     assert flash[:alert] == "Couldn't find Sku"
   end
 
@@ -103,7 +103,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-000000", from: "Shelf 1", quantity: "100" }
     #FIXME this shouldn't go to -84, should be zero with a warning
-    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201/-84"
+    assert_redirected_to "/display_transfer_request_screen/80-000000/Shelf%201//-84"
     assert flash[:alert] == "Validation failed: Qty Attempt to take quantity below zero"
   end
 
@@ -122,7 +122,7 @@ class BinsControllerTest < ActionDispatch::IntegrationTest
     get "/set_session_name", params: {commit: "Submit", user_name: "TechA", user_password: "john"}
     get "/display_transfer_result", params:
       { commit: 'Remove from Stock', sku: "80-123456", from: "Shelf 1",  quantity: "1"  }
-    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201/0"
+    assert_redirected_to "/display_transfer_request_screen/80-123456/Shelf%201//0"
     assert flash[:alert] == "Couldn't find Sku"
   end
 

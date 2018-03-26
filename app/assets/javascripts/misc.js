@@ -73,7 +73,7 @@ $(document).ready (
   // (We also repeat this, possibly redundantly) in some
   // of the html itself.
 
-  $('.datetimepicker_class input').datepicker();
+  $('.datetimepicker_class input').datepicker({format: 'yyyy-mm-dd'});
 
   }  // end of anonymous function
 

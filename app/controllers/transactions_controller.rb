@@ -92,6 +92,7 @@ class TransactionsController < ApplicationController
   private
 
     def scrubbed_dates(start_date_text, end_date_text)
+
       the_start_date = the_end_date = nil
       begin
         the_start_date = Date.parse(start_date_text)
@@ -104,7 +105,7 @@ class TransactionsController < ApplicationController
         the_end_date = Date.parse("2101-01-01")
       end
 
-      return the_start_date, the_end_date
+      return [the_start_date, the_end_date]
 
     end
 

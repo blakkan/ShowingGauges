@@ -220,12 +220,12 @@ class BinsController < ApplicationController
         end  #end of transaction
 
 
-          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+          redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}//#{qty_now.to_s}/#{URI.encode(params[:to])}",
              notice: "Success"
 
       rescue ActiveRecord::RecordNotFound => e
 
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/0",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}//#{qty_now.to_s}/#{URI.encode(params[:to])}/0",
           alert: e.message
 
 
@@ -272,7 +272,7 @@ class BinsController < ApplicationController
 
         params[:to] = '' unless params.key?(:to)
 
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:to])}/#{qty_now.to_s}",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}/#{URI.encode(params[:to])}",
                     notice: "Success"
 
 
@@ -280,7 +280,7 @@ class BinsController < ApplicationController
 
         @error_message = e.message
         params[:to] = '' unless params.key?(:to)
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{qty_now.to_s}/#{URI.encode(params[:to])}",
           alert: @error_message
 
       end

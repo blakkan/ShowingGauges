@@ -131,7 +131,7 @@ class TransactionsController < ApplicationController
 
 
 
-      Transaction.where(created_at: the_start_date.beginning_of_day..the_end_date.beginning_of_day).order(created_at: :desc).all.each do |transaction|
+      Transaction.where(created_at: the_start_date.beginning_of_day..the_end_date.end_of_day).order(created_at: :desc).all.each do |transaction|
 
         the_display_list << {
           #FIXME we need a join here, not these lookups

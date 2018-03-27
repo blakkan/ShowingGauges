@@ -48,11 +48,14 @@ Rails.application.routes.draw do
   get 'all_locations_as_json.json' => 'locations#all_locations_as_json'
 
 
-  get 'display_transfer_request_screen/:sku/:loc/:qty/:destination/:comment' => 'bins#display_transfer_request_screen'
-  get 'display_transfer_request_screen/:sku/:loc/:qty/:destination' => 'bins#display_transfer_request_screen'
+  get 'display_transfer_request_screen(/:sku/:loc/:qty(/:destination(/:comment)))' => 'bins#display_transfer_request_screen'
+  #get 'display_transfer_request_screen/:sku/:loc/:qty/:destination' => 'bins#display_transfer_request_screen'
+  #get 'display_transfer_request_screen/:sku/:loc/:qty'  => 'bins#display_transfer_request_screen'
+  #get 'display_transfer_request_screen' => 'bins#display_transfer_request_screen'
 
-  get 'display_transfer_request_screen/(:sku)/(:loc)/:qty' => 'bins#display_transfer_request_screen'
-  get 'display_transfer_request_screen' => 'bins#display_transfer_request_screen'
+
+  ###get 'display_transfer_request_screen/(:sku)/(:loc)/:qty' => 'bins#display_transfer_request_screen'
+
   #TODO change to post
   get 'display_transfer_result' => 'bins#display_transfer_result'
 

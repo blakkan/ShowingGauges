@@ -14,7 +14,7 @@
   </datalist>
   %h3
     Quantity
-  =text_field_tag :quantity, nil, id: 'qty_id', class: 'form-control input-sm'
+  =text_field_tag :qty, nil, id: 'qty_id', class: 'form-control input-sm'
   %br
   %br
   =submit_tag 'Transfer In', id: 'transfer_in_btn_id', class: 'btn btn-primary'

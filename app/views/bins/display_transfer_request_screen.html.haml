@@ -59,9 +59,9 @@
         %h3
           Quantity To Transfer
       -if params.key?(:qty)
-        =text_field_tag :quantity, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
+        =text_field_tag :qty, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
       -else
-        =text_field_tag :quantity, nil,  id: 'qty_id', class: 'form-control input-sm'
+        =text_field_tag :qty, nil,  id: 'qty_id', class: 'form-control input-sm'
   %div.row
     %div.col-md-12
       %label{for: :comment_id}

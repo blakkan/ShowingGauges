@@ -37,7 +37,7 @@ $(document).ready (
 
 
         window.location.href = "/display_transfer_request_screen" +
-          '/' + sku + '/' + loc;
+          '/' + sku + '/' + loc + '/' + qty + '//';
           return false; //cut off any further processing.  Sorry if you were
                         // planning anything, bootstrap or bootstrap-table...
 

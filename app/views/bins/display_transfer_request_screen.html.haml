@@ -6,71 +6,47 @@
       %label{for: :sku_id}
         %h3
           SKU
-      -if params.key?(:sku)
-        =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
-      -else
-        =text_field_tag :sku, nil, id: 'sku_id', class: 'form-control input-sm'
+      =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
+
     %div.col-md-4
       %label{for: :from_id}
         %h3
           From location
-      - if params.key?(:loc)
-        =#text_field_tag :from, params[:loc], id: 'from_id', class: 'form-control input-sm'
-        <input list="the_list" value="#{params[:loc]}" name="from" id="from_id" class="form-control input-sm"/>
-        =#text_field_tag :to, nil, id: 'to_id', list: "the_list", class: 'form-control input-sm'
-        <datalist id="the_list">
-        -Location.all.pluck(:name).sort.each do |loc|
-          %option= loc
-        </datalist>
-      -else
-        <input list="the_list" name="from" id="from_id" class="form-control input-sm"/>
-        =#text_field_tag :to, nil, id: 'from_id', list: "the_list", class: 'form-control input-sm'
-        <datalist id="the_list">
-        -Location.all.pluck(:name).sort.each do |loc|
-          %option= loc
-        </datalist>
+      <input list="the_from_list" value="#{params[:from]}" name="from" id="from_id" class="form-control input-sm"/>
+      <datalist id="the_from_list">
+      -Location.all.pluck(:name).sort.each do |loc|
+        %option= loc
+      </datalist>
+
     %div.col-md-4
       %label{for: :to_id}
         %h3
           To location
-        - if params.key?(:destination)
-          <input list="the_other_list" value="#{params[:destination]}" name="to" id="to_id" class="form-control input-sm"/>
-          <datalist id="the_other_list">
-          -Location.all.pluck(:name).sort.each do |loc|
-            %option= loc
-          </datalist>
-        -else
-          <input list="the_other_list" name="to" id="to_id" class="form-control input-sm"/>
-          <datalist id="the_other_list">
-          -Location.all.pluck(:name).sort.each do |loc|
-            %option= loc
-          </datalist>
+      <input list="the_to_list" value="#{params[:to]}" name="to" id="to_id" class="form-control input-sm"/>
+      <datalist id="the_to_list">
+      -Location.all.pluck(:name).sort.each do |loc|
+        %option= loc
+      </datalist>
+
   %div.row
     %div.col-md-6
       %label{for: :qoh_id}
         %h3
-          Quantity On Hand
-      -if params.key?(:qty)
-        =text_field_tag :qoh, params[:qty],  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
-      -else
-        =text_field_tag :qoh, "0",  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
+          Quantity On Hand (in "From" location)
+      =text_field_tag :qoh, params[:qoh],  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
+
     %div.col-md-6
       %label{for: :qty_id}
         %h3
           Quantity To Transfer
-      -if params.key?(:qty)
-        =text_field_tag :qty, params[:qty],  id: 'qty_id',class: 'form-control input-sm'
-      -else
-        =text_field_tag :qty, nil,  id: 'qty_id', class: 'form-control input-sm'
+      =text_field_tag :qtm, params[:qtm],  id: 'qtm_id',class: 'form-control input-sm'
+
   %div.row
     %div.col-md-12
       %label{for: :comment_id}
         %h3
           Transfer Comment
-      -if params.key?(:comment)
         =text_field_tag :comment, params[:comment],  id: 'comment_id',class: 'form-control input-sm'
-      -else
-        =text_field_tag :comment, nil,  id: 'comment_id', class: 'form-control input-sm'
   %br
   %br
   =submit_tag 'Transfer', class: 'btn btn-primary', id: 'transfer_btn_id'

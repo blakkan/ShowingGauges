@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<title>Untitled Test Suite</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CheckTitleAndLogin</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:3000/<datalist><option>http://localhost:3000/</option></datalist></td><td></td>
+</tr>
+<tr><td>assertTitle</td><td>Sea Urchin 0.0.1f<datalist><option>Sea Urchin 0.0.1f</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>//h2<datalist><option>//h2</option><option>css=h2</option></datalist></td><td>Login</td>
+</tr>
+<tr><td>assertText</td><td>//h3<datalist><option>//h3</option><option>css=h3</option></datalist></td><td>Login Name</td>
+</tr>
+<tr><td>assertValue</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>//div[2]/div/label/h3<datalist><option>//div[2]/div/label/h3</option></datalist></td><td>Password</td>
+</tr>
+<tr><td>assertValue</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertValue</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td>Submit</td>
+</tr>
+<tr><td>assertValue</td><td>id=change_password_id<datalist><option>id=change_password_id</option><option>//input[@id='change_password_id']</option><option>//div[2]/input</option><option>css=#change_password_id</option></datalist></td><td>Change Password</td>
+</tr>
+<tr><td>assertText</td><td>id=logout_id<datalist><option>id=logout_id</option><option>link=Login</option><option>//a[contains(text(),'Login')]</option><option>//a[@id='logout_id']</option><option>xpath=(//a[contains(@href, '#')])[2]</option><option>//li[4]/a</option><option>css=#logout_id</option></datalist></td><td>Login</td>
+</tr>
+<tr><td>assertText</td><td>link=New SKU<datalist><option>link=New SKU</option><option>//a[contains(text(),'New SKU')]</option><option>//a[contains(@href, '/display_new_sku_request_screen')]</option><option>//div/ul/li[3]/a</option></datalist></td><td>New SKU</td>
+</tr>
+<tr><td>assertText</td><td>link=Transfer<datalist><option>link=Transfer</option><option>//a[contains(text(),'Transfer')]</option><option>//a[contains(@href, '/display_transfer_request_screen')]</option><option>//div/ul/li[2]/a</option><option>css=ul.nav.navbar-nav &gt; li.nav-item &gt; a.nav-link</option></datalist></td><td>Transfer</td>
+</tr>
+<tr><td>assertText</td><td>link=Find SKU<datalist><option>link=Find SKU</option><option>//a[contains(text(),'Find SKU')]</option><option>//a[contains(@href, '#')]</option><option>//a</option><option>css=a.dropdown-toggle</option></datalist></td><td>Find SKU</td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>Try a good login</td>
+</tr>
+<tr><td>click</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>click</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td>john</td>
+</tr>
+<tr><td>click</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=flash_notice<datalist><option>id=flash_notice</option><option>//div[@id='flash_notice']</option><option>//div/div</option><option>css=#flash_notice</option></datalist></td><td>Welcome back, TechA</td>
+</tr>
+<tr><td>click</td><td>id=logout_id<datalist><option>id=logout_id</option><option>link=TechA</option><option>//a[contains(text(),'TechA')]</option><option>//a[@id='logout_id']</option><option>xpath=(//a[contains(@href, '#')])[2]</option><option>//li[8]/a</option><option>css=#logout_id</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>link=Logout<datalist><option>link=Logout</option><option>//a[contains(text(),'Logout')]</option><option>//li[@id='logout_link_id']/a</option><option>xpath=(//a[contains(@href, '/')])[10]</option><option>//li[8]/ul/li/a</option><option>css=#logout_link_id &gt; a.nav-link</option></datalist></td><td></td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>Try a bad pw on login</td>
+</tr>
+<tr><td>click</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>click</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td>surin</td>
+</tr>
+<tr><td>click</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=flash_alert<datalist><option>id=flash_alert</option><option>//div[@id='flash_alert']</option><option>//div/div</option><option>css=#flash_alert</option></datalist></td><td>Incorrect Password</td>
+</tr>
+<tr><td>click</td><td>id=logout_id<datalist><option>id=logout_id</option><option>link=Login</option><option>//a[contains(text(),'Login')]</option><option>//a[@id='logout_id']</option><option>xpath=(//a[contains(@href, '#')])[2]</option><option>//li[4]/a</option><option>css=#logout_id</option></datalist></td><td></td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>Now try changing password</td>
+</tr>
+<tr><td>click</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>click</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td>john</td>
+</tr>
+<tr><td>click</td><td>id=change_password_id<datalist><option>id=change_password_id</option><option>//input[@id='change_password_id']</option><option>//div[2]/input</option><option>css=#change_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>//h2<datalist><option>//h2</option><option>css=h2</option></datalist></td><td>Change Password</td>
+</tr>
+<tr><td>click</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div/input</option><option>css=#user_password_id</option></datalist></td><td>spud</td>
+</tr>
+<tr><td>click</td><td>id=user_password2_id<datalist><option>id=user_password2_id</option><option>name=user_password2</option><option>//input[@id='user_password2_id']</option><option>//div[2]/div/input</option><option>css=#user_password2_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password2_id<datalist><option>id=user_password2_id</option><option>name=user_password2</option><option>//input[@id='user_password2_id']</option><option>//div[2]/div/input</option><option>css=#user_password2_id</option></datalist></td><td>spud</td>
+</tr>
+<tr><td>click</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=flash_notice<datalist><option>id=flash_notice</option><option>//div[@id='flash_notice']</option><option>//div/div</option><option>css=#flash_notice</option></datalist></td><td>Password Changed</td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>Login again, with new pw</td>
+</tr>
+<tr><td>click</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>click</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td>spud</td>
+</tr>
+<tr><td>click</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=flash_notice<datalist><option>id=flash_notice</option><option>//div[@id='flash_notice']</option><option>//div/div</option><option>css=#flash_notice</option></datalist></td><td>Welcome back, TechA</td>
+</tr>
+<tr><td>click</td><td>id=logout_id<datalist><option>id=logout_id</option><option>link=TechA</option><option>//a[contains(text(),'TechA')]</option><option>//a[@id='logout_id']</option><option>xpath=(//a[contains(@href, '#')])[2]</option><option>//li[8]/a</option><option>css=#logout_id</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>link=Logout<datalist><option>link=Logout</option><option>//a[contains(text(),'Logout')]</option><option>//li[@id='logout_link_id']/a</option><option>xpath=(//a[contains(@href, '/')])[10]</option><option>//li[8]/ul/li/a</option><option>css=#logout_link_id &gt; a.nav-link</option></datalist></td><td></td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>change password back</td>
+</tr>
+<tr><td>assertText</td><td>//h2<datalist><option>//h2</option><option>css=h2</option></datalist></td><td>Login</td>
+</tr>
+<tr><td>type</td><td>id=user_name_id<datalist><option>id=user_name_id</option><option>name=user_name</option><option>//input[@id='user_name_id']</option><option>//div/input</option><option>css=#user_name_id</option></datalist></td><td>TechA</td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div[2]/div/input</option><option>css=#user_password_id</option></datalist></td><td>spud</td>
+</tr>
+<tr><td>click</td><td>id=change_password_id<datalist><option>id=change_password_id</option><option>//input[@id='change_password_id']</option><option>//div[2]/input</option><option>css=#change_password_id</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=user_password_id<datalist><option>id=user_password_id</option><option>name=user_password</option><option>//input[@id='user_password_id']</option><option>//div/input</option><option>css=#user_password_id</option></datalist></td><td>john</td>
+</tr>
+<tr><td>type</td><td>id=user_password2_id<datalist><option>id=user_password2_id</option><option>name=user_password2</option><option>//input[@id='user_password2_id']</option><option>//div[2]/div/input</option><option>css=#user_password2_id</option></datalist></td><td>john</td>
+</tr>
+<tr><td>click</td><td>id=submit_btn_id<datalist><option>id=submit_btn_id</option><option>name=commit</option><option>//input[@id='submit_btn_id']</option><option>//div[3]/div/input</option><option>css=#submit_btn_id</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=flash_notice<datalist><option>id=flash_notice</option><option>//div[@id='flash_notice']</option><option>//div/div</option><option>css=#flash_notice</option></datalist></td><td>Password Changed</td>
+</tr>
+<tr><td>echo</td><td><datalist><option></option></datalist></td><td>Change password with mismatch</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SearchForSku</td></tr>
+</thead>
+<tbody>
+</tbody></table>
+</body>
+</html>

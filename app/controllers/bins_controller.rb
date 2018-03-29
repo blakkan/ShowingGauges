@@ -18,12 +18,14 @@ class BinsController < ApplicationController
     def display_transfer_request_screen
 
       # Make life simpler for the logic in the view; add default values here
-      params[:sku] = "" unless params.key?(:sku)
-      params[:from] = "" unless params.key?(:from)
-
-      params[:qtm] = "" unless params.key?(:qtm)
-      params[:to] = "" unless params.key?(:to)
-      params[:comment] = "" unless params.key?(:comment)
+      params[:from] = " " unless (params.key?(:from) && params[:from].is_a?(String) && params[:from].length > 0 )
+      params[:from].strip unless params[:from] == " "
+      params[:to] = " " unless (params.key?(:to) && params[:to].is_a?(String) && params[:to].length > 0 )
+      params[:to].strip unless params[:to] == " "
+      params[:qtm] = " " unless (params.key?(:qtm) && params[:qtm].is_a?(String) && params[:qtm].length > 0 )
+      params[:qtm].strip unless params[:qtm] == " "
+      params[:comment] = " " unless (params.key?(:comment) && params[:comment].is_a?(String) && params[:comment].length > 0 )
+      params[:comment].strip unless params[:comment] == " "
 
       # Look up quantity on hand real-time, if we have a valid
       # SKU and FROM location
@@ -69,10 +71,14 @@ class BinsController < ApplicationController
 
         # short circuit over to transfer out
 
-        params[:from] = "" unless params.key?(:from)
-        params[:to] = "" unless params.key?(:to)
-        params[:qtm] = "" unless params.key?(:qtm)
-        params[:comment] = "" unless params.key?(:comment)
+        params[:from] = " " unless (params.key?(:from) && params[:from].is_a?(String) && params[:from].length > 0 )
+        params[:from].strip unless params[:from] == " "
+        params[:to] = " " unless (params.key?(:to) && params[:to].is_a?(String) && params[:to].length > 0 )
+        params[:to].strip unless params[:to] == " "
+        params[:qtm] = " " unless (params.key?(:qtm) && params[:qtm].is_a?(String) && params[:qtm].length > 0 )
+        params[:qtm].strip unless params[:qtm] == " "
+        params[:comment] = " " unless (params.key?(:comment) && params[:comment].is_a?(String) && params[:comment].length > 0 )
+        params[:comment].strip unless params[:comment] == " "
 
         src_qty_now = -1  #so all can see our grevious error, start with a default clearly non-sensical value
 
@@ -81,6 +87,56 @@ class BinsController < ApplicationController
             redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
               notice: "Action Cancelled"
               return
+
+        elsif params[:commit] == "SKU lookup"
+
+            # How many bins for this sku?   If less than one, error, if one, pre=populate, if more,
+            # redirect to the lookup screen
+
+            # Validate the field
+            unless (params.key?(:sku) && params[:sku].is_a?(String) && params[:sku] =~ /\S/)
+              redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                alert: "Need to specify a SKU to look up"
+              return
+            end
+
+            # Verify we have a sku
+            begin
+              src_sku = Sku.find_by!(name: params[:sku])
+            rescue ActiveRecord::RecordNotFound => e
+                #render template: 'login/generic_error'
+                redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                  alert: "Could not find requested SKU"
+                return
+            end
+
+            # Now look for bins;  If we have exactly one bin, pre-populate.  If none, error.
+            # If multiple, then we refer to the SKU search screen
+
+            bins = Bin.where("sku_id = ?", src_sku.id)
+
+            if bins.nil? || bins.count == 0
+              p "zero"
+              redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+                alert: "Could not find a quantity of requested SKU"
+              return
+
+            elsif bins.count == 1
+              p "one"
+              the_bin = bins.first
+              p the_bin
+              p the_bin.location
+              p the_bin.location.name
+              redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(the_bin.location.name)}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}"
+              return
+
+            else
+              p "multi"
+              redirect_to controller: 'skus', action: 'display_skus', commit: 'Submit', sku_string: params[:sku]
+              return
+
+            end
+
 
         elsif params[:qtm] !~ /^\s*\d+\s*$/
 
@@ -104,6 +160,11 @@ class BinsController < ApplicationController
             return
 
           end
+
+        elsif params[:to] !~ /\S/ || params[:from] !~ /\S/
+          redirect_to "/display_transfer_request_screen/#{URI.escape(params[:sku])}/#{URI.escape(params[:from])}/#{URI.escape(params[:qtm])}/#{URI.escape(params[:to])}/#{URI.escape(params[:comment])}",
+            alert: "It appears you are trying to transfer between locations, but location is blank."
+          return
 
         else
 
@@ -214,6 +275,11 @@ class BinsController < ApplicationController
 
       redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
         notice: "Success!" + ( params[:qtm] =~ /^\s*0?\s*$/ ? " But moved no items" : "" )
+
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+          alert: "Error! " + e.message
+
       end
 
     ##########################################################
@@ -287,7 +353,7 @@ class BinsController < ApplicationController
 
       rescue ActiveRecord::RecordNotFound => e
 
-        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
+        redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
          alert: e.message
 
 
@@ -311,6 +377,9 @@ class BinsController < ApplicationController
         # Can't be a cancel request since that's already handled
 
         qty_now = 0
+        if !params.key?(:to) || params[:to] !~ /(Account)|(Work order)|(WO)/i
+          params[:to] = ""
+        end
 
         ActiveRecord::Base.transaction do
             # Find destination bin with matching sku and location

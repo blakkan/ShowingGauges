@@ -6,13 +6,13 @@
       %label{for: :sku_id}
         %h3
           SKU
-      =text_field_tag :sku, params[:sku], id: 'sku_id', class: 'form-control input-sm'
+      =text_field_tag :sku, params[:sku].to_s.strip, id: 'sku_id', class: 'form-control input-sm'
 
     %div.col-md-4
       %label{for: :from_id}
         %h3
           From location
-      <input list="the_from_list" value="#{params[:from]}" name="from" id="from_id" class="form-control input-sm"/>
+      <input list="the_from_list" value="#{params[:from].to_s.strip}" name="from" id="from_id" class="form-control input-sm"/>
       <datalist id="the_from_list">
       -Location.all.pluck(:name).sort.each do |loc|
         %option= loc
@@ -22,7 +22,7 @@
       %label{for: :to_id}
         %h3
           To location
-      <input list="the_to_list" value="#{params[:to]}" name="to" id="to_id" class="form-control input-sm"/>
+      <input list="the_to_list" value="#{params[:to].to_s.strip}" name="to" id="to_id" class="form-control input-sm"/>
       <datalist id="the_to_list">
       -Location.all.pluck(:name).sort.each do |loc|
         %option= loc
@@ -33,22 +33,23 @@
       %label{for: :qoh_id}
         %h3
           Quantity On Hand (in "From" location)
-      =text_field_tag :qoh, params[:qoh],  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
+      =text_field_tag :qoh, params[:qoh].to_s.strip,  id: 'qoh_id', class: 'form-control input-sm', disabled: "disabled"
 
     %div.col-md-6
       %label{for: :qty_id}
         %h3
           Quantity To Transfer
-      =text_field_tag :qtm, params[:qtm],  id: 'qtm_id',class: 'form-control input-sm'
+      =text_field_tag :qtm, params[:qtm].to_s.strip,  id: 'qtm_id',class: 'form-control input-sm'
 
   %div.row
     %div.col-md-12
       %label{for: :comment_id}
         %h3
           Transfer Comment
-        =text_field_tag :comment, params[:comment],  id: 'comment_id',class: 'form-control input-sm'
+        =text_field_tag :comment, params[:comment].to_s.strip,  id: 'comment_id',class: 'form-control input-sm'
   %br
   %br
+  =submit_tag 'SKU lookup', class: 'btn btn-primary', id: 'sku_lookup_btn_id'
   =submit_tag 'Transfer', class: 'btn btn-primary', id: 'transfer_btn_id'
   =submit_tag 'Add to Stock', class: 'btn btn-primary', id: 'import_btn_id'
   =submit_tag 'Remove from Stock', class: 'btn btn-primary', id: 'remove_btn_id'

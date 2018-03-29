@@ -35,9 +35,8 @@ $(document).ready (
         var loc = row['loc'];
         var qty = row['qty'];
 
-
         window.location.href = "/display_transfer_request_screen" +
-          '/' + sku + '/' + loc + '/' + qty + '//';
+          '/' + encodeURIComponent(sku) + '/' + encodeURIComponent(loc) + '/' + "0/%20/%20";
           return false; //cut off any further processing.  Sorry if you were
                         // planning anything, bootstrap or bootstrap-table...
 

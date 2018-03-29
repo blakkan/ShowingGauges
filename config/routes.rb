@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   get 'all_locations_as_json.json' => 'locations#all_locations_as_json'
 
   # Display transfer requests and results (qoh is quantity on hand; qtm is quantity to move)
-  get 'display_transfer_request_screen(/:sku/:from((/:qtm)/:to(/:comment)))' => 'bins#display_transfer_request_screen'
+  get 'display_transfer_request_screen(/:sku/:from/:qtm/(:to)/(:comment))' => 'bins#display_transfer_request_screen'
   get 'display_transfer_result(/:sku/:from/:qtm/:to/:comment)' => 'bins#display_transfer_result'
 
   #get 'display_transfer_in_request_screen' => 'bins#display_transfer_in_request_screen'

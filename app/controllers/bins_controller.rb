@@ -116,22 +116,16 @@ class BinsController < ApplicationController
             bins = Bin.where("sku_id = ?", src_sku.id)
 
             if bins.nil? || bins.count == 0
-              p "zero"
               redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
                 alert: "Could not find a quantity of requested SKU"
               return
 
             elsif bins.count == 1
-              p "one"
               the_bin = bins.first
-              p the_bin
-              p the_bin.location
-              p the_bin.location.name
               redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(the_bin.location.name)}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}"
               return
 
             else
-              p "multi"
               redirect_to controller: 'skus', action: 'display_skus', commit: 'Submit', sku_string: params[:sku]
               return
 
@@ -299,8 +293,6 @@ class BinsController < ApplicationController
 
         # Can't be a cancel request at this point, since that's already handled
 
-
-
         if params[:to] !~ /\S/
           @error_message = "Must have a \"To Location \" to transfer new items into."
           redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:from])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
@@ -347,6 +339,7 @@ class BinsController < ApplicationController
         end  #end of transaction
 
 
+
           redirect_to "/display_transfer_request_screen/#{URI.encode(params[:sku])}/#{URI.encode(params[:to])}/#{URI.encode(params[:qtm])}/#{URI.encode(params[:to])}/#{URI.encode(params[:comment])}",
 
              notice: "Success!" + ( params[:qtm] =~ /^\s*0?\s*$/ ? " But moved no items" : "" )
@@ -378,7 +371,7 @@ class BinsController < ApplicationController
 
         qty_now = 0
         if !params.key?(:to) || params[:to] !~ /(Account)|(Work order)|(WO)/i
-          params[:to] = ""
+          params[:to] = " "
         end
 
         ActiveRecord::Base.transaction do

@@ -1,6 +1,8 @@
 require 'csv'
 class DashboardController < ApplicationController
 
+    skip_before_action :require_login, only: [:display_dashboard]
+
     ############################################################
     #
     # display_dashboard

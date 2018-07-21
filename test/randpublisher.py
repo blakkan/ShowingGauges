@@ -26,12 +26,13 @@ client.connect("fantastic-gardener.cloudmqtt.com")
 print ("made connection")
 
 #
-# Now just loop and spew random data to the five 
+# Now just loop and spew random data to the five
 while(True):
     sys.stdout.write('.')
     sys.stdout.flush()
     #Note that currently Panel1 isn't used for anything, but we can later use it as a locator
-    client.publish("test", payload=("%s %d %d" % ( "Panel1", random.randrange(1,6), random.randrange(50,101))));
+    #This version leaves the highest gauge (#5) untouched by the random generator, so it can be used for testing
+    client.publish("test", payload=("%s %d %d" % ( "Panel1", random.randrange(1,5), random.randrange(50,101))));
     time.sleep(2);
 
 client.disconnect()

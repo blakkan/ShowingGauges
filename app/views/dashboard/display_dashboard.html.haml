@@ -230,15 +230,15 @@
 
 
   // Create a client instance (random client id)
-  var client = new Paho.MQTT.Client("m13.cloudmqtt.com", 35797, "web_" + parseInt(Math.random() * 100, 10) );
+  var client = new Paho.MQTT.Client("fantastic-gardener.cloudmqtt.com", 443, "web_" + parseInt(Math.random() * 100, 10) );
   console.log("Got new item.");
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   var options = {
     useSSL: true,
-    userName: "ttmprkzz",
-    password: "5xwOtwTxUcop",
+    userName: "vzorwmts",
+    password: "cEJXsO-urZNa",
     onSuccess:onConnect,
     onFailure:doFail
   };

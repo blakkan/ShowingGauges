@@ -9,17 +9,18 @@
       <%= image_tag "seaUrchin3.svg", class: "navbar-brand", height: "50", width: "150" %>
 
 
-      <li class='dropdown'><a href="#" class="dropdown-toggle" data-toggle="dropdown">Find SKU<b class="caret"></b></a>
+      <li class='dropdown'><a href="#" class="dropdown-toggle" data-toggle="dropdown">Select panel to monitor<b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-          <li class='nav-item'><%= link_to 'Find stock by SKU', '/display_find_skus_screen', class: 'nav-link' %></li>
-          <li class='nav-item'><%= link_to 'Find stock by Location', '/display_find_shelf_items_screen', class: 'nav-link' %></li>
-          <li class='nav-item'><%= link_to 'Advanced Search', '/display_advanced_search_screen', class: 'nav-link' %></li>
+          <li class='nav-item'><%= link_to 'Panel1 (unimplemented)', '/display_find_skus_screen', class: 'nav-link' %></li>
+          <li class='nav-item'><%= link_to 'Panel2 (unimplemented)', '/display_find_shelf_items_screen', class: 'nav-link' %></li>
+          <li class='nav-item'><%= link_to 'Panel3 (unimplemented)', '/display_advanced_search_screen', class: 'nav-link' %></li>
         </ul>
      </li>
 
+      <!--
       <li class='nav-item'><%= link_to 'Transfer', '/display_transfer_request_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'New SKU', '/display_new_sku_request_screen', class: 'nav-link' %></li>
-
+    -->
       <% if session[:user_id] && User.find(session[:user_id]) && User.find(session[:user_id]).capabilities =~ /admin/ %>
       <li class='nav-item'><%= link_to 'Manage SKU types', '/display_manage_sku_request_screen', class: 'nav-link' %></li>
       <li class='nav-item'><%= link_to 'Manage Locations', '/display_manage_location_request_screen', class: 'nav-link' %></li>

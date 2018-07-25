@@ -25,4 +25,18 @@ And of course, preparing a powerpoint presentation and any written documentation
 The repo is set up using the rails framework, so the great majority of the files and directories are rails boilerplate.  Rails
 does have various directories suitable for holding miscellaneous code-  These are the "lib" (library) and the "test" directories.
 
+### lib directory
+
+The directory kaggle_dogs_vs_cats contains (taken from pyimage webposts) an example of a NN (not CNN!) image
+classifier (and a subset of a training directory).  The directory test_images includes images for test.
+
+### test directory
+
+capture.py is a Raspberry Pi python script to capture images (it currently transforms them to grayscale, then edge detects
+them.   It is easily modified to simply desaturate them and not edge detect.  randpublisher.py is a test program which publishes
+pseudo-random gauge data to the mosquitto server for webpage testing.   It's been verified both on desktop ubuntu and on Raspberry Pi.
+
+The arduino directory within the test directory has an arduino microcontroller sketch (basically a C program) which actuates gauges at
+controllable "wiggle rates" and values using an arduino microcontroller.   (There is also a similar program for use on Raspberry Pi,
+it's not currently checked into the tree).
 

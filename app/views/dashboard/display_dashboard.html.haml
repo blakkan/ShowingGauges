@@ -41,6 +41,7 @@
       columns: [
           ['data', 0.0]
       ],
+      hide: ['data'],
       type: 'gauge',
       onclick: function (d, i) { console.log("onclick", d, i); },
       onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -79,6 +80,7 @@
         columns: [
             ['data', 0.0]
         ],
+        hide: ['data'],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -117,6 +119,7 @@
         columns: [
             ['data', 0.0]
         ],
+        hide: ['data'],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -156,6 +159,7 @@
         columns: [
             ['data', 0.0]
         ],
+        hide: ['data'],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -195,6 +199,7 @@
         columns: [
             ['data', 0.0]
         ],
+        hide: ['data'],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -267,7 +272,7 @@
 
   // called when a message arrives
   function onMessageArrived(message) {
-    console.log("onMessageArrived:"+message.payloadString);
+    //console.log("onMessageArrived:"+message.payloadString);
     //alert("onMessageArrived:"+message.payloadString);
     var indexOfAChart =  parseInt(message.payloadString.split(/\s+/).reverse()[1] );
     var valueForChart = parseFloat(message.payloadString.split(/\s+/).reverse()[0] );
@@ -280,12 +285,9 @@
     //chart_r1c2.load( { columns: [['data', valueForChart]] } );
 
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
-      console.log(chart_list[indexOfAChart]);
-      console.log(chart_list[indexOfAChart].node());
-      console.log(chart_list[indexOfAChart].node().parent());
-      console.log(chart_list[indexOfAChart].node().parent().firstChild());
+      chart_list[indexOfAChart].hide(['data']);
     } else {
-      ;
+      chart_list[indexOfAChart].show(['data']);
     }
 
   };

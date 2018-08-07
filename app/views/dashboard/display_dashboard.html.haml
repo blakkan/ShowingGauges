@@ -281,9 +281,11 @@
 
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
       console.log(chart_list[indexOfAChart]);
-      chart_list[indexOfAChart].legend().hide();
+      console.log(chart_list[indexOfAChart].node());
+      console.log(chart_list[indexOfAChart].node().parent());
+      console.log(chart_list[indexOfAChart].node().parent().firstChild());
     } else {
-      chart_list[indexOfAChart].legend().show();
+      ;
     }
 
   };

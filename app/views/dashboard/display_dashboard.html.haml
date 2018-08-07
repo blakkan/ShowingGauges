@@ -273,15 +273,14 @@
     var valueForChart = parseFloat(message.payloadString.split(/\s+/).reverse()[0] );
     // if message was VOID, parseFloat above will be setting it to zero.
     // but we should also put an indicator on
-    if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
-      console.log("Saw a void");
-      chart_list[indexOfAChart].title("Void");
-    } else {
-      d3.select(chart_list[indexOfAChart].parentNode).style("background", "white");
-    };
+
     //alert(indexOfAChart);
     //alert(valueForChart);
     chart_list[indexOfAChart].load( { columns: [['data', valueForChart ]] } );
     //chart_r1c2.load( { columns: [['data', valueForChart]] } );
 
+    if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
+      console.log("Saw a void");
+      chart_list[indexOfAChart].innerHTML = "new title";
+    };
   };

@@ -281,7 +281,9 @@
 
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
       console.log(chart_list[indexOfAChart]);
-      console.log(chart_list[indexOfAChart]);
-      //chart_list[indexOfAChart].parent().parent().firstChild().innerHTML = "new title";
-    };
+      chart_list[indexOfAChart].legend().hide();
+    } else {
+      chart_list[indexOfAChart].legend().show();
+    }
+
   };

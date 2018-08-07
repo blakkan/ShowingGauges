@@ -275,12 +275,7 @@
     // but we should also put an indicator on
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
       console.log("Saw a void");
-      chart_list[indexOfAChart]
-        .append("text")
-        .attr("x", 100)
-        .attr("y", 50)
-        .style("text-anchor", "middle")
-        .text("Void");
+      chart_list[indexOfAChart].title("Void");
     } else {
       d3.select(chart_list[indexOfAChart].parentNode).style("background", "white");
     };

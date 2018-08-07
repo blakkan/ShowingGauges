@@ -274,9 +274,9 @@
     // if message was VOID, parseFloat above will be setting it to zero.
     // but we should also put an indicator on
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
-      d3.select(chart_list[indexOfAChart].parentNode).style("opacity", 0.2);
+      d3.select(chart_list[indexOfAChart].parentNode).style("background", "black");
     } else {
-      d3.select(chart_list[indexOfAChart].parentNode).style("opacity", 0.2);
+      d3.select(chart_list[indexOfAChart].parentNode).style("background", "white");
     }
     //alert(indexOfAChart);
     //alert(valueForChart);

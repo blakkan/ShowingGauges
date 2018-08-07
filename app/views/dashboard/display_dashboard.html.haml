@@ -274,10 +274,11 @@
     // if message was VOID, parseFloat above will be setting it to zero.
     // but we should also put an indicator on
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
+      console.log("Saw a void");
       d3.select(chart_list[indexOfAChart].parentNode).style("background", "black");
     } else {
       d3.select(chart_list[indexOfAChart].parentNode).style("background", "white");
-    }
+    };
     //alert(indexOfAChart);
     //alert(valueForChart);
     chart_list[indexOfAChart].load( { columns: [['data', valueForChart ]] } );

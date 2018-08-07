@@ -281,6 +281,6 @@
 
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
       console.log("Saw a void");
-      chart_list[indexOfAChart].innerHTML = "new title";
+      chart_list[indexOfAChart].parent().parent().firstChild().innerHTML = "new title";
     };
   };

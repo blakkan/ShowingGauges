@@ -280,8 +280,8 @@
     //chart_r1c2.load( { columns: [['data', valueForChart]] } );
 
     if (message.payloadString.split(/\s+/).reverse()[0] == "VOID" ) {
-      console.log("Saw a void");
       console.log(chart_list[indexOfAChart]);
-      #chart_list[indexOfAChart].parent().parent().firstChild().innerHTML = "new title";
+      console.log(chart_list[indexOfAChart].parent());
+      //chart_list[indexOfAChart].parent().parent().firstChild().innerHTML = "new title";
     };
   };

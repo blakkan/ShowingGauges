@@ -4,9 +4,11 @@
 # License: Public Domain
 import time
 import sys
-print ("\n").join(sys.argv)
+import numpy as np
+import cv2
 
-# Import the MCP4725 module.
+
+# Import the MCP4725 module for DAC
 import Adafruit_MCP4725
 
 # Create a DAC instance.
@@ -61,6 +63,12 @@ requestedNumberOfFiles = int(sys.argv[2])
 numberOfFilesOutput = 0
 percentToInteger = None
 
+cap = cv2.VideoCapture('/dev/video0') #In this part I put the route camera
+
+cv2.startWindowThread()
+cv2.namedWindow("preview")
+
+
 if sys.argv[1] == "rg":
    percentToInteger = red_green_percent_to_integer
 elif sys.argv[1] == "ma":
@@ -85,14 +93,22 @@ while (True):
     	dac.set_voltage(percentToInteger(percent))
     	time.sleep( 4.0 if percent == 0  else 2.0)  #longer delay if it's going back to zero
 
-        #Now take the picture
+        #Now take the picture (draining video buffer)
+        for i in range(30):
+          ret, frame = cap.read()
+
+        # Our operations on the frame come here
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 
-        #Now write it out
+        cv2.imshow('preview', gray)
+        #cv2.waitKey(0)
 
-        #Now increment total count by 1
+
+        #Now write it out   Name is <decile>.<percentile>.jpg
+        cv2.imwrite("./%s_%03d_%03d_%08d.jpg" % \
+	(sys.argv[1], percent, round(percent, -1),  numberOfFilesOutput + 1), gray)
+
         numberOfFilesOutput = numberOfFilesOutput + 1
-
-
 
 

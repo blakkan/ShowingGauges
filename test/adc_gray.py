@@ -73,9 +73,9 @@ if sys.argv[1] == "rg":
    percentToInteger = red_green_percent_to_integer
 elif sys.argv[1] == "ma":
     percentToInteger = ma_percent_to_integer
-elif sys.arg[1] == "ga":
+elif sys.argv[1] == "ga":
     percentToInteger = green_arc_percent_to_integer
-elif sys.arg[1] == "gw":
+elif sys.argv[1] == "gw":
     percentTponteger = green_wedge_percent_to_integer
 else:
    print ("first arg must be rg (red green), ma (milliamp), ga (green arc), or gw (green wedge)")

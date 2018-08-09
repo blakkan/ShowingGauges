@@ -1,7 +1,7 @@
 import sys
 import time
 import random
-# need to pip install paha-mqtt.  sys, and t
+# need to pip install paha-mqtt
 import paho.mqtt.client as mqtt
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -15,24 +15,27 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-client = mqtt.Client(client_id="CID_%08d" % (random.randint(0,99999999)))
-print("built client")
+
+client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.username_pw_set(username='vzorwmts', password='cEJXsO-urZNa')
-print("setup name and password")
-client.connect("fantastic-gardener.cloudmqtt.com")
-print ("made connection")
+client.username_pw_set('vzorwmts', password='cEJXsO-urZNa')
+client.connect("fantastic-gardener.cloudmqtt.com", 1883, 60)
 
-#
-# Now just loop and spew random data to the five
 while(True):
     sys.stdout.write('.')
     sys.stdout.flush()
-    #Note that currently Panel1 isn't used for anything, but we can later use it as a locator
-    #This version leaves the highest gauge (#5) untouched by the random generator, so it can be used for testing
-    client.publish("test", payload=("%s %d %d" % ( "Panel1", random.randrange(1,5), random.randrange(50,101))));
+    if random.randrange(1,8) == 2:
+      client.publish("test", payload=("%s %d VOID" % ( "Panel1", random.randrange(1,6))));
+    else:
+      client.publish("test", payload=("%s %d %d" % ( "Panel1", random.randrange(1,6), random.randrange(50,101))));
     time.sleep(2);
 
 client.disconnect()
+
+# Blocking call that processes network traffic, dispatches callbacks and
+# handles reconnecting.
+# Other loop*() functions are available that give a threaded interface and a
+# manual interface.
+#client.loop_forever()

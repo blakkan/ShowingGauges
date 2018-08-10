@@ -105,7 +105,7 @@ elif args.type == "ma":
 elif args.type == "ga":
     percentToInteger = green_arc_percent_to_integer
 elif args.type == "gw":
-    percentTponteger = green_wedge_percent_to_integer
+    percentToInteger = green_wedge_percent_to_integer
 else:
    print ("type must be rg (red green), ma (milliamp), ga (green arc), or gw (green wedge)")
    exit(1)

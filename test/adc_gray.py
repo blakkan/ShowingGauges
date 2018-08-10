@@ -76,7 +76,7 @@ elif sys.argv[1] == "ma":
 elif sys.argv[1] == "ga":
     percentToInteger = green_arc_percent_to_integer
 elif sys.argv[1] == "gw":
-    percentTponteger = green_wedge_percent_to_integer
+    percentToInteger = green_wedge_percent_to_integer
 else:
    print ("first arg must be rg (red green), ma (milliamp), ga (green arc), or gw (green wedge)")
    exit()

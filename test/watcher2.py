@@ -33,6 +33,10 @@ import argparse
 import random
 import keras
 from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense
+from keras import backend as K
+
 import paho.mqtt.client as mqtt   #use pip to install paho-mqtt
 
 parser = argparse.ArgumentParser()
@@ -170,8 +174,35 @@ else:
         print "%s" % args.model
         print "%s" % args.weights
 
-	with open(args.model, 'r') as f:
-        	model = keras.models.model_from_json(f.read())
+	#json_file = open(args.model, 'r')
+	#loaded_model_json = json_file.read()
+	#json_file.close()
+	#model = keras.models.model_from_json(loaded_model_json)
+
+	img_width, img_height = 240, 320
+	num_classes = 3
+
+	#if K.image_data_format() == 'channels_first':
+	#	input_shape = (3, img_width, img_height)
+	#else:
+	input_shape = (img_width, img_height, 3)
+
+	model = Sequential()
+	model.add(Conv2D(32, (1, 1), input_shape=input_shape))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Conv2D(32, (1, 1)))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Conv2D(64, (3, 3)))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Flatten())
+	model.add(Dense(64))
+	model.add(Activation('relu'))
+	model.add(Dropout(0.3))
+	model.add(Dense(num_classes))
+	model.add(Activation('softmax'))
 
 	model.load_weights(args.weights)
 ################################################

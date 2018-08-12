@@ -249,9 +249,20 @@ while (True):
 	if args.dummy:
 		classification = str(percent)
 	else:
-		# TODO
-		print "classifier not yet implemented, you need to specify -dummy"
-		exit(1)
+		classes = ['low', 'mid', 'high']
+		resized = cv2.resize(edged, (320,240))
+		x = resized.reshape((1,) + resized.shape)
+		prediction = classes[model.predict(x).argmax(axis=1)[0]]
+
+		if prediction == 'low':
+			classification = "5"
+		elif prediction == 'mid':
+			classification = "50"
+		else:
+			classification = "95"
+		end
+
+
 	# At this point, classification is either a string representation of a number 0 to 100, or the word "VOID"
 
 
@@ -260,6 +271,8 @@ while (True):
 	#
 
 	client.publish("test", payload=("%s %d %s" % ( "unused", args.number,  classification)))
+	client.publish("test", payload=("%s %d %s" % ( "unused", args.number + 1,  percent)))
+
 
 	time.sleep(1);   #just a go-slow, for now.
 

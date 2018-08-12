@@ -32,6 +32,7 @@ import Adafruit_MCP4725  	# Import the MCP4725 module for DAC
 import argparse
 import random
 import keras
+from keras.models import Sequential
 import paho.mqtt.client as mqtt   #use pip to install paho-mqtt
 
 parser = argparse.ArgumentParser()
@@ -166,10 +167,12 @@ if args.dummy:
 	print "Using dummy 'cut-through' classifier (bypasses CNN)"
 else:
 	#read in the model.
-	json_file = open(args.model, 'r')
-	loaded_model_json = json_file.read()
-	json_file.close()
-	model = keras.models.model_from_json(loaded_model_json)
+        print "%s" % args.model
+        print "%s" % args.weights
+
+	with open(args.model, 'r') as f:
+        	model = keras.models.model_from_json(f.read())
+
 	model.load_weights(args.weights)
 ################################################
 #

@@ -192,12 +192,14 @@ while (True):
 
         # Our operations on the frame come here
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	blurred = cv2.GaussianBlur(gray, (1,1),0)
+	edged = cv2.Canny(blurred, 50, 250, 255)
 
-        cv2.imshow('preview', frame)
+        cv2.imshow('preview', edged)
         #cv2.waitKey(0)
 
         #Now write out just last image (in color) for debug, if desired.
-        cv2.imwrite("latest_frame.jpg", frame)
+        cv2.imwrite("latest_frame.jpg", edged)
 
 	#
         # Classify

@@ -100,14 +100,16 @@ while (True):
         # Our operations on the frame come here
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+	blurred = cv2.GaussianBlur(gray, (1,1),0)
+	edged = cv2.Canny(blurred, 50, 250, 255)
 
-        cv2.imshow('preview', gray)
+        cv2.imshow('preview', edged)
         #cv2.waitKey(0)
 
 
         #Now write it out   Name is <decile>.<percentile>.jpg
         cv2.imwrite("./%s_%03d_%03d_%08d.jpg" % \
-	(sys.argv[1], percent, round(percent, -1),  numberOfFilesOutput + 1), gray)
+	(sys.argv[1], percent, round(percent, -1),  numberOfFilesOutput + 1), edged)
 
         numberOfFilesOutput = numberOfFilesOutput + 1
 

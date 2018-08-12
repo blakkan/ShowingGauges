@@ -1,0 +1,221 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1134\margr1134\margb1134\margt1134\vieww10800\viewh8400\viewkind0
+\deftab709
+\pard\pardeftab709\partightenfactor0
+
+\f0\fs24 \cf0 \
+\pard\pardeftab709\sb240\sa120\qc\partightenfactor0
+
+\b\fs56 \cf0 Gauge Watcher:  An IoT monitoring system for legacy analog gauges\
+\pard\pardeftab709\qc\partightenfactor0
+
+\b0\fs24 \cf0 W251 project, Summer 2018\
+John Blakkan\
+Cheng Cheng\
+Andrew Mamroth\
+John Tabbone\
+\pard\pardeftab709\partightenfactor0
+\cf0 \
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Abstract:  
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+We present Gauge Watcher, a system for monitoring, reporting, and analyzing readings on legacy analog gauges.  This IoT solution uses low cost Raspberry Pi microcomputers to optically read gauges, then reduces the image data to a gauge value using a cloud-trained Convolutional Neural Network (CNN.)   The data are then distributed to monitoring/reporting clients via an MQTT publish/subscribe protocols and brokers, and presented to users for visual inspection via a JavaScript animated web interface.\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Background and need
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+Many legacy monitoring and controls systems were built in an era of manual monitoring.   Analog gauges were monitored by human operators or had, at best, simple electrical contactors to detect overlimit or underlimit conditions.    These gauges are sometimes installed individually in isolated locations, or may be centralized into panels in control rooms.   These remain widespread in many industrial, commercial, utility, and military facilities.\
+\
+Rising labor costs, and an increased awareness of the consequence of human error in monitoring such gauges motivates a desire to automate this task.   With automation, for example, gauges in remote locations could be read continuously, rather than a meter-reader\'92s schedule.   In the case of panels of multiple gauges, human monitoring could be augmented with an automated system.  This could prevent human error, as well as allow more sophisticated, data-driven analysis of patterns and faults. \
+\
+Consider, for example, a complex correlation of readings on multiple meters which might go unnoticed by human operators, but which could, by training a machine learning (ML) system, identify rarely seen meter readings which are predictive of failures in the system being monitored.   Other examples might include redundant monitoring of critical or life-support systems.   Onsite human staff could be augmented by secondary (and even tertiary) remote, redundant monitoring.\
+\
+One alternative would be to replace or augment existing analog meters with new IP-enabled sensor.  This is an attractive alternative for new installations, and, in certain applications, for retrofit of existing meters.  One well-known example is the deployment of smart meters for household utilities.  Commercial and municipal electric companies have been able to justify this based on labor cost saved in meter reading.  There have been other advantages-  Smart water meters have been used to identify residential plumbing leaks (e.g. a small, continuous usage every minute in a 24 hr period is likely a leak, rather than normal usage.)\
+\
+Not all legacy uses are well-suited for a \'93new gauge\'94 retrofit, however.   In some cases new gauges may not be available.   Or, due to physical access concerns, it may be very costly to replace them.   Finally, for some applications (avionics, nuclear, public utilities, telco), equipment \'96 particularly monitoring equipment \'96 may be subject to significant regulation or re-qualification procedures.  It might be possible to replace a gauge with an electronic version, but regulatory compliance may be cost-prohibitive.  It may be infeasible to remove and replace the old gauge, but would be permissible to add an additional monitoring capability (so long as the original gauge is untouched, still operable, and still visible to local operators.)\
+\
+Simple closed-circuit TV monitoring could be proposed for this task.  However, this only enables remote monitoring and recording, and could not generate specific alert messages.   It also uses high communication bandwidth for the actual information transmitted (e.g. gauge needle position.)\
+\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Architecture
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+The overall architecture is shown in the figure below.  Each element will be describe more fully in subsequent sections.\
+\
+Training data for the CNN was created by driving analog meters to known values, photographing them, and storing the value-labeled images in cloud storage (Softlayer GPFS).  A CNN was trained, and the weighted model transferred to the multiple Raspberry Pi monitoring systems.  Note that our implementation will be a gauge reading classifier (e.g. resolve each gauge to one of 21 ranges), rather than a gauge reading regression (e.g. attempt to resolve to a precise reading).\
+\
+While running, the Raspberry pi performs continuous image processing.   It samples a video stream approximately once per second (sampling speed could be altered), uses openCV to perform preprocessing (e.g. converts from color to grayscale), then uses the pre-trained CNN model to classify the image and publish the result to a cloud-based MQTT broker.\
+\
+JavaScript-enabled webpages also subscribe to the MQTT broker, and update a user display.  The webpage performs a minimal amount of alert processing in addition to displaying the gauge state;   It adds a color code indicating if the meter is in the high end of its range.\
+\
+\
+\
+\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Hardware
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+A variety of gauges with different faceplaces were procured from a local (Santa Clara, CA) surplus dealer.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Our initial plan was to use one type of microcomputer (An Arduino Uno) to drive the meters for training and demonstration, and another type (Raspberry Pi B+) for the actual gauge reading and CNN processing.\
+\
+However, we ultimately determined \'96 after controlling gauges with both types of microcomputer - that the Raspberry Pi was suitable for both tasks, and stopped further development on Arduino.\
+\
+Initially we were planning to use the microcontroller\'92s PWM (Pulse Width Modulation) output pins to drive the meters.   However, for both microcontrollers, PWM drive had signficant accuracy issues in the low range of the meters (it consistently read too high, we could not linearize the output with software).   We attempted augmenting the PWM output pin with a MOSFET driver circuit to get better accuracy on the lower ranges of gauge values, but accuracy was still poor.    Ultimately, we used the Raspberry Pi\'92s I2C interface to drive an external Digital to Analog Converder (DAC) through a series resistor to precisely control the meters.   With a small amount of additional tuning of meter-drive linearization, we achieved the needed accuracy to produce training data and run the demonstration.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+We still had various practical issues; e.g. one of our surplus meters was determined to \'93stick\'94 in place in its high range.\
+\
+We mounted the meters in fiberboard panels and built wooden frames for the panels to provide durability and access.  We built a total of four meter panels and two Raspberry Pis (assembled on prototype boards with the DACs).  We used 8M Pixel USB cameras rather than the Raspberry Pi\'92s native camera simply for convenience and mechanical durability.  A production system would use the Raspberry Pi camera for its lower cost.  In addition, we had a third \'93development\'94 Raspberry Pi (older version, lower clock rate, less capable camera) which we did not use for training data capture or in operation.   Development system is on the left in the photo below.   Note that in operation only the two rightmost Raspberry Pi\'92s are used (with the black cameras in the back), and two of the gauges\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Training data collection
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+The photo below shows the generation of the training data.  We ran the system at a fairly slow pace (4 seconds per training image, with two systems running in parallel), so it took many hours to produce 1200 images for each of the four gauges.   (Fortunately much of this time was unattended and could be run overnight.)   We eventually determined that meter-settling time on the guages would permit images to be captured, processed, and saved at about 4 times this rate).\
+\
+The photograph shows that the meter on the far right of the image is at near high-scale, and is being displayed (in gray scale) in the lower left of the monitor.   The two stacked meter boxes in the left are awaiting use, and the \'93development\'94 Raspberry Pi (with its larger breadboard and different camera) is on the far left.\
+\
+\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Model and Training (Cloud)
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+Training was completed on a multicore (cloud based \'96 IBM softlayer) server seperately from the gathering process.  A similar architecture to the following was used for classification.  (ref: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)\
+\
+Multiple changes were made for the sake of simplicity and to reduce training time as the images are very simple and significant training was not required.  The first two convolutional layers were reduced to a filter size of 1, similar to those used in squeezenet, which did not have significant impact on accuracy but significantly reduced training time.  Also, because the validation images and the training images were VERY similar, dropout was reduced to 0.3 as generalizing was less of an issue (once again speeding up training time).  Also most importantly, the images were reduced in size by half which had to most impact on reducing training time.  Because the training images were black and white edge images, it didn't affect model accuracy to reduce the resolution of the images and had an enormous impact on training time.  The model hit nearly 100% accuracy after roughly 2-3 epochs on 1000 training images per class and 100 validation images per class.\
+\
+Once training was complete the model along with the weights were saved as seperate files so they could be loaded in the watcher.py program to classify images as they ran through the camera.\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 RPi resident software
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+The Raspberry Pi is running the current Raspberrian Distribution.   (An X-Ubuntu distribution was initially tried on the devleopment system; it works, but needs special modifications to run on the Raspberry Pi 3B+, so we standardized on Raspberrian.   We install openCV, Keras with Tensorflow, and the paho-mqtt library.\
+\
+There are two main python routines:   adc_gray.py and watcher.py.    add_gray.py creates training data by driving the meter (via the DAC), taking an image, and saving the JPG image with the meter value encoded in the file name.   For some of our data, we used SSHFS to actually locally mount the cloud storage file system and write it directly, while for others we simply saved the data local to the Rpi\'92s 32GB SSD card and wrote it to the cloud in bulk.\
+\
+watcher.py initializes openCV, the CNN, and the MQTT broker connection.   It then loops, randomly setting meter valuess, gathering images, preprocessing them, classifying them, and reporting results to MQTT.   An important option in watcher.py is the ability to bypass the classifier.  In this mode, watcher.py sets the meter to a random value, but reports that value directly to MQTT (bypassing the image processing and CNN classification.)   Including this diagnostic bypass option was critical to the process of developing and debugging the MQTT and User Visualization/JavaScript protions of the poject.   watcher.py has the ability to report back a \'93VOID\'94 value, as well as a classified value, to provide an error indication to users which is separate from a \'93Gauge reads zero\'94 value.\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 MQTT broker
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+During the course of project development, we used two different MQTT brokers.   Early development was done using a commercial MQTT broker (a services offered by ADD ADD in partnership with heroku.com).    Later, we transitioned to our own MQTT broker running on a Softlayer Virtual Machine.\
+\
+\pard\pardeftab709\partightenfactor0
+\cf0 Data moves through the system primarily through the publish/Subscribe framework MQTT.  Image Processing devices publish their findings to topics that describe their cluster id.  Subscribers of this data are the MQTT-MySQL Bridge and the monitoring clients. The bridge reads each message, time stamps it, and inserts it into the MySQL database.  Monitoring Clients can determine which clusters they are interested in monitoring and subscribe directly to their feed. Clients can also query the database for historical information. \
+\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 User Visualization
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+Our visualization is a webpage.  Javascript subscribes to the MQTT broker and, upon message receipt, updates the appropriate abstract gauge display.    The abstract gauge displays are designed for uniform appearance (they do not attempt a photograph-like reproduction of the different gauge types).   The displays are produced as .svg element using the d3 library (in conjunction with the c3 chart library).\
+\
+We host the page on a ruby-on-rails site we developed and deploy on the heroku.com Platform-as-a-Service (PaaS) site.  Initially we anticipated a need for backend processing of the MQTT subscription, but we found that the JavaScript MQTT interface was sufficient.   Although the application is effectively serverless, we retained the ruby-on-rails backend for convenient deployment and ability to serve a large number of requests for the site.\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Performance
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+Training accuracy was found to be around 100%. \
+\
+When we trained the model, we randomly selected 10% images out from the training dataset and use them as validation data. Through the process of training, the accuracy was always around 100%. After we got the pre-trained model, we also ran the model and weights on other random images (the static images and camera images), it turned out to reach 100% accuracy as well.\
+\
+\
+\
+\
+\pard\pardeftab709\ri0\sb240\sa120\partightenfactor0
+
+\b\fs36 \cf0 Conclusion and proposed future work
+\f1 \
+\pard\pardeftab709\partightenfactor0
+
+\f0\b0\fs24 \cf0 \
+\
+We conclude that the Raspberry Pi can be used effectively to host a CNN for remote gauge monitoring.   \
+Note that for this implementation, each Raspberry Pi monitored a single gauge; an obvious practical extension of the project would be to monitor multiple gauges per Raspberry Pi by additionally processing images to separate individual gauges into sub-images, and interpret the sub images.\
+\
+Also, the webpage adds a color code indicating if the meter is in the high end of its range.  This could be extended to alert on different conditions, even looking at combinations of conditions over multiple gauges.  It could also generate email messages or take other alerting actions.\
+\
+\pard\pardeftab709\partightenfactor0
+\cf0 Left for later implementation is the ability for Image Processing devices to send an actual image for storage, which can be retrieved by Monitoring Clients. This may be useful in the cases where there are alarms and the operator wants to see an image of the gauge that caused the alarm before issuing a ticket. Finally, historic data stored in the database can be accessed by data scientists for later analysis\
+\
+Finally, we used a back-end server (Ruby on rails) to present our JavaScript-enabled webpage.   Currently this server doesn\'92t perform any function beyond serving the page.   It could be modified to perform further analysis of the MQTT stream \'96 with user defined altering.  It is also where we would implement user-access controls which, while not required for this project, would be required for a commercial or production-worthy system.\
+}

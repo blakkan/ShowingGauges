@@ -232,9 +232,10 @@ while (True):
           ret, frame = cap.read()
 
         # Our operations on the frame come here
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray_one_chan= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	gray = cv2.cvtColor(gray_one_chan, cv2.COLOR_GRAY2RGB)
 	blurred = cv2.GaussianBlur(gray, (1,1),0)
-	edged = cv2.Canny(blurred, 50, 250, 255)
+	edged = cv2.cvtColor(cv2.Canny(blurred, 50, 250, 255), cv2.COLOR_GRAY2RGB)
 
         cv2.imshow('preview', edged)
         #cv2.waitKey(0)
@@ -251,7 +252,12 @@ while (True):
 	else:
 		classes = ['low', 'mid', 'high']
 		resized = cv2.resize(edged, (320,240))
+		print frame.shape
+		print gray.shape
+		print edged.shape
+		print resized.shape
 		x = resized.reshape((1,) + resized.shape)
+		print x.shape
 		prediction = classes[model.predict(x).argmax(axis=1)[0]]
 
 		if prediction == 'low':
@@ -260,7 +266,8 @@ while (True):
 			classification = "50"
 		else:
 			classification = "95"
-		end
+
+		print "Predicted is %s" % classification
 
 
 	# At this point, classification is either a string representation of a number 0 to 100, or the word "VOID"

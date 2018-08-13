@@ -2,30 +2,27 @@
   %div.col-md-4
     %label{ for: :r1c1_id }
       %h3
-        Gauge 1
+        Gauge 1 (interpreted)
       %object{ id: :r1c1_id }
   %div.col-md-4
     %label{ for: :r1c2_id }
       %h3
-        Gauge 2
+        Gauge 1 (actual/as set)
       %object{ id: :r1c2_id }
   %div.col-md-4
-    %label{ for: :r1c3_id }
-      %h3
-        Gauge 3
-      %object{ id: :r1c3_id }
+
 %div.row
   %div.col-md-4
     %label{ for: :r2c1_id }
       %h3
-        Gauge 4
+        Gauge 2 (interpeted)
       %object{ id: :r2c1_id }
   %div.col-md-4
     %label{ for: :r2c2_id }
       %h3
-        Gauge 5
+        Gauge 2 (actual/as set)
       %object{ id: :r2c2_id }
-
+  %div.col-md-4
 
 :javascript
 
@@ -108,45 +105,6 @@
     }
   });
   chart_list.push(chart_r1c2);
-
-  var chart_r1c3 = c3.generate({
-    bindto: '#r1c3_id',
-    size: {
-      height: 200,
-      width: 320
-      },
-    data: {
-        columns: [
-            ['data', 0.0]
-        ],
-        hide: ['data'],
-        type: 'gauge',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-    },
-    gauge: {
-  //        label: {
-  //            format: function(value, ratio) {
-  //                return value;
-  //            },
-  //            show: false // to turn off the min/max labels.
-  //        },
-  //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-  //    max: 100, // 100 is default
-  //    units: ' %',
-  //    width: 39 // for adjusting arc thickness
-    },
-    color: {
-        pattern: ['#60B044',  '#F6C600', '#FF2020'], // the color levels for the percentage values.
-        threshold: {
-  //            unit: 'value', // percentage is default
-  //            max: 200, // 100 is default
-            values: [80, 90, 100]
-        }
-    }
-  });
-  chart_list.push(chart_r1c3);
 
 
   var chart_r2c1 = c3.generate({

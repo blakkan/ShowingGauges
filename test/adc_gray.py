@@ -91,10 +91,10 @@ while (True):
 
     	print('Setting percentage to %d with value %d' % (percent, percentToInteger(percent)))
     	dac.set_voltage(percentToInteger(percent))
-    	time.sleep( 4.0 if percent == 0  else 2.0)  #longer delay if it's going back to zero
+    	time.sleep( 2.0 if percent == 0  else 1.0)  #longer delay if it's going back to zero
 
         #Now take the picture (draining video buffer)
-        for i in range(30):
+        for i in range(15):
           ret, frame = cap.read()
 
         # Our operations on the frame come here
@@ -103,13 +103,22 @@ while (True):
 	blurred = cv2.GaussianBlur(gray, (1,1),0)
 	edged = cv2.Canny(blurred, 50, 250, 255)
 
-        cv2.imshow('preview', edged)
+        for i in range(3):
+          ret, frame2 = cap.read()
+        gray2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+
+	blurred2 = cv2.GaussianBlur(gray2, (1,1),0)
+	edged2= cv2.Canny(blurred2, 50, 250, 255)
+	
+	edged_final = cv2.bitwise_or(edged, edged2)
+	
+        cv2.imshow('preview', edged_final)
         #cv2.waitKey(0)
 
 
         #Now write it out   Name is <decile>.<percentile>.jpg
         cv2.imwrite("./%s_%03d_%03d_%08d.jpg" % \
-	(sys.argv[1], percent, round(percent, -1),  numberOfFilesOutput + 1), edged)
+	(sys.argv[1], percent, round(percent, -1),  numberOfFilesOutput + 1), edged_final)
 
         numberOfFilesOutput = numberOfFilesOutput + 1
 

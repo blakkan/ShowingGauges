@@ -32,6 +32,11 @@ import Adafruit_MCP4725  	# Import the MCP4725 module for DAC
 import argparse
 import random
 import keras
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense
+from keras import backend as K
+
 import paho.mqtt.client as mqtt   #use pip to install paho-mqtt
 
 parser = argparse.ArgumentParser()
@@ -166,10 +171,39 @@ if args.dummy:
 	print "Using dummy 'cut-through' classifier (bypasses CNN)"
 else:
 	#read in the model.
-	json_file = open(args.model, 'r')
-	loaded_model_json = json_file.read()
-	json_file.close()
-	model = keras.models.model_from_json(loaded_model_json)
+        print "%s" % args.model
+        print "%s" % args.weights
+
+	#json_file = open(args.model, 'r')
+	#loaded_model_json = json_file.read()
+	#json_file.close()
+	#model = keras.models.model_from_json(loaded_model_json)
+
+	img_width, img_height = 240, 320
+	num_classes = 3
+
+	#if K.image_data_format() == 'channels_first':
+	#	input_shape = (3, img_width, img_height)
+	#else:
+	input_shape = (img_width, img_height, 3)
+
+	model = Sequential()
+	model.add(Conv2D(32, (1, 1), input_shape=input_shape))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Conv2D(32, (1, 1)))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Conv2D(64, (3, 3)))
+	model.add(Activation('relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Flatten())
+	model.add(Dense(64))
+	model.add(Activation('relu'))
+	model.add(Dropout(0.3))
+	model.add(Dense(num_classes))
+	model.add(Activation('softmax'))
+
 	model.load_weights(args.weights)
 ################################################
 #
@@ -198,9 +232,10 @@ while (True):
           ret, frame = cap.read()
 
         # Our operations on the frame come here
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray_one_chan= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	gray = cv2.cvtColor(gray_one_chan, cv2.COLOR_GRAY2RGB)
 	blurred = cv2.GaussianBlur(gray, (1,1),0)
-	edged = cv2.Canny(blurred, 50, 250, 255)
+	edged = cv2.cvtColor(cv2.Canny(blurred, 50, 250, 255), cv2.COLOR_GRAY2RGB)
 
         cv2.imshow('preview', edged)
         #cv2.waitKey(0)
@@ -215,9 +250,26 @@ while (True):
 	if args.dummy:
 		classification = str(percent)
 	else:
-		# TODO
-		print "classifier not yet implemented, you need to specify -dummy"
-		exit(1)
+		classes = ['low', 'mid', 'high']
+		resized = cv2.resize(edged, (320,240))
+		print frame.shape
+		print gray.shape
+		print edged.shape
+		print resized.shape
+		x = resized.reshape((1,) + resized.shape)
+		print x.shape
+		prediction = classes[model.predict(x).argmax(axis=1)[0]]
+
+		if prediction == 'low':
+			classification = "5"
+		elif prediction == 'mid':
+			classification = "50"
+		else:
+			classification = "95"
+
+		print "Predicted is %s" % classification
+
+
 	# At this point, classification is either a string representation of a number 0 to 100, or the word "VOID"
 
 
@@ -226,6 +278,8 @@ while (True):
 	#
 
 	client.publish("test", payload=("%s %d %s" % ( "unused", args.number,  classification)))
+	client.publish("test", payload=("%s %d %s" % ( "unused", args.number + 1,  percent)))
+
 
 	time.sleep(1);   #just a go-slow, for now.
 

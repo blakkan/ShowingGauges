@@ -214,10 +214,11 @@ else:
 while (True):
 
     #We're going to cycle from bottom of scale to top of scale, then drop back to bottom of scale.
-    #for percent in ( xrange(0,101,5) ):  #or, for more fun, use random.range instead of xrange
-    if (True):
-	percent = random.randrange(0,101,1)
-
+    #for percent in ( range(0,101,1) ):  #or, for more fun, use random.range instead of xrange
+    #if (True):
+	#percent = random.randrange(0,101,1)
+    if (True):  #add more low numbers, just for illustration
+        percent = random.choice( range(0,101,1) + range(6,15,1) + range(6,15,1) )
 	#
         # Set the meter
 	#

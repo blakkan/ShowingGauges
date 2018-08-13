@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="training.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="378.44885"
+     inkscape:cy="718.94531"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-nodes="false"
+     inkscape:snap-global="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1031"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="17.437368"
+       y="26.301825"
+       id="text819"><tspan
+         sodipodi:role="line"
+         id="tspan817"
+         x="17.437368"
+         y="26.301825"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332;fill:#000000;">Cloud</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="78.42067"
+       y="26.347679"
+       id="text823"><tspan
+         sodipodi:role="line"
+         id="tspan821"
+         x="78.42067"
+         y="26.347679"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Raspberry Pi</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="159.8383"
+       y="26.633945"
+       id="text827"><tspan
+         sodipodi:role="line"
+         id="tspan825"
+         x="159.8383"
+         y="26.633945"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Website</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="76.454018"
+       y="45.691685"
+       id="text831"><tspan
+         sodipodi:role="line"
+         id="tspan829"
+         x="76.454018"
+         y="45.691685"
+         style="stroke-width:0.26458332">ADC_GRAY.py:</tspan><tspan
+         sodipodi:role="line"
+         x="76.454018"
+         y="50.101406"
+         style="stroke-width:0.26458332"
+         id="tspan833">drives gauge needles,</tspan><tspan
+         sodipodi:role="line"
+         x="76.454018"
+         y="54.511127"
+         style="stroke-width:0.26458332"
+         id="tspan835">takes photos and labels</tspan><tspan
+         sodipodi:role="line"
+         x="76.454018"
+         y="58.920853"
+         style="stroke-width:0.26458332"
+         id="tspan837">with gauge type and</tspan><tspan
+         sodipodi:role="line"
+         x="76.454018"
+         y="63.330574"
+         style="stroke-width:0.26458332"
+         id="tspan839">position (10s of thousands)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="16.252974"
+       y="76.261902"
+       id="text843"><tspan
+         sodipodi:role="line"
+         id="tspan841"
+         x="16.252974"
+         y="76.261902"
+         style="stroke-width:0.26458332">Keras/Tensoflow</tspan><tspan
+         sodipodi:role="line"
+         x="16.252974"
+         y="80.671623"
+         style="stroke-width:0.26458332"
+         id="tspan845">trains CNN</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="78.260063"
+       y="102.35013"
+       id="text849"><tspan
+         sodipodi:role="line"
+         id="tspan847"
+         x="78.260063"
+         y="102.35013"
+         style="stroke-width:0.26458332">Model and weights</tspan><tspan
+         sodipodi:role="line"
+         x="78.260063"
+         y="106.75985"
+         style="stroke-width:0.26458332"
+         id="tspan851">sent to Raspberry Pi</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.15173465px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 67.472766,62.640588 -3.5844,-4.912319 -6.787536,6.371174 -2.004066,-3.209005 -2.521088,8.847805 9.36539,0.0489 -2.590606,-2.725452 z"
+       id="path853-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="0.0059873856"
+       inkscape:transform-center-y="-0.24862909" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.15173465px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 55.420131,84.459097 -3.323988,5.092139 8.362492,4.090384 -2.290964,3.010893 9.167127,-0.776735 -3.271958,-8.775375 -1.630987,3.388098 z"
+       id="path853-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="1.2219806"
+       inkscape:transform-center-y="-0.91392815" />
+    <rect
+       style="fill:none;stroke:#00ffc4;stroke-width:1.08345616;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect922"
+       width="40.065308"
+       height="103.67545"
+       x="8.0306473"
+       y="14.241402"
+       ry="4.7933002" />
+    <rect
+       style="fill:none;stroke:#00c2ff;stroke-width:1.05833328;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect924"
+       width="62.808338"
+       height="104.50238"
+       x="69.222809"
+       y="14.496109"
+       ry="4.7944617" />
+    <rect
+       style="fill:none;stroke:#ffadff;stroke-width:1.1588645;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect922-1"
+       width="45.869831"
+       height="103.60005"
+       x="150.65665"
+       y="15.080914"
+       ry="4.7898135" />
+  </g>
+</svg>

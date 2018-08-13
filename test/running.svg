@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="running.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="378.44885"
+     inkscape:cy="829.8346"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-nodes="false"
+     inkscape:snap-global="false"
+     inkscape:window-width="1416"
+     inkscape:window-height="996"
+     inkscape:window-x="310"
+     inkscape:window-y="50"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="101.36001"
+       y="26.569096"
+       id="text819"><tspan
+         sodipodi:role="line"
+         id="tspan817"
+         x="101.36001"
+         y="26.569096"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;stroke-width:0.26458332">Cloud</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="12.672365"
+       y="25.813139"
+       id="text823"><tspan
+         sodipodi:role="line"
+         id="tspan821"
+         x="12.672365"
+         y="25.813139"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Raspberry Pi</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="159.8383"
+       y="26.633945"
+       id="text827"><tspan
+         sodipodi:role="line"
+         id="tspan825"
+         x="159.8383"
+         y="26.633945"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Website</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="16.852913"
+       y="52.106155"
+       id="text831"><tspan
+         sodipodi:role="line"
+         id="tspan829"
+         x="16.852913"
+         y="52.106155"
+         style="stroke-width:0.26458332">WATCHER.py:</tspan><tspan
+         sodipodi:role="line"
+         x="16.852913"
+         y="56.515877"
+         style="stroke-width:0.26458332"
+         id="tspan839">Photographs gauges,</tspan><tspan
+         sodipodi:role="line"
+         x="16.852913"
+         y="60.925598"
+         style="stroke-width:0.26458332"
+         id="tspan1019">classifies image,</tspan><tspan
+         sodipodi:role="line"
+         x="16.852913"
+         y="65.33532"
+         style="stroke-width:0.26458332"
+         id="tspan1021">publishes via MQTT</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.15173465px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 75.999884,58.801217 -3.323988,5.09214 8.362492,4.09039 -2.290964,3.01089 9.167127,-0.77674 -3.271958,-8.77537 -1.630987,3.3881 z"
+       id="path853-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="1.2219806"
+       inkscape:transform-center-y="-0.91392815" />
+    <rect
+       style="fill:none;stroke:#00ffc4;stroke-width:1.08345616;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect922"
+       width="40.065308"
+       height="103.67545"
+       x="91.953278"
+       y="16.64683"
+       ry="4.7933002" />
+    <rect
+       style="fill:none;stroke:#00c2ff;stroke-width:1.05833328;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect924"
+       width="62.808338"
+       height="104.50238"
+       x="5.6126618"
+       y="14.763378"
+       ry="4.7944617" />
+    <rect
+       style="fill:none;stroke:#ffadff;stroke-width:1.1588645;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect922-1"
+       width="45.869831"
+       height="103.60005"
+       x="150.65665"
+       y="15.080914"
+       ry="4.7898135" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="95.510735"
+       y="66.793045"
+       id="text843-4"><tspan
+         sodipodi:role="line"
+         x="95.510735"
+         y="66.793045"
+         style="stroke-width:0.26458332"
+         id="tspan845-6">MQTT Broker;</tspan><tspan
+         sodipodi:role="line"
+         x="95.510735"
+         y="71.202766"
+         style="stroke-width:0.26458332"
+         id="tspan1048">pub, sub, and also</tspan><tspan
+         sodipodi:role="line"
+         x="95.510735"
+         y="75.612488"
+         style="stroke-width:0.26458332"
+         id="tspan1052">logs for offline</tspan><tspan
+         sodipodi:role="line"
+         x="95.510735"
+         y="80.022209"
+         style="stroke-width:0.26458332"
+         id="tspan1054">analysis</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="96.847084"
+       y="37.660675"
+       id="text843-7"><tspan
+         sodipodi:role="line"
+         x="96.847084"
+         y="37.660675"
+         style="stroke-width:0.26458332"
+         id="tspan845-9">PaaS (heroku) </tspan><tspan
+         sodipodi:role="line"
+         x="96.847084"
+         y="42.070396"
+         style="stroke-width:0.26458332"
+         id="tspan1079">serves website</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.15173465px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 136.02339,45.027307 -3.32399,5.09214 8.36249,4.09039 -2.29096,3.01089 9.16713,-0.77674 -3.27196,-8.77537 -1.63099,3.3881 z"
+       id="path853-3-1-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="1.2219806"
+       inkscape:transform-center-y="-0.91392815" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="154.31004"
+       y="66.793053"
+       id="text843-6"><tspan
+         sodipodi:role="line"
+         x="154.31004"
+         y="66.793053"
+         style="stroke-width:0.26458332"
+         id="tspan845-90">JavaScript subscribes</tspan><tspan
+         sodipodi:role="line"
+         x="154.31004"
+         y="71.202774"
+         style="stroke-width:0.26458332"
+         id="tspan1119">to MQTT, updates</tspan><tspan
+         sodipodi:role="line"
+         x="154.31004"
+         y="75.612495"
+         style="stroke-width:0.26458332"
+         id="tspan1121">gauge display in</tspan><tspan
+         sodipodi:role="line"
+         x="154.31004"
+         y="80.022217"
+         style="stroke-width:0.26458332"
+         id="tspan1123">near-real time</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.15173465px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 133.44105,68.79913 0.10991,6.08003 9.21627,-1.31265 -0.20437,3.77786 7.14832,-5.79148 -7.63591,-5.42272 0.55354,3.71927 z"
+       id="path853-3-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="-1.2596116"
+       inkscape:transform-center-y="-0.22178909" />
+  </g>
+</svg>

@@ -30,7 +30,7 @@
 
       <!---
       <li class='nav-item'><a class="nav-link" id="logout_id" href="/display_login_screen"> <%= session[:user_id] && User.find(session[:user_id] ) ? User.find( session[:user_id] ).name : "Login" %></a> </li>
-      --->
+  
 
       <li class='dropdown'><a href="#" class="dropdown-toggle" id="logout_id" data-toggle="dropdown"><%= session[:user_id] && User.find(session[:user_id] ) ? User.find( session[:user_id] ).name : "Login" %><b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
@@ -38,7 +38,7 @@
         </ul>
      </li>
 
-
+    --->
 
 
     </ul>
